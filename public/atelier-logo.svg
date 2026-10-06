@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 88" role="img" aria-labelledby="title desc">
+  <title id="title">Atelier logo</title>
+  <desc id="desc">A refined A monogram beside the Atelier wordmark</desc>
+  <g fill="none" stroke="#251a17" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M8 68 32 12l24 56M18 46h28"/>
+    <path d="M32 12v56" stroke="#b2784e"/>
+  </g>
+  <path fill="#251a17" d="M82 63V25h7v31h19v7H82Zm34 0V25h7v38h-7Zm18 0V25h7v38h-7Zm18 0V25h7v31h21v7h-28Zm39 0V25h7v38h-7Zm18 0V25h27v7h-20v8h17v7h-17v9h21v7h-28Zm39-38h8l13 28 13-28h8l-18 38h-7l-17-38Zm53 0h7v38h-7V25Z"/>
+</svg>
