@@ -9,7 +9,7 @@ function About({ scrollTo }) {
     >
       <div className="flex items-center gap-[1.8rem] font-mono text-[.67rem] tracking-[.1em] uppercase">
         <span className="text-ivory">01</span>
-        <span className="text-bronze-light">About Atelier</span>
+        <span className="text-bronze-light">About Balaji Interior Decor</span>
       </div>
 
       <div className="mx-auto mt-[10rem] grid max-w-[1100px] grid-cols-[1.15fr_1fr] gap-[8vw] max-md:mt-[6rem] max-md:block">
@@ -20,7 +20,7 @@ function About({ scrollTo }) {
         </h2>
         <div className="self-end pb-[.7rem] max-md:mt-[4rem]">
           <p className="max-w-[400px] text-[1.18rem] leading-[1.55]">
-            Atelier is a small, independent studio working across disciplines and borders. We find the quiet point
+            Balaji Interior Decor is a small, independent studio working across disciplines and borders. We find the quiet point
             where a clear idea becomes something you can feel.
           </p>
           <p className="my-[3rem] max-w-[400px] text-[.9rem] leading-[1.7] text-ivory/65">
@@ -36,11 +36,6 @@ function About({ scrollTo }) {
         </div>
       </div>
 
-      <div className="absolute bottom-[5.8rem] right-[5vw] rotate-[-12deg] text-center font-serif text-[4rem] leading-[.75] text-bronze max-md:bottom-8 max-md:right-[8vw] max-md:text-[3rem]">
-        A / O
-        <br />
-        <span className="font-mono text-[.48rem] tracking-[.08em] uppercase">made with intent</span>
-      </div>
     </section>
   )
 }

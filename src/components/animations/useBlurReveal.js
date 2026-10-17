@@ -36,6 +36,10 @@ export function useBlurReveal() {
 
       sections.slice(1).forEach((section) => {
         const content = contentFor(section)
+        if (section.getBoundingClientRect().top < window.innerHeight * 0.3) {
+          gsap.set(content, { opacity: 1, filter: 'blur(0px)' })
+          return
+        }
         gsap.set(content, { opacity: 0, filter: `blur(${BLUR_PX}px)` })
 
         let revealed = false

@@ -3,7 +3,6 @@ import StaggeredMenu from './animations/StaggeredMenu'
 import MaskedHeading from './animations/MaskedHeading'
 
 const menuItems = [
-  { label: 'Work', ariaLabel: 'Go to selected work', link: '#work' },
   { label: 'About', ariaLabel: 'Learn about Atelier', link: '#about' },
   { label: 'Services', ariaLabel: 'View our services', link: '#services' },
   { label: 'Contact', ariaLabel: 'Get in touch', link: '#contact' },
@@ -62,7 +61,7 @@ function Hero({ scrollTo }) {
 
             <MaskedHeading
               tag="h1"
-              text={"Your Dream Home Starts\nWith a Space."}
+              text={"Your dream becomes reality here..."}
               src="https://images.unsplash.com/photo-1600607688969-a5bfcd646154?auto=format&fit=crop&w=2200&q=90"
               align="center"
               textScale={0.085}

@@ -23,6 +23,7 @@
 .masked-heading__word--eol::after {
   content: none !important;
 }
+
 .masked-heading__baseline {
   display: inline-block;
   width: 0;

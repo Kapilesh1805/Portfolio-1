@@ -90,36 +90,14 @@ function LoadingScreen({ onComplete }) {
       <div ref={panelBottomRef} className="loading-panel loading-panel--bottom" />
 
       <div ref={contentRef} className="loading-content">
-        <svg
-          ref={markRef}
+        <img
           className="loading-mark"
-          viewBox="0 0 64 64"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          {/* original minimal line-art: an open corner / frame motif */}
-          <path
-            d="M6 46V18a4 4 0 0 1 4-4h28M58 18v28a4 4 0 0 1-4 4H26M20 32a12 12 0 0 1 12-12M32 44a12 12 0 0 1-12-12"
-            stroke="#b2784e"
-            strokeWidth="1.6"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-        </svg>
-
-        <p ref={lettersRef} className="loading-name">
-          {NAME.split('').map((letter, i) => (
-            <span key={i} className="loading-letter">
-              {letter}
-            </span>
-          ))}
-        </p>
+          src="/loading_logo.webp"
+          alt=""
+          width="300"
+        />
 
         <div ref={lineRef} className="loading-line" />
-
-        <p ref={taglineRef} className="loading-tagline">
-          {TAGLINE}
-        </p>
       </div>
     </div>
   )

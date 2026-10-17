@@ -5,7 +5,7 @@ function Contact() {
     <section className="min-h-screen bg-espresso px-[5vw] pb-32 pt-28 text-ivory max-md:px-[6vw]" id="contact" data-scroll-section>
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-[1.8rem] font-mono text-[.67rem] tracking-[.1em] uppercase">
-          <span className="text-ivory">06</span>
+          <span className="text-ivory">07</span>
           <span className="text-bronze-light">Have a good feeling?</span>
         </div>
         <span className="font-mono text-[.67rem] tracking-[.1em] uppercase text-bronze-light">
@@ -23,7 +23,6 @@ function Contact() {
           className="flex items-center gap-6 border-b border-bronze-light px-[.2rem] pb-4 font-mono text-[.8rem] transition-colors duration-[250ms] hover:border-bronze hover:text-bronze-light max-md:mt-16 max-md:w-max"
           href="mailto:hello@atelier.studio"
         >
-          hello@atelier.studio <ArrowUpRight size={21} />
         </a>
       </div>
     </section>

@@ -3,7 +3,7 @@ function Gallery() {
 
       <div>
         <div className="flex items-center gap-[1.8rem] font-mono text-[.67rem] tracking-[.1em] uppercase">
-          <span className="text-ivory">03</span>
+          <span className="text-ivory">02</span>
           <span className="text-bronze-light">A wider view</span>
         </div>
         <h2 className="mb-10 mt-20 text-[clamp(3.2rem,7vw,7.4rem)] font-medium leading-[.94] tracking-[-.055em] max-md:mb-8 max-md:mt-16">
