@@ -1,12 +1,21 @@
 @import "tailwindcss";
 
 @theme {
-  --color-ivory: #f4f0e7;
-  --color-ivory-deep: #e8e1d4;
-  --color-espresso: #251a17;
-  --color-espresso-soft: #342622;
-  --color-bronze: #b2784e;
-  --color-bronze-light: #d09b70;
+  --color-white: #FFFFFF;
+  --color-section: #FDF8F5;
+  --color-surface: #D7B89F;
+  --color-body: #8B5E3C;
+  --color-heading: #4A2E1F;
+  --color-accent: #C98E7A;
+  --color-dark: #4A2E1F;
+
+  /* Aliases for existing codebase classes */
+  --color-ivory: #FDF8F5;
+  --color-ivory-deep: #D7B89F;
+  --color-espresso: #4A2E1F;
+  --color-espresso-soft: #8B5E3C;
+  --color-bronze: #C98E7A;
+  --color-bronze-light: #D7B89F;
 
   --font-sans: 'Manrope', sans-serif;
   --font-mono: 'DM Mono', monospace;
@@ -29,6 +38,33 @@ body {
   min-width: 320px;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
+  background-color: var(--color-section);
+  color: var(--color-body);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: var(--color-heading);
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--color-body) 0%, var(--color-accent) 100%);
+  color: var(--color-white);
+  transition: opacity 0.25s ease;
+}
+.btn-primary:hover {
+  opacity: 0.92;
+}
+
+.btn-secondary {
+  border: 1px solid var(--color-surface);
+  background: transparent;
+  color: var(--color-body);
+  transition: all 0.25s ease;
+}
+.btn-secondary:hover {
+  border-color: var(--color-accent);
+  color: var(--color-heading);
+  background-color: rgba(215, 184, 159, 0.15);
 }
 
 button,
@@ -69,5 +105,5 @@ img {
   position: relative;
   z-index: 2;
   border-radius: 28px 28px 0 0;
-  box-shadow: 0 -24px 60px rgba(37, 26, 23, 0.35);
+  box-shadow: 0 -24px 60px rgba(74, 46, 31, 0.35);
 }

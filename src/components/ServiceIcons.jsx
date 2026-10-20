@@ -1,6 +1,6 @@
-// Line icons (48x48). Grey outline + bronze accent, same idea as the client's reference sheet.
-const G = '#6b625c'
-const A = '#b2784e'
+// Line icons (48x48). Primary elements brown + rose gold accent, per the Rose Gold Chocolate theme.
+const G = '#8B5E3C'
+const A = '#C98E7A'
 
 const base = { width: 56, height: 56, viewBox: '0 0 48 48', fill: 'none', strokeWidth: 1.4, strokeLinejoin: 'round', strokeLinecap: 'round' }
 

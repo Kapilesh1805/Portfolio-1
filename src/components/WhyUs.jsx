@@ -1,8 +1,8 @@
 import { whyUs } from '../data/content'
 
 const stroke = { fill: 'none', strokeWidth: 1.4, strokeLinejoin: 'round', strokeLinecap: 'round' }
-const G = '#6b625c'
-const A = '#b2784e'
+const G = '#8B5E3C'
+const A = '#C98E7A'
 
 const icons = {
   calendar: (
@@ -33,7 +33,7 @@ const icons = {
       <rect x="10" y="5" width="26" height="38" rx="2" stroke={G} />
       <rect x="14" y="9" width="18" height="7" stroke={A} />
       <path d="M15 22h3M22 22h3M29 22h3M15 28h3M22 28h3M15 34h3M22 34h3" stroke={G} />
-      <circle cx="32" cy="33" r="7" stroke={A} fill="#f4f0e7" />
+      <circle cx="32" cy="33" r="7" stroke={A} fill="#FDF8F5" />
       <path d="M29.5 35.5l5-5" stroke={A} />
     </>
   ),
@@ -41,18 +41,18 @@ const icons = {
 
 function WhyUs() {
   return (
-    <section className="bg-ivory px-[5vw] pb-28 pt-8 max-md:px-[6vw]" id="why-us" data-scroll-section>
-      <div className="flex items-center gap-[1.8rem] font-mono text-[.67rem] tracking-[.1em] uppercase text-bronze">
-        <span className="text-espresso">04</span>
+    <section className="bg-section px-[5vw] pb-28 pt-8 max-md:px-[6vw]" id="why-us" data-scroll-section>
+      <div className="flex items-center gap-[1.8rem] font-mono text-[.67rem] tracking-[.1em] uppercase text-accent">
+        <span className="text-heading">04</span>
         <span>Why us</span>
       </div>
 
-      <div className="mx-auto mt-14 max-w-[1100px] border-t border-espresso/[0.18] pt-16">
-        <h2 className="text-[clamp(1.8rem,3.2vw,3rem)] font-normal tracking-[-.02em] text-espresso">{whyUs.title}</h2>
+      <div className="mx-auto mt-14 max-w-[1100px] border-t border-surface/40 pt-16">
+        <h2 className="text-[clamp(1.8rem,3.2vw,3rem)] font-normal tracking-[-.02em] text-heading">{whyUs.title}</h2>
 
         <ul className="mt-14 grid grid-cols-4 gap-8 max-md:grid-cols-2">
           {whyUs.items.map((item) => (
-            <li key={item.title} className="flex flex-col items-start gap-5 text-espresso">
+            <li key={item.title} className="flex flex-col items-start gap-5 text-heading">
               <svg width="64" height="64" viewBox="0 0 48 48" aria-hidden="true" {...stroke}>
                 {icons[item.icon]}
               </svg>
@@ -64,11 +64,11 @@ function WhyUs() {
         <div className="mt-14 flex flex-wrap items-center gap-6">
           <a
             href="#estimate"
-            className="rounded-md bg-bronze px-8 py-4 font-mono text-[.78rem] tracking-[.08em] uppercase text-ivory transition-colors hover:bg-espresso"
+            className="btn-primary rounded-md px-8 py-4 font-mono text-[.78rem] tracking-[.08em] uppercase shadow-sm"
           >
             Book Free Consultation
           </a>
-          {whyUs.footnote && <p className="m-0 text-[.75rem] text-espresso/60">{whyUs.footnote}</p>}
+          {whyUs.footnote && <p className="m-0 text-[.75rem] text-body">{whyUs.footnote}</p>}
         </div>
       </div>
     </section>

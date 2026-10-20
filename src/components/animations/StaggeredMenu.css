@@ -278,26 +278,24 @@
   padding: 0;
   display: flex;
   flex-direction: column;
-  justify-content: space-evenly;
-  min-height: 70%;
-  gap: 0.5rem;
+  justify-content: center;
+  min-height: auto;
+  gap: 0.35rem;
 }
 
 .sm-panel-item {
   position: relative;
-  color: #000;
+  color: var(--color-heading, #4A2E1F);
   font-weight: 600;
-  font-size: clamp(3.5rem, 6vw, 5.5rem);
+  font-size: clamp(1.75rem, 3.4vw, 2.75rem);
   cursor: pointer;
-  line-height: 1;
-  letter-spacing: -2px;
+  line-height: 1.15;
+  letter-spacing: -0.03em;
   text-transform: uppercase;
-  transition:
-    background 0.25s,
-    color 0.25s;
+  transition: color 0.25s ease;
   display: inline-block;
   text-decoration: none;
-  padding-right: 1.4em;
+  padding-right: 2.2em;
 }
 
 .staggered-menu-panel .sm-socials-list .sm-socials-link {
@@ -325,7 +323,7 @@
 }
 
 .sm-panel-item:hover {
-  color: var(--sm-accent, #5227ff);
+  color: var(--sm-accent, #C98E7A);
 }
 
 .sm-panel-list[data-numbering] {
@@ -336,12 +334,12 @@
   counter-increment: smItem;
   content: counter(smItem, decimal-leading-zero);
   position: absolute;
-  top: 0.1em;
-  right: 2.8em;
-  font-size: 18px;
-  font-weight: 400;
-  color: var(--sm-accent, #5227ff);
-  letter-spacing: 0;
+  top: 0.15em;
+  right: 0.6em;
+  font-size: clamp(11px, 1.1vw, 14px);
+  font-weight: 500;
+  color: var(--sm-accent, #C98E7A);
+  letter-spacing: 0.05em;
   pointer-events: none;
   user-select: none;
   opacity: var(--sm-num-opacity, 0);
@@ -356,46 +354,22 @@
     width: 100%;
     left: 0;
     right: 0;
-  }
-
-  .staggered-menu-wrapper[data-open] .sm-logo-img {
-    filter: invert(100%);
+    padding: 5.5em 6vw 2em 6vw;
   }
 }
 
-/* Compact mode: once you've scrolled past the hero, the logo and the
-   "Menu"/"Close" label disappear, leaving only a small round + button
-   fixed in the corner. Clicking it still opens the same panel. */
-.staggered-menu-wrapper[data-compact] .staggered-menu-header {
-  top: 1.25rem;
-  right: 1.5rem;
-  left: auto;
-  width: auto;
-  padding: 0;
-  justify-content: flex-end;
+/* When menu is open, make sure header background becomes transparent and logo stays above layers */
+.staggered-menu-wrapper[data-open] .staggered-menu-header {
+  background: transparent !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  border-bottom: none !important;
+  box-shadow: none !important;
 }
 
-.staggered-menu-wrapper[data-compact] .sm-logo {
-  display: none;
-}
-
-.staggered-menu-wrapper[data-compact] .sm-toggle-textWrap {
-  display: none;
-}
-
-.staggered-menu-wrapper[data-compact] .sm-toggle {
-  width: 52px;
-  height: 52px;
-  justify-content: center;
-  border-radius: 9999px;
-  background: #251a17;
-  color: #f4f0e7 !important;
-  box-shadow: 0 6px 18px rgba(37, 26, 23, 0.35);
-}
-
-.staggered-menu-wrapper[data-compact] .sm-icon {
-  width: 16px;
-  height: 16px;
+.staggered-menu-wrapper[data-open] .sm-logo {
+  display: flex !important;
+  z-index: 50;
 }
 
 @media (max-width: 640px) {
@@ -403,9 +377,16 @@
     width: 100%;
     left: 0;
     right: 0;
+    padding: 5rem 6vw 2rem 6vw;
   }
 
-  .staggered-menu-wrapper[data-open] .sm-logo-img {
-    filter: invert(100%);
+  .sm-panel-item {
+    font-size: clamp(1.4rem, 6.2vw, 2.1rem);
+    line-height: 1.18;
+    padding-right: 1.8em;
+  }
+
+  .sm-panel-list {
+    gap: 0.25rem;
   }
 }

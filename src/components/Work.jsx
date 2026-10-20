@@ -3,13 +3,13 @@ import { projects } from '../data/content'
 
 function Work() {
   return (
-       <section className="h-[100dvh] overflow-hidden bg-ivory px-[5vw] pt-28 pb-36 max-md:px-[6vw]" id="work" data-scroll-section>
+       <section className="h-[100dvh] overflow-hidden bg-section px-[5vw] pt-28 pb-36 max-md:px-[6vw]" id="work" data-scroll-section>
       <div className="mb-28 flex justify-between max-md:mb-16 max-md:block">
         <div className="flex items-center gap-[1.8rem] font-mono text-[.67rem] tracking-[.1em] uppercase text-bronze">
           <span className="text-espresso">02</span>
           <span>Selected work</span>
         </div>
-        <p className="mb-0 text-right font-serif text-[1.55rem] leading-[1.1] max-md:mt-8 max-md:text-left">
+        <p className="mb-0 text-right font-serif text-[1.55rem] leading-[1.1] text-heading max-md:mt-8 max-md:text-left">
           Thoughtful solutions
           <br />
           for real places.
@@ -29,11 +29,11 @@ function Work() {
                 src={project.image}
                 alt={`${project.title} project`}
               />
-              <div className="absolute right-4 top-4 flex h-16 w-16 translate-y-2 items-center justify-center rounded-full bg-bronze text-ivory opacity-0 transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100">
+              <div className="btn-primary absolute right-4 top-4 flex h-16 w-16 translate-y-2 items-center justify-center rounded-full opacity-0 shadow-md transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100">
                 <ArrowUpRight size={22} />
               </div>
             </div>
-            <h3 className="mb-0 mt-4 font-serif text-[1.7rem] font-medium">{project.title}</h3>
+            <h3 className="mb-0 mt-4 font-serif text-[1.7rem] font-medium text-heading">{project.title}</h3>
           </article>
         ))}
       </div>

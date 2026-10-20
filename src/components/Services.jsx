@@ -18,13 +18,13 @@ function Services() {
   }
 
   return (
-    <section className="min-h-[100dvh] bg-ivory px-[5vw] py-24 max-md:px-[6vw]" id="services" data-scroll-section>
-      <div className="flex items-center gap-[1.8rem] font-mono text-[.67rem] tracking-[.1em] uppercase text-bronze">
-        <span className="text-espresso">03</span>
+    <section className="min-h-[100dvh] bg-section px-[5vw] py-24 max-md:px-[6vw]" id="services" data-scroll-section>
+      <div className="flex items-center gap-[1.8rem] font-mono text-[.67rem] tracking-[.1em] uppercase text-accent">
+        <span className="text-heading">03</span>
         <span>What we do</span>
       </div>
 
-      <h2 className="mt-14 mb-16 text-center text-[clamp(1.8rem,3.2vw,3rem)] font-normal tracking-[-.02em] text-espresso max-md:mb-10">
+      <h2 className="mt-14 mb-16 text-center text-[clamp(1.8rem,3.2vw,3rem)] font-normal tracking-[-.02em] text-heading max-md:mb-10">
         End-to-End Interior Solutions
       </h2>
 
@@ -35,7 +35,7 @@ function Services() {
             key={area.slug}
             href={`/services/${area.slug}`}
             onClick={(e) => open(e, area.slug)}
-            className="group flex flex-col items-center gap-4 text-center text-espresso transition-colors duration-300 hover:text-bronze"
+            className="group flex flex-col items-center gap-4 text-center text-heading transition-colors duration-300 hover:text-accent"
           >
             <span className="relative flex h-24 w-24 items-center justify-center overflow-hidden transition-transform duration-300 group-hover:-translate-y-1">
               <span className="transition-opacity duration-300 group-hover:opacity-0">

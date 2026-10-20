@@ -13,7 +13,7 @@
   right: 0;
   width: 100%;
   height: 50%;
-  background: #251a17;
+  background: #4A2E1F;
 }
 
 .loading-panel--top {
@@ -37,7 +37,7 @@
   flex-direction: column;
   align-items: center;
   gap: 1.1rem;
-  color: #f4f0e7;
+  color: #FDF8F5;
   padding: 0 6vw;
   text-align: center;
 }
@@ -63,7 +63,7 @@
 }
 
 .loading-mark-accent {
-  color: #b2784e;
+  color: #C98E7A;
 }
 
 .loading-count-row {
@@ -85,20 +85,20 @@
   margin-top: 0.6rem;
   font-family: 'DM Mono', monospace;
   font-size: clamp(1rem, 2vw, 1.3rem);
-  color: #b2784e;
+  color: #C98E7A;
 }
 
 .loading-bar-track {
   width: min(220px, 40vw);
   height: 1px;
-  background: rgba(244, 240, 231, 0.22);
+  background: rgba(253, 248, 245, 0.22);
   overflow: hidden;
 }
 
 .loading-bar-fill {
   width: 100%;
   height: 100%;
-  background: #b2784e;
+  background: #C98E7A;
   transform: scaleX(0);
   transform-origin: left center;
 }
@@ -107,7 +107,7 @@
   margin: 0;
   font-family: 'Manrope', sans-serif;
   font-size: 0.8rem;
-  color: rgba(244, 240, 231, 0.55);
+  color: rgba(253, 248, 245, 0.65);
 }
 
 @media (prefers-reduced-motion: reduce) {
