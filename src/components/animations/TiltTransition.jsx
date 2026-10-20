@@ -23,27 +23,8 @@ import { gsap } from 'gsap'
 const TiltContext = createContext(() => {})
 export const useTiltNavigate = () => useContext(TiltContext)
 
-const ANGLE = 34
-const PERSPECTIVE = 1400
+const PERSPECTIVE = 1200
 const prefersReducedMotion = () => window.matchMedia('(prefers-reduced-motion: reduce)').matches
-
-const pose = (dir, phase) => {
-  const forward = dir === 'forward'
-  const away = phase === 'exit'
-  // exit: forward -> left, back -> right.  enter: starts on the opposite side.
-  const sign = forward === away ? -1 : 1
-  return {
-    rotateY: sign * ANGLE,
-    rotateZ: sign * 2.5,
-    x: `${sign * 14}%`,
-    scale: 0.88,
-    opacity: 0,
-  }
-}
-
-// Perspective/rotation origin = middle of what the visitor currently sees,
-// otherwise a tall page would pivot around its (off-screen) centre.
-const originY = () => window.scrollY + window.innerHeight / 2
 
 export function TiltProvider({ children }) {
   const navigate = useNavigate()
@@ -63,16 +44,32 @@ export function TiltProvider({ children }) {
       }
       busyRef.current = true
       dirRef.current = dir
-      gsap.to(el, {
-        ...pose(dir, 'exit'),
+
+      const scrollY = window.scrollY || window.pageYOffset || 0
+
+      // Lock only the visible 100vh viewport before rotating to prevent GPU lag on tall pages
+      gsap.set(el, {
+        position: 'fixed',
+        top: `-${scrollY}px`,
+        left: 0,
+        width: '100%',
+        height: '100vh',
+        overflow: 'hidden',
         transformPerspective: PERSPECTIVE,
-        transformOrigin: `50% ${originY()}px`,
-        duration: 0.55,
-        ease: 'power3.in',
+        transformOrigin: '50% 50%',
+        backfaceVisibility: 'hidden',
+        willChange: 'transform, opacity',
+      })
+
+      // 360 flip Phase 1: rotate 180 degrees away smoothly
+      gsap.to(el, {
+        rotateY: dir === 'forward' ? -180 : 180,
+        scale: 0.9,
+        opacity: 0,
+        duration: 0.42,
+        ease: 'power2.in',
         onComplete: () => {
-          // Reset the tilt (keep opacity 0) BEFORE the next page renders, so scroll-based
-          // measurements on that page (blur reveal, scroll restore) see an untransformed layout.
-          gsap.set(el, { clearProps: 'transform,transformOrigin' })
+          gsap.set(el, { clearProps: 'all' })
           navigate(to, { state })
         },
       })
@@ -80,7 +77,7 @@ export function TiltProvider({ children }) {
     [navigate],
   )
 
-  // Runs after the new route has rendered (and after the page itself restored its scroll).
+  // 360 flip Phase 2: complete the 360 degree rotation into the new page smoothly
   useLayoutEffect(() => {
     if (prevPath.current === pathname) return
     prevPath.current = pathname
@@ -96,15 +93,21 @@ export function TiltProvider({ children }) {
 
     gsap.fromTo(
       el,
-      { ...pose(dir, 'enter'), transformPerspective: PERSPECTIVE, transformOrigin: `50% ${originY()}px` },
+      {
+        rotateY: dir === 'forward' ? 180 : -180,
+        scale: 0.9,
+        opacity: 0,
+        transformPerspective: PERSPECTIVE,
+        transformOrigin: '50% 50%',
+        backfaceVisibility: 'hidden',
+        willChange: 'transform, opacity',
+      },
       {
         rotateY: 0,
-        rotateZ: 0,
-        x: 0,
         scale: 1,
         opacity: 1,
-        duration: 0.75,
-        ease: 'power3.out',
+        duration: 0.48,
+        ease: 'power2.out',
         clearProps: 'all',
         onComplete: () => {
           busyRef.current = false

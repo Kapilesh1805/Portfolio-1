@@ -1,3 +1,4 @@
+import { gsap } from 'gsap'
 import { serviceAreas } from '../data/content'
 import ServiceIcon from './ServiceIcons'
 import { useTiltNavigate } from './animations/TiltTransition'
@@ -13,6 +14,14 @@ function Services() {
       sessionStorage.setItem('returnTo', 'services')
     } catch {
       /* ignore */
+    }
+    const iconEl = e.currentTarget.querySelector('.service-icon-circle')
+    if (iconEl) {
+      gsap.to(iconEl, {
+        rotateY: 360,
+        duration: 0.45,
+        ease: 'power2.inOut',
+      })
     }
     go(`/services/${slug}`, { dir: 'forward' })
   }
@@ -37,7 +46,7 @@ function Services() {
             onClick={(e) => open(e, area.slug)}
             className="group flex flex-col items-center gap-4 text-center text-heading transition-colors duration-300 hover:text-accent"
           >
-            <span className="relative flex h-24 w-24 items-center justify-center overflow-hidden transition-transform duration-300 group-hover:-translate-y-1">
+            <span className="service-icon-circle relative flex h-24 w-24 items-center justify-center overflow-hidden transition-transform duration-300 group-hover:-translate-y-1">
               <span className="transition-opacity duration-300 group-hover:opacity-0">
                 <ServiceIcon slug={area.slug} />
               </span>
