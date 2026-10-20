@@ -353,38 +353,96 @@ export const StaggeredMenu = ({
 
   React.useEffect(() => {
     if (open) {
-      const prevOverflow = document.body.style.overflow;
-      const prevTouchAction = document.body.style.touchAction;
-      document.body.style.overflow = 'hidden';
-      document.body.style.touchAction = 'none';
+      const scrollY = window.scrollY || window.pageYOffset || document.documentElement.scrollTop || 0;
+      const html = document.documentElement;
+      const body = document.body;
+
+      const prevHtmlOverflow = html.style.overflow;
+      const prevBodyOverflow = body.style.overflow;
+      const prevBodyPosition = body.style.position;
+      const prevBodyTop = body.style.top;
+      const prevBodyWidth = body.style.width;
+
+      html.style.overflow = 'hidden';
+      body.style.overflow = 'hidden';
+      body.style.position = 'fixed';
+      body.style.top = `-${scrollY}px`;
+      body.style.left = '0';
+      body.style.right = '0';
+      body.style.width = '100%';
+
+      const preventTouch = (e) => {
+        if (panelRef.current && panelRef.current.contains(e.target)) {
+          return;
+        }
+        e.preventDefault();
+      };
+
+      const preventWheel = (e) => {
+        if (panelRef.current && panelRef.current.contains(e.target)) {
+          return;
+        }
+        e.preventDefault();
+      };
+
+      const preventKeys = (e) => {
+        if (['ArrowUp', 'ArrowDown', 'PageUp', 'PageDown', 'Home', 'End', 'Space'].includes(e.code)) {
+          if (panelRef.current && panelRef.current.contains(e.target)) {
+            return;
+          }
+          e.preventDefault();
+        }
+      };
+
+      window.addEventListener('touchmove', preventTouch, { passive: false });
+      window.addEventListener('wheel', preventWheel, { passive: false });
+      window.addEventListener('keydown', preventKeys, { passive: false });
+
       return () => {
-        document.body.style.overflow = prevOverflow;
-        document.body.style.touchAction = prevTouchAction;
+        window.removeEventListener('touchmove', preventTouch);
+        window.removeEventListener('wheel', preventWheel);
+        window.removeEventListener('keydown', preventKeys);
+
+        html.style.overflow = prevHtmlOverflow;
+        body.style.overflow = prevBodyOverflow;
+        body.style.position = prevBodyPosition;
+        body.style.top = prevBodyTop;
+        body.style.left = '';
+        body.style.right = '';
+        body.style.width = prevBodyWidth;
+
+        window.scrollTo(0, scrollY);
       };
     }
   }, [open]);
 
   const handleItemClick = (e, link) => {
-    closeMenu();
     if (link && link.startsWith('#')) {
       e.preventDefault();
       const targetId = link.slice(1);
-      const targetEl = document.getElementById(targetId);
-      if (targetEl) {
-        targetEl.scrollIntoView({ behavior: 'smooth' });
-      }
+      closeMenu();
+      requestAnimationFrame(() => {
+        const targetEl = document.getElementById(targetId);
+        if (targetEl) {
+          targetEl.scrollIntoView({ behavior: 'smooth' });
+        }
+      });
+    } else {
+      closeMenu();
     }
   };
 
   const handleLogoClick = (e) => {
-    if (open) closeMenu();
     e.preventDefault();
-    const heroEl = document.getElementById('home');
-    if (heroEl) {
-      heroEl.scrollIntoView({ behavior: 'smooth' });
-    } else {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
+    closeMenu();
+    requestAnimationFrame(() => {
+      const heroEl = document.getElementById('home');
+      if (heroEl) {
+        heroEl.scrollIntoView({ behavior: 'smooth' });
+      } else {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    });
   };
 
   return (
