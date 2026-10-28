@@ -15,6 +15,7 @@ const MaskedHeading = ({
   parallax = 26,
   drift = 18,
   brightness = 1,
+  contrast = 1,
   saturation = 1,
   grayscale = false,
   reveal = 'rise',
@@ -37,6 +38,7 @@ const MaskedHeading = ({
   const wordRefs = useRef([]);
   const baseRefs = useRef([]);
   const glyphRefs = useRef([]);
+  const strokeRefs = useRef([]);
   const tweenRef = useRef(null);
   const offsetRef = useRef({ x: 0, y: 0, tx: 0, ty: 0 });
 
@@ -57,7 +59,7 @@ const MaskedHeading = ({
   }, [text]);
 
   const settingsRef = useRef({});
-  settingsRef.current = { fillScale, parallax, drift, brightness, saturation, grayscale, textScale };
+  settingsRef.current = { fillScale, parallax, drift, brightness, contrast, saturation, grayscale, textScale };
 
   const place = useCallback(() => {
     const root = rootRef.current;
@@ -72,7 +74,7 @@ const MaskedHeading = ({
     const maxY = Math.max(0, ((s.fillScale - 1) / 2) * H);
 
     media.style.transform = `translate3d(${clamp(off.x, -maxX, maxX).toFixed(2)}px, ${clamp(off.y, -maxY, maxY).toFixed(2)}px, 0) scale(${s.fillScale})`;
-    media.style.filter = `brightness(${s.brightness}) saturate(${s.saturation})${s.grayscale ? ' grayscale(1)' : ''}`;
+    media.style.filter = `brightness(${s.brightness}) contrast(${s.contrast ?? 1}) saturate(${s.saturation})${s.grayscale ? ' grayscale(1)' : ''}`;
   }, []);
 
   const sync = useCallback(() => {
@@ -88,14 +90,28 @@ const MaskedHeading = ({
       const box = wordRefs.current[i];
       const base = baseRefs.current[i];
       const glyph = glyphRefs.current[i];
-      if (!box || !base || !glyph) continue;
-      glyph.setAttribute('x', `${box.offsetLeft}`);
-      glyph.setAttribute('y', `${base.offsetTop}`);
-      glyph.style.fontFamily = cs.fontFamily;
-      glyph.style.fontSize = cs.fontSize;
-      glyph.style.fontWeight = cs.fontWeight;
-      glyph.style.fontStyle = cs.fontStyle;
-      glyph.style.letterSpacing = cs.letterSpacing;
+      const stroke = strokeRefs.current[i];
+      if (!box || !base) continue;
+
+      if (glyph) {
+        glyph.setAttribute('x', `${box.offsetLeft}`);
+        glyph.setAttribute('y', `${base.offsetTop}`);
+        glyph.style.fontFamily = cs.fontFamily;
+        glyph.style.fontSize = cs.fontSize;
+        glyph.style.fontWeight = cs.fontWeight;
+        glyph.style.fontStyle = cs.fontStyle;
+        glyph.style.letterSpacing = cs.letterSpacing;
+      }
+
+      if (stroke) {
+        stroke.setAttribute('x', `${box.offsetLeft}`);
+        stroke.setAttribute('y', `${base.offsetTop}`);
+        stroke.style.fontFamily = cs.fontFamily;
+        stroke.style.fontSize = cs.fontSize;
+        stroke.style.fontWeight = cs.fontWeight;
+        stroke.style.fontStyle = cs.fontStyle;
+        stroke.style.letterSpacing = cs.letterSpacing;
+      }
     }
     place();
   }, [place]);
@@ -167,18 +183,18 @@ const MaskedHeading = ({
     const layer = revealRef.current;
     if (!root || !layer) return;
     const glyphs = glyphRefs.current.filter(Boolean);
-    if (!glyphs.length) return;
-
     const riseDistance = () => (parseFloat(window.getComputedStyle(root).fontSize) || 48) * 1.15;
 
     const settle = () => {
-      gsap.set(glyphs, { y: 0 });
+      const allGlyphs = [...glyphRefs.current, ...strokeRefs.current].filter(Boolean);
+      gsap.set(allGlyphs, { y: 0 });
       gsap.set(layer, { opacity: 1, scale: 1, clipPath: 'inset(0% 0% 0% 0%)' });
     };
 
     const rest = () => {
+      const allGlyphs = [...glyphRefs.current, ...strokeRefs.current].filter(Boolean);
       if (reveal === 'rise') {
-        gsap.set(glyphs, { y: riseDistance() });
+        gsap.set(allGlyphs, { y: riseDistance() });
       } else if (reveal === 'wipe') {
         gsap.set(layer, { clipPath: 'inset(0% 100% 0% 0%)' });
       } else if (reveal === 'fade') {
@@ -196,13 +212,22 @@ const MaskedHeading = ({
       tweenRef.current?.kill();
       if (reveal === 'rise') {
         gsap.set(layer, { opacity: 1, scale: 1, clipPath: 'inset(0% 0% 0% 0%)' });
-        tweenRef.current = gsap.fromTo(
-          glyphs,
-          { y: riseDistance() },
-          { y: 0, duration, stagger, ease: 'power4.out', overwrite: 'auto' }
-        );
+        const tl = gsap.timeline();
+        for (let i = 0; i < words.length; i += 1) {
+          const targets = [glyphRefs.current[i], strokeRefs.current[i]].filter(Boolean);
+          if (targets.length) {
+            tl.fromTo(
+              targets,
+              { y: riseDistance() },
+              { y: 0, duration, ease: 'power4.out', overwrite: 'auto' },
+              i * stagger
+            );
+          }
+        }
+        tweenRef.current = tl;
       } else if (reveal === 'wipe') {
-        gsap.set(glyphs, { y: 0 });
+        const allGlyphs = [...glyphRefs.current, ...strokeRefs.current].filter(Boolean);
+        gsap.set(allGlyphs, { y: 0 });
         const state = { p: 100 };
         tweenRef.current = gsap.to(state, {
           p: 0,
@@ -214,7 +239,8 @@ const MaskedHeading = ({
           }
         });
       } else {
-        gsap.set(glyphs, { y: 0 });
+        const allGlyphs = [...glyphRefs.current, ...strokeRefs.current].filter(Boolean);
+        gsap.set(allGlyphs, { y: 0 });
         tweenRef.current = gsap.fromTo(
           layer,
           { opacity: 0, scale: 1.08 },
@@ -312,12 +338,25 @@ const MaskedHeading = ({
         <span className="masked-heading__clip" style={{ clipPath: `url(#${clipId})` }}>
           <span ref={mediaRef} className="masked-heading__media">
             {mediaType === 'video' ? (
-              <video className="masked-heading__source" src={src} poster={poster} autoPlay muted loop playsInline />
+              <video key={src} className="masked-heading__source" src={src} poster={poster} autoPlay muted loop playsInline />
             ) : (
-              <img className="masked-heading__source" src={src} alt="" draggable={false} />
+              <img key={src} className="masked-heading__source" src={src} alt="" draggable={false} />
             )}
           </span>
         </span>
+
+        <svg className="masked-heading__strokes" aria-hidden="true" focusable="false">
+          {words.map((word, i) => (
+            <text
+              key={`stroke-${word}-${i}`}
+              ref={el => {
+                strokeRefs.current[i] = el;
+              }}
+            >
+              {word}
+            </text>
+          ))}
+        </svg>
       </span>
     </Tag>
   );

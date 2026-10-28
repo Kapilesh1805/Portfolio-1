@@ -73,9 +73,9 @@ export const business = {
 export const whyUs = {
   title: 'Why Homeowners Love Working With Us',
   items: [
-    { icon: 'calendar', title: 'Delivery in 45 days*' },
+    { icon: 'calendar', title: 'Delivery in 30 days' },
     { icon: 'rupee', title: 'No Hidden Costs' },
-    { icon: 'badge', title: 'Flat 10-Year Warranty' },
+    { icon: 'badge', title: 'Flat 7-Year Warranty' },
     { icon: 'calculator', title: 'Easy EMIs' },
   ],
   footnote: '*Timelines depend on scope and site readiness.',

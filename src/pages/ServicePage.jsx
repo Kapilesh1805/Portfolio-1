@@ -49,7 +49,7 @@ function ServicePage() {
 
   const back = (id) => {
     rememberReturn(id)
-    go('/', { dir: 'back' })
+    go('/', { dir: 'back', targetId: id })
   }
 
   return (
@@ -58,7 +58,7 @@ function ServicePage() {
         <div className="flex items-center justify-between">
           <button
             onClick={() => back('services')}
-            className="flex items-center gap-3 whitespace-nowrap font-mono text-[.72rem] tracking-[.1em] uppercase text-heading transition-colors hover:text-accent cursor-pointer"
+            className="flex items-center gap-3 whitespace-nowrap font-mono text-[.72rem] tracking-widest uppercase text-heading transition-colors hover:text-accent cursor-pointer"
           >
             <ArrowLeft size={16} /> All services
           </button>
@@ -67,14 +67,14 @@ function ServicePage() {
           </button>
           <button
             onClick={() => back('estimate')}
-            className="whitespace-nowrap font-mono text-[.72rem] tracking-[.1em] uppercase text-body transition-colors hover:text-heading cursor-pointer"
+            className="whitespace-nowrap font-mono text-[.72rem] tracking-widest uppercase text-body transition-colors hover:text-heading cursor-pointer"
           >
             Free estimate
           </button>
         </div>
 
-        <header className="mx-auto mt-20 max-w-[1100px] max-md:mt-14">
-          <p className="font-mono text-[.67rem] tracking-[.1em] uppercase text-accent">
+        <header className="mx-auto mt-20 max-w-275 max-md:mt-14">
+          <p className="font-mono text-[.67rem] tracking-widest uppercase text-accent">
             <span className="text-heading">{String(index + 1).padStart(2, '0')}</span>
             <span className="mx-3">/</span>
             {String(serviceAreas.length).padStart(2, '0')}
@@ -82,18 +82,18 @@ function ServicePage() {
           <h1 className="mt-6 text-[clamp(2.6rem,6vw,5.6rem)] font-medium leading-[.98] tracking-[-.045em] text-heading">
             {service.label}
           </h1>
-          <p className="mt-6 max-w-[520px] text-[1rem] leading-[1.65] text-body">{service.blurb}</p>
+          <p className="mt-6 max-w-130 text-[1rem] leading-[1.65] text-body">{service.blurb}</p>
         </header>
 
         {service.videos.length > 0 && (
-          <section className="mx-auto mt-14 grid max-w-[1100px] gap-4 sm:grid-cols-2" aria-label="Videos">
+          <section className="mx-auto mt-14 grid max-w-275 gap-4 sm:grid-cols-2" aria-label="Videos">
             {service.videos.map((src) => (
               <video key={src} src={src} controls playsInline muted loop className="w-full rounded-lg bg-black" />
             ))}
           </section>
         )}
 
-        <section className="mx-auto mt-14 max-w-[1100px] columns-1 gap-4 sm:columns-2 lg:columns-3" aria-label={`${service.label} photos`}>
+        <section className="mx-auto mt-14 max-w-275 columns-1 gap-4 sm:columns-2 lg:columns-3" aria-label={`${service.label} photos`}>
           {service.gallery.map((src, i) => (
             <button
               key={src}
@@ -111,10 +111,10 @@ function ServicePage() {
           ))}
         </section>
 
-        <div className="mx-auto mt-16 flex max-w-[1100px] flex-wrap items-center justify-between gap-6 border-t border-surface/40 pt-10">
+        <div className="mx-auto mt-16 flex max-w-275 flex-wrap items-center justify-between gap-6 border-t border-surface/40 pt-10">
           <button
             onClick={() => back('estimate')}
-            className="btn-primary rounded-full px-8 py-4 font-mono text-[.78rem] tracking-[.08em] uppercase shadow-sm cursor-pointer"
+            className="btn-primary rounded-full px-8 py-4 font-mono text-[.78rem] tracking-wider uppercase shadow-sm cursor-pointer"
           >
             Get a free estimate
           </button>
@@ -123,7 +123,7 @@ function ServicePage() {
             className="group flex items-center gap-4 text-left text-heading transition-colors hover:text-accent cursor-pointer"
           >
             <span>
-              <span className="block font-mono text-[.62rem] tracking-[.1em] uppercase text-accent">Next service</span>
+              <span className="block font-mono text-[.62rem] tracking-widest uppercase text-accent">Next service</span>
               <span className="font-serif text-[1.6rem]">{next.label}</span>
             </span>
             <ArrowRight size={22} className="transition-transform group-hover:translate-x-1" />
@@ -142,7 +142,7 @@ function ServicePage() {
           <img
             src={service.gallery[open]}
             alt={`${service.label} ${open + 1}`}
-            className="max-h-[88dvh] max-w-[92vw] rounded object-contain"
+            className="max-h-[85vh] max-w-[92vw] rounded object-contain"
             style={{ width: 'auto' }}
             onClick={(e) => e.stopPropagation()}
           />
@@ -169,7 +169,7 @@ function ServicePage() {
           >
             <ChevronRight size={36} />
           </button>
-          <span className="absolute bottom-5 font-mono text-[.7rem] tracking-[.1em] text-white/70">
+          <span className="absolute bottom-5 font-mono text-[.7rem] tracking-widest text-white/70">
             {open + 1} / {service.gallery.length}
           </span>
         </div>

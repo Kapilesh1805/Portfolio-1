@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { Navigate, Route, Routes } from 'react-router-dom'
 import Home from './pages/Home'
 import ServicePage from './pages/ServicePage'
-import { TiltProvider } from './components/animations/TiltTransition'
+import PageTransition from './components/animations/PageTransition'
 import LoadingScreen from './components/animations/LoadingScreen'
 
 // We control scroll ourselves when coming back from a service page.
@@ -16,13 +16,13 @@ function App() {
       {loading && <LoadingScreen onComplete={() => setLoading(false)} />}
 
       <div className="overflow-x-clip">
-        <TiltProvider>
+        <PageTransition>
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/services/:slug" element={<ServicePage />} />
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
-        </TiltProvider>
+        </PageTransition>
       </div>
     </>
   )
