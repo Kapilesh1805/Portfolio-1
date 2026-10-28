@@ -30,7 +30,7 @@ function Hero() {
             className="col-span-2 mb-0 font-medium tracking-[-.055em] [--masked-heading-stroke:#654735] [--masked-heading-stroke-width:1.1px] [--masked-heading-pos:center_68%]"
           />
 
-          <div className="col-start-2 flex items-end justify-between -mt-4 md:-mt-6 max-md:col-start-1 max-md:block">
+          <div className="col-start-2 flex items-end justify-between pt-6 md:pt-10 max-md:col-start-1 max-md:block">
             <p className="mb-0 max-w-[290px] text-[.9rem] leading-[1.65] text-body">
               We shape meaningful identities, spaces, and digital experiences for people who care about the
               details.

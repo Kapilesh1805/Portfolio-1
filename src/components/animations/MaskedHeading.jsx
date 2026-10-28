@@ -38,7 +38,6 @@ const MaskedHeading = ({
   const wordRefs = useRef([]);
   const baseRefs = useRef([]);
   const glyphRefs = useRef([]);
-  const strokeRefs = useRef([]);
   const tweenRef = useRef(null);
   const offsetRef = useRef({ x: 0, y: 0, tx: 0, ty: 0 });
 
@@ -90,28 +89,15 @@ const MaskedHeading = ({
       const box = wordRefs.current[i];
       const base = baseRefs.current[i];
       const glyph = glyphRefs.current[i];
-      const stroke = strokeRefs.current[i];
-      if (!box || !base) continue;
+      if (!box || !base || !glyph) continue;
 
-      if (glyph) {
-        glyph.setAttribute('x', `${box.offsetLeft}`);
-        glyph.setAttribute('y', `${base.offsetTop}`);
-        glyph.style.fontFamily = cs.fontFamily;
-        glyph.style.fontSize = cs.fontSize;
-        glyph.style.fontWeight = cs.fontWeight;
-        glyph.style.fontStyle = cs.fontStyle;
-        glyph.style.letterSpacing = cs.letterSpacing;
-      }
-
-      if (stroke) {
-        stroke.setAttribute('x', `${box.offsetLeft}`);
-        stroke.setAttribute('y', `${base.offsetTop}`);
-        stroke.style.fontFamily = cs.fontFamily;
-        stroke.style.fontSize = cs.fontSize;
-        stroke.style.fontWeight = cs.fontWeight;
-        stroke.style.fontStyle = cs.fontStyle;
-        stroke.style.letterSpacing = cs.letterSpacing;
-      }
+      glyph.setAttribute('x', `${box.offsetLeft}`);
+      glyph.setAttribute('y', `${base.offsetTop}`);
+      glyph.style.fontFamily = cs.fontFamily;
+      glyph.style.fontSize = cs.fontSize;
+      glyph.style.fontWeight = cs.fontWeight;
+      glyph.style.fontStyle = cs.fontStyle;
+      glyph.style.letterSpacing = cs.letterSpacing;
     }
     place();
   }, [place]);
@@ -123,7 +109,7 @@ const MaskedHeading = ({
     sync();
     const ro = new ResizeObserver(sync);
     ro.observe(root);
-    if (document.fonts?.ready) document.fonts.ready.then(sync).catch(() => {});
+    if (document.fonts?.ready) document.fonts.ready.then(sync).catch(() => { });
 
     let raf = 0;
     let last = performance.now();
@@ -186,180 +172,155 @@ const MaskedHeading = ({
     const riseDistance = () => (parseFloat(window.getComputedStyle(root).fontSize) || 48) * 1.15;
 
     const settle = () => {
-      const allGlyphs = [...glyphRefs.current, ...strokeRefs.current].filter(Boolean);
-      gsap.set(allGlyphs, { y: 0 });
+      gsap.set(glyphs, { y: 0 });
       gsap.set(layer, { opacity: 1, scale: 1, clipPath: 'inset(0% 0% 0% 0%)' });
     };
 
-    const rest = () => {
-      const allGlyphs = [...glyphRefs.current, ...strokeRefs.current].filter(Boolean);
-      if (reveal === 'rise') {
-        gsap.set(allGlyphs, { y: riseDistance() });
-      } else if (reveal === 'wipe') {
-        gsap.set(layer, { clipPath: 'inset(0% 100% 0% 0%)' });
-      } else if (reveal === 'fade') {
-        gsap.set(layer, { opacity: 0, scale: 1.08 });
-      }
-    };
-
-    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (reveal === 'none' || reduce) {
-      settle();
-      return;
-    }
-
-    const play = () => {
-      tweenRef.current?.kill();
-      if (reveal === 'rise') {
-        gsap.set(layer, { opacity: 1, scale: 1, clipPath: 'inset(0% 0% 0% 0%)' });
-        const tl = gsap.timeline();
-        for (let i = 0; i < words.length; i += 1) {
-          const targets = [glyphRefs.current[i], strokeRefs.current[i]].filter(Boolean);
-          if (targets.length) {
-            tl.fromTo(
-              targets,
-              { y: riseDistance() },
-              { y: 0, duration, ease: 'power4.out', overwrite: 'auto' },
-              i * stagger
-            );
-          }
+      const rest = () => {
+        if (reveal === 'rise') {
+          gsap.set(glyphs, { y: riseDistance() });
+        } else if (reveal === 'wipe') {
+          gsap.set(layer, { clipPath: 'inset(0% 100% 0% 0%)' });
+        } else if (reveal === 'fade') {
+          gsap.set(layer, { opacity: 0, scale: 1.08 });
         }
-        tweenRef.current = tl;
-      } else if (reveal === 'wipe') {
-        const allGlyphs = [...glyphRefs.current, ...strokeRefs.current].filter(Boolean);
-        gsap.set(allGlyphs, { y: 0 });
-        const state = { p: 100 };
-        tweenRef.current = gsap.to(state, {
-          p: 0,
-          duration,
-          ease: 'power3.inOut',
-          overwrite: 'auto',
-          onUpdate: () => {
-            layer.style.clipPath = `inset(0% ${state.p}% 0% 0%)`;
-          }
-        });
-      } else {
-        const allGlyphs = [...glyphRefs.current, ...strokeRefs.current].filter(Boolean);
-        gsap.set(allGlyphs, { y: 0 });
-        tweenRef.current = gsap.fromTo(
-          layer,
-          { opacity: 0, scale: 1.08 },
-          { opacity: 1, scale: 1, duration, ease: 'power3.out', overwrite: 'auto' }
-        );
+      };
+
+      const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (reveal === 'none' || reduce) {
+        settle();
+        return;
       }
-    };
 
-    if (trigger === 'hover') {
-      settle();
-      root.addEventListener('pointerenter', play);
-      return () => {
-        root.removeEventListener('pointerenter', play);
+      const play = () => {
         tweenRef.current?.kill();
+        if (reveal === 'rise') {
+          gsap.set(layer, { opacity: 1, scale: 1, clipPath: 'inset(0% 0% 0% 0%)' });
+          tweenRef.current = gsap.fromTo(
+            glyphs,
+            { y: riseDistance() },
+            { y: 0, duration, stagger, ease: 'power4.out', overwrite: 'auto' }
+          );
+        } else if (reveal === 'wipe') {
+          gsap.set(glyphs, { y: 0 });
+          const state = { p: 100 };
+          tweenRef.current = gsap.to(state, {
+            p: 0,
+            duration,
+            ease: 'power3.inOut',
+            overwrite: 'auto',
+            onUpdate: () => {
+              layer.style.clipPath = `inset(0% ${state.p}% 0% 0%)`;
+            }
+          });
+        } else {
+          gsap.set(glyphs, { y: 0 });
+          tweenRef.current = gsap.fromTo(
+            layer,
+            { opacity: 0, scale: 1.08 },
+            { opacity: 1, scale: 1, duration, ease: 'power3.out', overwrite: 'auto' }
+          );
+        }
       };
-    }
 
-    if (trigger === 'view') {
-      settle();
-      rest();
-      const io = new IntersectionObserver(
-        entries => {
-          if (entries.some(e => e.isIntersecting)) {
-            play();
-            io.disconnect();
-          }
-        },
-        { threshold: 0.25 }
-      );
-      io.observe(root);
-      return () => {
-        io.disconnect();
-        tweenRef.current?.kill();
-      };
-    }
+      if (trigger === 'hover') {
+        settle();
+        root.addEventListener('pointerenter', play);
+        return () => {
+          root.removeEventListener('pointerenter', play);
+          tweenRef.current?.kill();
+        };
+      }
 
-    play();
-    return () => tweenRef.current?.kill();
-  }, [reveal, trigger, duration, stagger, words]);
+      if (trigger === 'view') {
+        settle();
+        rest();
+        const io = new IntersectionObserver(
+          entries => {
+            if (entries.some(e => e.isIntersecting)) {
+              play();
+              io.disconnect();
+            }
+          },
+          { threshold: 0.25 }
+        );
+        io.observe(root);
+        return () => {
+          io.disconnect();
+          tweenRef.current?.kill();
+        };
+      }
 
-  const Tag = tag;
+      play();
+      return () => tweenRef.current?.kill();
+    }, [reveal, trigger, duration, stagger, words]);
 
-  return (
-    <Tag
-      ref={rootRef}
-      className={`masked-heading ${className}`.trim()}
-      style={{
-        textAlign: align,
-        fontWeight: weight,
-        letterSpacing: `${tracking}em`,
-        lineHeight,
-        ...style
-      }}
-      {...rest}
-    >
-      <span ref={measureRef} className="masked-heading__measure">
-        {words.map((word, i) => (
-          <Fragment key={`${word}-${i}`}>
-            <span
-              ref={el => {
-                wordRefs.current[i] = el;
-              }}
-              className={`masked-heading__word${breakAfter.has(i) ? ' masked-heading__word--eol' : ''}`}
-            >
-              {word}
-              <i
+    const Tag = tag;
+
+    return (
+      <Tag
+        ref={rootRef}
+        className={`masked-heading ${className}`.trim()}
+        style={{
+          textAlign: align,
+          fontWeight: weight,
+          letterSpacing: `${tracking}em`,
+          lineHeight,
+          ...style
+        }}
+        {...rest}
+      >
+        <span ref={measureRef} className="masked-heading__measure">
+          {words.map((word, i) => (
+            <Fragment key={`${word}-${i}`}>
+              <span
                 ref={el => {
-                  baseRefs.current[i] = el;
+                  wordRefs.current[i] = el;
                 }}
-                className="masked-heading__baseline"
-              />
-            </span>
-            {breakAfter.has(i) && <br />}
-          </Fragment>
-        ))}      </span>
-
-      <svg className="masked-heading__defs" aria-hidden="true" focusable="false">
-        <defs>
-          <clipPath id={clipId} clipPathUnits="userSpaceOnUse">
-            {words.map((word, i) => (
-              <text
-                key={`${word}-${i}`}
-                ref={el => {
-                  glyphRefs.current[i] = el;
-                }}
+                className={`masked-heading__word${breakAfter.has(i) ? ' masked-heading__word--eol' : ''}`}
               >
                 {word}
-              </text>
-            ))}
-          </clipPath>
-        </defs>
-      </svg>
+                <i
+                  ref={el => {
+                    baseRefs.current[i] = el;
+                  }}
+                  className="masked-heading__baseline"
+                />
+              </span>
+              {breakAfter.has(i) && <br />}
+            </Fragment>
+          ))}      </span>
 
-      <span ref={revealRef} className="masked-heading__reveal">
-        <span className="masked-heading__clip" style={{ clipPath: `url(#${clipId})` }}>
-          <span ref={mediaRef} className="masked-heading__media">
-            {mediaType === 'video' ? (
-              <video key={src} className="masked-heading__source" src={src} poster={poster} autoPlay muted loop playsInline />
-            ) : (
-              <img key={src} className="masked-heading__source" src={src} alt="" draggable={false} />
-            )}
+        <svg className="masked-heading__defs" aria-hidden="true" focusable="false">
+          <defs>
+            <clipPath id={clipId} clipPathUnits="userSpaceOnUse">
+              {words.map((word, i) => (
+                <text
+                  key={`${word}-${i}`}
+                  ref={el => {
+                    glyphRefs.current[i] = el;
+                  }}
+                >
+                  {word}
+                </text>
+              ))}
+            </clipPath>
+          </defs>
+        </svg>
+
+        <span ref={revealRef} className="masked-heading__reveal">
+          <span className="masked-heading__clip" style={{ clipPath: `url(#${clipId})` }}>
+            <span ref={mediaRef} className="masked-heading__media">
+              {mediaType === 'video' ? (
+                <video key={src} className="masked-heading__source" src={src} poster={poster} autoPlay muted loop playsInline />
+              ) : (
+                <img key={src} className="masked-heading__source" src={src} alt="" draggable={false} />
+              )}
+            </span>
           </span>
         </span>
+      </Tag>
+    );
+  };
 
-        <svg className="masked-heading__strokes" aria-hidden="true" focusable="false">
-          {words.map((word, i) => (
-            <text
-              key={`stroke-${word}-${i}`}
-              ref={el => {
-                strokeRefs.current[i] = el;
-              }}
-            >
-              {word}
-            </text>
-          ))}
-        </svg>
-      </span>
-    </Tag>
-  );
-};
-
-export default MaskedHeading;
+  export default MaskedHeading;
