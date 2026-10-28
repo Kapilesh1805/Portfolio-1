@@ -5,6 +5,42 @@ import LogoLoop from './animations/LogoLoop'
 // Real Google Reviews for Balaji Interior Decor with client photos
 const googleReviews = [
   {
+    name: 'Faritha Banu M',
+    badge: 'Local Guide · 3 reviews · 26 photos',
+    time: '2 years ago',
+    rating: 5,
+    tag: 'Villa TV Unit & Partition Wall',
+    headline: 'Great choice for our villa — eye-catching TV unit, partition wall, and dependable touch-up support.',
+    content:
+      'Balaji Interior Decor was a great choice for our villa. They did a wonderful job with the design and color choices, especially the TV unit and partition wall, which are eye-catching. The woodworks used high-quality materials. The designer was cooperative, fabulous, and maintained professionalism throughout the project. He remains responsive and ready for any touch-up work.',
+    photos: [
+      {
+        src: '/reviews/faritha/villa-tv-unit-shelving.jpg',
+        caption: 'Custom Villa TV Entertainment Unit with Ambient Backlighting & Display Niches',
+      },
+      {
+        src: '/reviews/faritha/villa-dining-living-partition.jpg',
+        caption: 'Open-Concept Dining & Living Villa Interior with Bar Partition Unit',
+      },
+      {
+        src: '/reviews/faritha/contemporary-kitchen-chimney.jpg',
+        caption: 'Contemporary Modular Kitchen with Fluted Glass Cabinets & Stainless Chimney',
+      },
+      {
+        src: '/reviews/faritha/bedroom-wardrobe-doorway-lofts.jpg',
+        caption: 'Full-Wall Bedroom Wardrobe with Integrated Dressing Mirror & Overhead Lofts',
+      },
+      {
+        src: '/reviews/faritha/modular-wardrobe-open-lofts.jpg',
+        caption: 'Custom Walk-Through Modular Wardrobe with Accent Wallpaper & Top Lofts',
+      },
+      {
+        src: '/reviews/faritha/bedroom-wardrobe-wallpaper.jpg',
+        caption: 'Minimalist Dual-Tone Wardrobe Layout with Textured Botanical Accent Wall',
+      },
+    ],
+  },
+  {
     name: 'Vatsala Manohar',
     badge: '12 reviews · 7 photos',
     time: '1 year ago',
@@ -157,42 +193,6 @@ const googleReviews = [
       {
         src: '/reviews/subramanian/gloss-marble-wardrobe.jpg',
         caption: '3-Door High-Gloss Marble Textured Wardrobe with Chrome Handles',
-      },
-    ],
-  },
-  {
-    name: 'Faritha Banu M',
-    badge: 'Local Guide · 3 reviews · 26 photos',
-    time: '2 years ago',
-    rating: 5,
-    tag: 'Villa TV Unit & Partition Wall',
-    headline: 'Great choice for our villa — eye-catching TV unit, partition wall, and dependable touch-up support.',
-    content:
-      'Balaji Interior Decor was a great choice for our villa. They did a wonderful job with the design and color choices, especially the TV unit and partition wall, which are eye-catching. The woodworks used high-quality materials. The designer was cooperative, fabulous, and maintained professionalism throughout the project. He remains responsive and ready for any touch-up work.',
-    photos: [
-      {
-        src: '/reviews/faritha/villa-tv-unit-shelving.png',
-        caption: 'Custom Villa TV Entertainment Unit with Ambient Backlighting & Display Niches',
-      },
-      {
-        src: '/reviews/faritha/villa-dining-living-partition.png',
-        caption: 'Open-Concept Dining & Living Villa Interior with Bar Partition Unit',
-      },
-      {
-        src: '/reviews/faritha/contemporary-kitchen-chimney.png',
-        caption: 'Contemporary Modular Kitchen with Fluted Glass Cabinets & Stainless Chimney',
-      },
-      {
-        src: '/reviews/faritha/bedroom-wardrobe-doorway-lofts.png',
-        caption: 'Full-Wall Bedroom Wardrobe with Integrated Dressing Mirror & Overhead Lofts',
-      },
-      {
-        src: '/reviews/faritha/modular-wardrobe-open-lofts.png',
-        caption: 'Custom Walk-Through Modular Wardrobe with Accent Wallpaper & Top Lofts',
-      },
-      {
-        src: '/reviews/faritha/bedroom-wardrobe-wallpaper.jpg',
-        caption: 'Minimalist Dual-Tone Wardrobe Layout with Textured Botanical Accent Wall',
       },
     ],
   },
@@ -417,11 +417,10 @@ function Reviews() {
                       setActivePhotoIdx(null)
                       setActiveIndex(idx)
                     }}
-                    className={`w-full text-left p-3.5 sm:p-4 rounded-xl transition-all cursor-pointer border ${
-                      isSelected
+                    className={`w-full text-left p-3.5 sm:p-4 rounded-xl transition-all cursor-pointer border ${isSelected
                         ? 'bg-ivory/15 border-accent shadow-lg ring-1 ring-accent/40 border-l-4 border-l-accent'
                         : 'bg-ivory/5 border-ivory/10 hover:border-ivory/30 hover:bg-ivory/10 text-ivory/75 hover:text-ivory'
-                    }`}
+                      }`}
                   >
                     <div className="flex items-center justify-between mb-1">
                       <p className="text-[.94rem] font-medium text-ivory mb-0">{rev.name}</p>
@@ -499,7 +498,8 @@ function Reviews() {
               key={getPhotoSrc(current.photos[activePhotoIdx])}
               src={getPhotoSrc(current.photos[activePhotoIdx])}
               alt={getPhotoCaption(current.photos[activePhotoIdx]) || `${current.name} project photo`}
-              className="max-h-[68vh] max-w-full rounded-xl object-contain shadow-2xl border border-ivory/20 transition-all duration-300"
+              className="max-h-[72vh] max-w-full rounded-xl object-contain shadow-2xl border border-ivory/20 transition-all duration-300 filter contrast-[1.02] brightness-[1.01]"
+              style={{ imageRendering: 'high-quality' }}
             />
 
             {current.photos.length > 1 && (
@@ -534,8 +534,8 @@ function Reviews() {
                       key={pIdx}
                       onClick={() => setActivePhotoIdx(pIdx)}
                       className={`h-12 w-16 md:h-14 md:w-20 rounded-md overflow-hidden border transition-all cursor-pointer shrink-0 ${isCurrent
-                          ? 'border-accent ring-2 ring-accent/60 scale-105'
-                          : 'border-ivory/25 opacity-60 hover:opacity-100 hover:border-ivory/50'
+                        ? 'border-accent ring-2 ring-accent/60 scale-105'
+                        : 'border-ivory/25 opacity-60 hover:opacity-100 hover:border-ivory/50'
                         }`}
                     >
                       <img src={src} alt={`thumbnail ${pIdx + 1}`} className="h-full w-full object-cover" />
