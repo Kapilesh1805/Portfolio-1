@@ -90,3 +90,111 @@
   border-radius: 28px 28px 0 0;
   box-shadow: 0 -24px 60px rgba(74, 46, 31, 0.35);
 }
+
+/* ==========================================================================
+   DEDICATED MOBILE SCREEN CLASSES
+   Both min-width and max-width are explicitly configured for mobile:
+   - Min screen: 320px (minimum supported phone viewport)
+   - Max screen: 768px (standard mobile device boundary)
+   Desktop screens (> 768px) remain 100% untouched and preserved.
+   ========================================================================== */
+@custom-variant mobile (@media (min-width: 320px) and (max-width: 768px));
+
+@media screen and (min-width: 320px) and (max-width: 768px) {
+  /* Dedicated Mobile Container & Viewport Bounds */
+  .mobile-screen,
+  .mobile-container {
+    width: 100%;
+    max-width: 100vw;
+    min-width: 320px;
+    box-sizing: border-box;
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+    overflow-x: hidden;
+  }
+
+  /* Section Spacing & Vertical Flow for Mobile Screens */
+  .mobile-section {
+    min-height: auto;
+    padding-top: 5rem;
+    padding-bottom: 3.5rem;
+  }
+
+  /* Hero Section Mobile Framing */
+  #home {
+    min-height: 100svh;
+    padding-top: 6rem;
+    padding-bottom: 2.25rem;
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+  }
+
+  #home h1 {
+    font-size: clamp(2.1rem, 8.2vw, 3.1rem);
+    line-height: 1.14;
+    letter-spacing: -0.02em;
+  }
+
+  /* About Section Mobile Dossier & Blueprint */
+  #about {
+    min-height: auto;
+    padding-top: 6.5rem;
+    padding-bottom: 3.5rem;
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+  }
+
+  #about h2 {
+    font-size: clamp(1.45rem, 5.5vw, 2rem);
+    line-height: 1.22;
+  }
+
+  /* Services Section Mobile Framing */
+  #services {
+    padding-top: 5rem;
+    padding-bottom: 3.5rem;
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+  }
+
+  /* Why Us Section Mobile Framing */
+  #why-us {
+    padding-top: 5rem;
+    padding-bottom: 3.5rem;
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+  }
+
+  /* Estimate Section Mobile Framing */
+  #estimate {
+    padding-top: 5rem;
+    padding-bottom: 3.5rem;
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+  }
+
+  /* Reviews Section Mobile Framing */
+  #reviews {
+    padding-top: 5rem;
+    padding-bottom: 3.5rem;
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+  }
+
+  /* Contact Section Mobile Framing */
+  #contact {
+    padding-top: 5rem;
+    padding-bottom: 3.5rem;
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+  }
+
+  /* Mobile Touch Targets - Ergonomic Minimum (44px) */
+  .mobile-touch-target {
+    min-height: 44px;
+    min-width: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
