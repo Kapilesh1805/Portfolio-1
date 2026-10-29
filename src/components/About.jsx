@@ -130,9 +130,6 @@ function About({ scrollTo }) {
 
               {/* Blueprint Coordinate Overlay Lines */}
               <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#1A110B]/80 via-transparent to-[#1A110B]/30" />
-              <div className="pointer-events-none absolute top-4 left-4 font-mono text-[.62rem] uppercase tracking-widest text-bronze-light/90 bg-black/60 px-3.5 py-1.5 rounded-full border border-ivory/10 backdrop-blur-sm">
-                Live Blueprint Coordinates • Tap any pin to inspect
-              </div>
 
               {/* Interactive Hotspot Pins */}
               {HOTSPOTS.map((spot) => {

@@ -11,6 +11,7 @@ function Services() {
     e.preventDefault()
     try {
       sessionStorage.setItem('returnTo', 'services')
+      sessionStorage.setItem('returnToServiceSlug', slug)
       sessionStorage.setItem('servicesScrollY', String(window.scrollY))
       const sec = document.getElementById('services')
       if (sec) sessionStorage.setItem('servicesOffsetTop', String(sec.offsetTop))
@@ -31,14 +32,15 @@ function Services() {
         End-to-End Interior Solutions
       </h2>
 
-      {/* 5 columns x 3 rows on desktop, 3 cols on tablet, 2 on phone */}
+      {/* 5 columns x 3 rows on desktop, 3 cols on tablet, 2 on phone (with last item centered on mobile) */}
       <div className="mx-auto grid max-w-275 grid-cols-5 gap-x-6 gap-y-14 max-lg:grid-cols-3 max-sm:grid-cols-2 max-sm:gap-y-10">
         {serviceAreas.map((area) => (
           <a
             key={area.slug}
+            id={`service-${area.slug}`}
             href={`/services/${area.slug}`}
             onClick={(e) => open(e, area.slug)}
-            className="group flex flex-col items-center gap-4 text-center text-heading transition-colors duration-300 hover:text-accent"
+            className="group flex flex-col items-center gap-4 text-center text-heading transition-colors duration-300 hover:text-accent max-sm:last:col-span-2 max-sm:last:mx-auto max-sm:last:w-full"
           >
             {/* 3D Rotating Earth Tile */}
             <div className="relative h-24 w-24 [perspective:900px]">

@@ -30,13 +30,28 @@ function Home({ heroEntrance = true }) {
   // Must run BEFORE useBlurReveal so sections already passed are not re-blurred.
   useLayoutEffect(() => {
     let id = null
+    let serviceSlug = null
+    let savedScrollY = null
     try {
       id = sessionStorage.getItem('returnTo')
+      serviceSlug = sessionStorage.getItem('returnToServiceSlug')
+      savedScrollY = sessionStorage.getItem('servicesScrollY')
     } catch {
       /* ignore */
     }
     if (id) {
       const scroll = () => {
+        if (serviceSlug) {
+          const targetCard = document.getElementById(`service-${serviceSlug}`)
+          if (targetCard) {
+            targetCard.scrollIntoView({ behavior: 'instant', block: 'center' })
+            return
+          }
+        }
+        if (savedScrollY && Number(savedScrollY) > 0) {
+          window.scrollTo({ top: Number(savedScrollY), behavior: 'instant' })
+          return
+        }
         const el = document.getElementById(id)
         if (el) el.scrollIntoView({ behavior: 'instant', block: 'start' })
       }
@@ -48,6 +63,8 @@ function Home({ heroEntrance = true }) {
         scroll()
         try {
           sessionStorage.removeItem('returnTo')
+          sessionStorage.removeItem('returnToServiceSlug')
+          sessionStorage.removeItem('servicesScrollY')
         } catch { }
       }, 2500)
       return () => {

@@ -49,6 +49,13 @@ function ServicePage() {
 
   const back = (id) => {
     rememberReturn(id)
+    if (id === 'services' && slug) {
+      try {
+        sessionStorage.setItem('returnToServiceSlug', slug)
+      } catch {
+        /* ignore */
+      }
+    }
     go('/', { dir: 'back', targetId: id })
   }
 

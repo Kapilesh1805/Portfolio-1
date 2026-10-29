@@ -76,12 +76,11 @@
    one behind it. Once you've scrolled a full Hero-height, Hero naturally
    unsticks and both sections continue in normal document flow — Work,
    Gallery, etc. are untouched and scroll normally underneath. */
-@media (min-width: 769px) {
-  .stack-hero-about > section:first-of-type {
-    position: sticky;
-    top: 0;
-    z-index: 1;
-  }
+.stack-hero-about > section:first-of-type {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  will-change: transform;
 }
 
 .stack-hero-about > section:nth-of-type(2) {
@@ -120,19 +119,47 @@
     padding-bottom: 3.5rem;
   }
 
-  /* Hero Section Mobile Framing */
+  /* Hero Section Mobile Framing - Strictly 100svh locked so Hero stays pinned instantly */
   #home {
+    height: 100svh;
+    max-height: 100svh;
     min-height: 100svh;
-    padding-top: 6rem;
-    padding-bottom: 2.25rem;
+    padding-top: 4.75rem;
+    padding-bottom: 1rem;
     padding-left: 1.25rem;
     padding-right: 1.25rem;
+    overflow: hidden;
+    box-sizing: border-box;
   }
 
   #home h1 {
-    font-size: clamp(2.1rem, 8.2vw, 3.1rem);
-    line-height: 1.14;
+    font-size: clamp(1.85rem, 7.2vw, 2.45rem);
+    line-height: 1.15;
     letter-spacing: -0.02em;
+  }
+
+  #home .my-auto {
+    margin-top: auto;
+    margin-bottom: auto;
+    padding-top: 0.25rem;
+    padding-bottom: 0.25rem;
+  }
+
+  #home p {
+    font-size: 0.84rem;
+    line-height: 1.5;
+    margin-bottom: 0.5rem;
+  }
+
+  #home .mt-8,
+  #home .md\:mt-12 {
+    margin-top: 0.65rem;
+    padding-top: 0.65rem;
+  }
+
+  #home a.rounded-full {
+    padding: 0.55rem 1.05rem;
+    font-size: 0.7rem;
   }
 
   /* About Section Mobile Dossier & Blueprint */

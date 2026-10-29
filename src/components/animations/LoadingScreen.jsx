@@ -32,11 +32,14 @@ function LoadingScreen({ onStartTransition, onComplete }) {
     const canvas = canvasRef.current
     if (!canvas) return
     const ctx = canvas.getContext('2d')
-    const dpr = Math.min(window.devicePixelRatio || 1, 2)
+    const isMobile = window.innerWidth <= 768
+    const dpr = isMobile ? 1 : Math.min(window.devicePixelRatio || 1, 2)
 
     let animationTimeline = null
     let tiles = []
     let imgLoaded = false
+    let cachedGrad = null
+    let cachedRadialGrad = null
     const img = new Image()
 
     const setupCanvas = () => {
@@ -47,6 +50,16 @@ function LoadingScreen({ onStartTransition, onComplete }) {
       canvas.style.width = `${W}px`
       canvas.style.height = `${H}px`
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0)
+
+      // Pre-compute gradient overlays once to prevent garbage collection frame drops
+      cachedGrad = ctx.createLinearGradient(0, 0, 0, H)
+      cachedGrad.addColorStop(0, 'rgba(22, 13, 8, 0.78)')
+      cachedGrad.addColorStop(0.4, 'rgba(22, 13, 8, 0.38)')
+      cachedGrad.addColorStop(1, 'rgba(22, 13, 8, 0.82)')
+
+      cachedRadialGrad = ctx.createRadialGradient(W / 2, H / 2, Math.min(W, H) * 0.2, W / 2, H / 2, Math.max(W, H) * 0.75)
+      cachedRadialGrad.addColorStop(0, 'rgba(22, 13, 8, 0)')
+      cachedRadialGrad.addColorStop(1, 'rgba(22, 13, 8, 0.55)')
 
       if (!imgLoaded) return
 
@@ -70,8 +83,8 @@ function LoadingScreen({ onStartTransition, onComplete }) {
         offsetY = 0
       }
 
-      // Responsive grid: architectural pixel blocks
-      const cols = W > 1200 ? 24 : W > 768 ? 18 : 12
+      // Responsive grid: architectural pixel blocks (chunky & fast on mobile)
+      const cols = W > 1200 ? 24 : W > 768 ? 18 : 6
       const rows = Math.round(cols * (H / W))
       const tileW = W / cols
       const tileH = H / rows
@@ -86,7 +99,6 @@ function LoadingScreen({ onStartTransition, onComplete }) {
           const order = (c / cols) * 0.62 + (r / rows) * 0.38
 
           // Structured geometric dispersal ("scattered order wise"):
-          // Alternating interlaced grid displacements with wave offset
           const colDir = c % 2 === 0 ? 1 : -1
           const rowDir = r % 2 === 0 ? 1 : -1
           const wavePhase = Math.sin((c * 0.8 + r * 1.2) * Math.PI) * 28
@@ -94,7 +106,7 @@ function LoadingScreen({ onStartTransition, onComplete }) {
           const scatterX = targetX + rowDir * (tileW * 0.55) + Math.cos(((c * 24 + r * 36) % 360) * (Math.PI / 180)) * 32
           const scatterY = targetY + colDir * (tileH * 0.65) + wavePhase
           const scatterScale = 0.74 + ((c + r) % 3) * 0.08
-          const scatterRot = (((c * 5 + r * 7) % 5) - 2) * 0.045 // subtle, clean architectural tilt
+          const scatterRot = (((c * 5 + r * 7) % 5) - 2) * 0.045
 
           // Source slice on /hero/hero-bg.png
           const sx = (targetX - offsetX) * (imgW / renderW)
@@ -135,8 +147,8 @@ function LoadingScreen({ onStartTransition, onComplete }) {
 
       if (!imgLoaded || tiles.length === 0) return
 
-      // Draw faint architectural blueprint grid dots on slots not yet assembled
-      if (progress < 0.95) {
+      // Draw faint architectural blueprint grid dots on slots not yet assembled (desktop only)
+      if (!isMobile && progress < 0.95) {
         ctx.fillStyle = 'rgba(201, 142, 122, 0.16)'
         for (let i = 0; i < tiles.length; i++) {
           const t = tiles[i]
@@ -172,8 +184,8 @@ function LoadingScreen({ onStartTransition, onComplete }) {
           if (curRot !== 0) ctx.rotate(curRot)
           if (curScale !== 1) ctx.scale(curScale, curScale)
 
-          // Soft ambient tile shadow while floating
-          if (pClamped < 0.9) {
+          // Soft ambient tile shadow while floating (desktop only: avoids mobile CPU rasterizer hang)
+          if (!isMobile && pClamped < 0.9) {
             ctx.shadowColor = 'rgba(0, 0, 0, 0.65)'
             ctx.shadowBlur = 12 * (1 - pClamped)
             ctx.shadowOffsetX = 0
@@ -194,7 +206,7 @@ function LoadingScreen({ onStartTransition, onComplete }) {
 
           // Architectural pixel border while scattered/in motion
           if (pClamped < 0.92) {
-            ctx.shadowColor = 'transparent'
+            if (!isMobile) ctx.shadowColor = 'transparent'
             ctx.strokeStyle = `rgba(201, 142, 122, ${0.28 + (1 - pClamped) * 0.45})`
             ctx.lineWidth = 1
             ctx.strokeRect(-t.tileW / 2, -t.tileH / 2, t.tileW, t.tileH)
@@ -210,19 +222,16 @@ function LoadingScreen({ onStartTransition, onComplete }) {
         }
       }
 
-      // Replicate the exact multi-tier dark gradient overlay matching Hero.jsx
-      const grad = ctx.createLinearGradient(0, 0, 0, H)
-      grad.addColorStop(0, 'rgba(22, 13, 8, 0.78)')
-      grad.addColorStop(0.4, 'rgba(22, 13, 8, 0.38)')
-      grad.addColorStop(1, 'rgba(22, 13, 8, 0.82)')
-      ctx.fillStyle = grad
-      ctx.fillRect(0, 0, W, H)
+      // Replicate the exact multi-tier dark gradient overlay matching Hero.jsx (using pre-cached gradients)
+      if (cachedGrad) {
+        ctx.fillStyle = cachedGrad
+        ctx.fillRect(0, 0, W, H)
+      }
 
-      const radialGrad = ctx.createRadialGradient(W / 2, H / 2, Math.min(W, H) * 0.2, W / 2, H / 2, Math.max(W, H) * 0.75)
-      radialGrad.addColorStop(0, 'rgba(22, 13, 8, 0)')
-      radialGrad.addColorStop(1, 'rgba(22, 13, 8, 0.55)')
-      ctx.fillStyle = radialGrad
-      ctx.fillRect(0, 0, W, H)
+      if (cachedRadialGrad) {
+        ctx.fillStyle = cachedRadialGrad
+        ctx.fillRect(0, 0, W, H)
+      }
     }
 
     const state = { progress: 0 }
@@ -250,7 +259,6 @@ function LoadingScreen({ onStartTransition, onComplete }) {
               }
             }
             if (dx === 0 && dy === 0) {
-              const isMobile = window.innerWidth <= 640
               const targetX = isMobile ? 16 : 24
               const targetY = isMobile ? 14 : 20
               const targetH = isMobile ? 38 : 90
@@ -272,18 +280,18 @@ function LoadingScreen({ onStartTransition, onComplete }) {
             },
           })
 
-          // Cross-fade the canvas immediately into the identical Hero background (0.35s)
+          // Cross-fade the canvas immediately into the identical Hero background
           exitTl.to(
             canvasEl,
             {
               opacity: 0,
-              duration: 0.35,
+              duration: isMobile ? 0.25 : 0.35,
               ease: 'power2.out',
             },
             0
           )
 
-          // Smoothly glide the logo to the exact top-left position (0.8s)
+          // Smoothly glide the logo to the exact top-left position
           exitTl.to(
             currentEl,
             {
@@ -291,7 +299,7 @@ function LoadingScreen({ onStartTransition, onComplete }) {
               y: dy,
               scale: scale,
               transformOrigin: '0 0',
-              duration: 0.8,
+              duration: isMobile ? 0.6 : 0.8,
               ease: 'power3.inOut',
               filter: 'drop-shadow(0 2px 8px rgba(0,0,0,0.35))',
             },
@@ -303,21 +311,21 @@ function LoadingScreen({ onStartTransition, onComplete }) {
       // Logo entrance & pixel assembly
       animationTimeline
         .set(logoRef.current, { opacity: 0, scale: 0.94, y: 12 })
-        .to(logoRef.current, { opacity: 1, scale: 1, y: 0, duration: 0.65, ease: 'power3.out' }, 0.1)
+        .to(logoRef.current, { opacity: 1, scale: 1, y: 0, duration: isMobile ? 0.45 : 0.65, ease: 'power3.out' }, 0.05)
         .to(
           state,
           {
             progress: 1,
-            duration: 1.85,
+            duration: isMobile ? 1.25 : 1.85,
             ease: 'power2.inOut',
             onUpdate: () => {
               render(state.progress)
             },
           },
-          0.15
+          0.1
         )
         // Brief hold when fully assembled so user sees the perfected space
-        .to({}, { duration: 0.18 })
+        .to({}, { duration: isMobile ? 0.12 : 0.18 })
     }
 
     const start = () => {

@@ -339,9 +339,29 @@ export function PageTransition({ children }) {
             setTransitionData(null)
             busyRef.current = false
 
-            // Scroll restoration
+            // Scroll restoration: target clicked service card directly
             const restore = () => {
               if (isReturningToServices) {
+                let serviceSlug = null
+                let savedScrollY = null
+                try {
+                  serviceSlug = sessionStorage.getItem('returnToServiceSlug')
+                  savedScrollY = Number(sessionStorage.getItem('servicesScrollY'))
+                } catch {}
+
+                if (serviceSlug) {
+                  const targetCard = document.getElementById(`service-${serviceSlug}`)
+                  if (targetCard) {
+                    targetCard.scrollIntoView({ behavior: 'instant', block: 'center' })
+                    return
+                  }
+                }
+
+                if (savedScrollY && savedScrollY > 0) {
+                  window.scrollTo({ top: savedScrollY, behavior: 'instant' })
+                  return
+                }
+
                 const el = document.getElementById('services')
                 if (el) {
                   el.scrollIntoView({ behavior: 'instant', block: 'start' })

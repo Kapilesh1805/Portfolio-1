@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback, useMemo } from 'react'
+import { useState, useEffect, useCallback, useMemo, useRef } from 'react'
 import { ChevronLeft, ChevronRight, Star, CheckCircle2, Camera, X, Maximize2 } from 'lucide-react'
 import LogoLoop from './animations/LogoLoop'
 import FoldText from './animations/FoldText'
@@ -205,6 +205,11 @@ const getPhotoCaption = (p) => (typeof p === 'string' ? '' : p.caption || '')
 function Reviews() {
   const [activeIndex, setActiveIndex] = useState(0)
   const [activePhotoIdx, setActivePhotoIdx] = useState(null)
+  const pointerStartPos = useRef({ x: 0, y: 0 })
+  const dragDistanceRef = useRef(0)
+  const touchStartX = useRef(0)
+  const touchStartY = useRef(0)
+
   const safeIndex = activeIndex < googleReviews.length ? activeIndex : 0
   const current = googleReviews[safeIndex] || googleReviews[0]
 
@@ -216,6 +221,24 @@ function Reviews() {
   const prevReview = () => {
     setActivePhotoIdx(null)
     setActiveIndex((prev) => (prev - 1 + googleReviews.length) % googleReviews.length)
+  }
+
+  const handleReviewTouchStart = (e) => {
+    touchStartX.current = e.touches[0].clientX
+    touchStartY.current = e.touches[0].clientY
+  }
+
+  const handleReviewTouchEnd = (e) => {
+    const deltaX = e.changedTouches[0].clientX - touchStartX.current
+    const deltaY = e.changedTouches[0].clientY - touchStartY.current
+    // Dominant horizontal swipe (>40px)
+    if (Math.abs(deltaX) > 40 && Math.abs(deltaX) > Math.abs(deltaY) * 1.3) {
+      if (deltaX < 0) {
+        nextReview()
+      } else {
+        prevReview()
+      }
+    }
   }
 
   const openLightbox = (pIdx) => setActivePhotoIdx(pIdx)
@@ -286,7 +309,12 @@ function Reviews() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 xl:gap-12 items-start">
           {/* LEFT: Active Review Spotlight */}
           <div className="lg:col-span-7 xl:col-span-8 flex flex-col justify-between">
-            <div>
+            {/* Touch Swipeable Quote block - Swiping here flips review */}
+            <div
+              onTouchStart={handleReviewTouchStart}
+              onTouchEnd={handleReviewTouchEnd}
+              className="touch-pan-y"
+            >
               <div className="mb-3 flex flex-wrap items-center gap-3">
                 <span className="rounded bg-accent/25 px-2.5 py-1 font-mono text-[.68rem] uppercase tracking-wider text-bronze-light font-medium">
                   {current.tag}
@@ -355,10 +383,16 @@ function Reviews() {
                   className="font-sans leading-[1.8] block"
                 />
               </div>
+            </div>
 
-              {/* Attached customer photos infinite loop - merges seamlessly into background */}
-              {current.photos && current.photos.length > 0 && (
-                <div className="mt-7 pt-5 border-t border-ivory/15">
+            {/* Attached customer photos infinite loop - isolated from review swipe */}
+            {current.photos && current.photos.length > 0 && (
+              <div
+                className="mt-7 pt-5 border-t border-ivory/15"
+                onTouchStart={(e) => e.stopPropagation()}
+                onTouchMove={(e) => e.stopPropagation()}
+                onTouchEnd={(e) => e.stopPropagation()}
+              >
                   <div className="flex flex-wrap items-center justify-between gap-2 mb-3">
                     <p className="font-mono text-[.7rem] uppercase tracking-wider text-bronze-light flex items-center gap-2 mb-0">
                       <Camera size={13} className="text-accent" />
@@ -389,6 +423,23 @@ function Reviews() {
                         <div
                           key={key}
                           className="group/photo relative h-[115px] w-[170px] shrink-0 overflow-hidden rounded-xl border border-ivory/20 shadow-md transition-all duration-300 hover:border-accent hover:shadow-accent/25 cursor-pointer bg-dark/40"
+                          onPointerDown={(e) => {
+                            pointerStartPos.current = { x: e.clientX, y: e.clientY }
+                            dragDistanceRef.current = 0
+                          }}
+                          onPointerMove={(e) => {
+                            const dx = e.clientX - pointerStartPos.current.x
+                            const dy = e.clientY - pointerStartPos.current.y
+                            dragDistanceRef.current = Math.hypot(dx, dy)
+                          }}
+                          onClick={(e) => {
+                            if (dragDistanceRef.current > 8) {
+                              e.preventDefault()
+                              e.stopPropagation()
+                              return
+                            }
+                            item.onClick?.()
+                          }}
                         >
                           <img
                             src={item.src}
@@ -411,7 +462,6 @@ function Reviews() {
                   </div>
                 </div>
               )}
-            </div>
 
             <div className="mt-7 pt-5 border-t border-ivory/15 flex flex-wrap items-center justify-between gap-4">
               <div>
@@ -521,9 +571,12 @@ function Reviews() {
             </div>
             <button
               onClick={closeLightbox}
-              className="flex items-center gap-1.5 text-ivory/80 hover:text-ivory font-mono text-xs uppercase cursor-pointer px-3 py-1.5 rounded border border-ivory/20 hover:border-ivory/50 transition-colors"
+              aria-label="Close photo preview"
+              className="flex items-center gap-1.5 text-ivory/90 hover:text-ivory font-mono text-xs uppercase cursor-pointer px-2.5 py-1.5 sm:px-3 sm:py-1.5 rounded-lg border border-ivory/20 hover:border-ivory/50 transition-colors bg-white/5 backdrop-blur-sm"
             >
-              <X size={16} /> Close <span className="text-ivory/40">(Esc)</span>
+              <X size={18} />
+              <span className="hidden sm:inline">Close</span>
+              <span className="hidden sm:inline text-ivory/40">(Esc)</span>
             </button>
           </div>
 
