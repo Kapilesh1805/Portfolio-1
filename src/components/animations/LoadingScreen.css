@@ -3,9 +3,10 @@
   inset: 0;
   width: 100vw;
   height: 100vh;
-  z-index: 100;
+  z-index: 50;
   overflow: hidden;
-  background: #160D08;
+  background: transparent;
+  pointer-events: none;
 }
 
 /* Canvas rendering the scattered pixel blocks assembling into /hero/hero-bg.png */
@@ -20,14 +21,12 @@
 
 .loading-logo-wrap {
   position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 10;
+  inset: 0;
   display: flex;
   align-items: center;
   justify-content: center;
   pointer-events: none;
+  z-index: 10;
 }
 
 .loading-mark {

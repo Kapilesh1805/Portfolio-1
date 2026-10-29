@@ -476,11 +476,9 @@ export const StaggeredMenu = ({
             alt="Balaji Interior Decor Logo"
             className="sm-logo-img"
             draggable={false}
-            width={110}
-            height={24}
             style={{
               opacity: heroEntrance ? 1 : 0,
-              transition: 'opacity 0.25s ease 0.8s',
+              transition: 'opacity 0.25s ease',
             }}
           />
         </a>
@@ -490,7 +488,7 @@ export const StaggeredMenu = ({
           style={{
             opacity: heroEntrance ? 1 : 0,
             transform: heroEntrance ? 'none' : 'translateX(28px)',
-            transition: 'opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.35s, transform 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.35s',
+            transition: 'opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.15s, transform 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.15s',
           }}
           aria-label={open ? 'Close menu' : 'Open menu'}
           aria-expanded={open}

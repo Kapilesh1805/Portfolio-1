@@ -13,7 +13,7 @@ function Hero({ heroEntrance = true }) {
         <img
           src="/hero/hero-bg.png"
           alt="Balaji Interior Decor Luxury Living Space"
-          className="w-full h-full object-cover object-[center_55%] md:object-[center_60%] transition-transform duration-1000 scale-[1.02]"
+          className="w-full h-full object-cover object-[center_55%] md:object-[center_60%] transition-transform duration-1000 scale-100"
         />
 
         {/* Multi-tier gradient overlay: keeps photo warm and luminous while ensuring 100% text legibility */}
@@ -31,7 +31,7 @@ function Hero({ heroEntrance = true }) {
       <motion.div
         initial={{ opacity: 0, y: -16 }}
         animate={heroEntrance ? { opacity: 1, y: 0 } : { opacity: 0, y: -16 }}
-        transition={{ duration: 0.8, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
+        transition={{ duration: 0.65, delay: 0.08, ease: [0.16, 1, 0.3, 1] }}
         className="relative z-10 flex flex-wrap items-center justify-between gap-4"
       >
         <div className="flex items-center gap-2.5 font-mono text-[.7rem] md:text-[.74rem] tracking-[0.2em] uppercase text-bronze-light">
@@ -50,13 +50,13 @@ function Hero({ heroEntrance = true }) {
       {/* 3. Central Hero Statement & Details */}
       <div className="relative z-10 my-auto py-8 md:py-12">
         <motion.div
-          initial={{ opacity: 0, y: 36, filter: 'blur(10px)', scale: 0.96 }}
+          initial={{ opacity: 0, y: 44, filter: 'blur(10px)', scale: 0.97 }}
           animate={
             heroEntrance
               ? { opacity: 1, y: 0, filter: 'blur(0px)', scale: 1 }
-              : { opacity: 0, y: 36, filter: 'blur(10px)', scale: 0.96 }
+              : { opacity: 0, y: 44, filter: 'blur(10px)', scale: 0.97 }
           }
-          transition={{ duration: 0.95, delay: 0.22, ease: [0.16, 1, 0.3, 1] }}
+          transition={{ duration: 0.85, delay: 0.20, ease: [0.16, 1, 0.3, 1] }}
           className="max-w-5xl"
         >
           <h1 className="font-serif text-[clamp(2.4rem,5.8vw,5.2rem)] font-light leading-[1.08] text-ivory tracking-[-0.025em] drop-shadow-[0_4px_24px_rgba(0,0,0,0.65)] text-balance">
@@ -66,13 +66,13 @@ function Hero({ heroEntrance = true }) {
 
         {/* Lower Row: Supporting statement + Action CTAs aligned properly */}
         <motion.div
-          initial={{ opacity: 0, y: 28, filter: 'blur(6px)' }}
+          initial={{ opacity: 0, y: 32, filter: 'blur(6px)' }}
           animate={
             heroEntrance
               ? { opacity: 1, y: 0, filter: 'blur(0px)' }
-              : { opacity: 0, y: 28, filter: 'blur(6px)' }
+              : { opacity: 0, y: 32, filter: 'blur(6px)' }
           }
-          transition={{ duration: 0.85, delay: 0.38, ease: [0.16, 1, 0.3, 1] }}
+          transition={{ duration: 0.75, delay: 0.36, ease: [0.16, 1, 0.3, 1] }}
           className="mt-8 md:mt-12 grid grid-cols-1 lg:grid-cols-12 gap-6 items-end pt-6 md:pt-8 border-t border-ivory/20"
         >
           <div className="lg:col-span-7">
@@ -104,7 +104,7 @@ function Hero({ heroEntrance = true }) {
       <motion.div
         initial={{ opacity: 0, y: 16 }}
         animate={heroEntrance ? { opacity: 1, y: 0 } : { opacity: 0, y: 16 }}
-        transition={{ duration: 0.75, delay: 0.55, ease: [0.16, 1, 0.3, 1] }}
+        transition={{ duration: 0.65, delay: 0.48, ease: [0.16, 1, 0.3, 1] }}
         className="relative z-10 flex items-center justify-between font-mono text-[.68rem] md:text-[.72rem] tracking-widest uppercase text-ivory/70 border-t border-ivory/15 pt-4"
       >
         <div className="flex items-center gap-2">

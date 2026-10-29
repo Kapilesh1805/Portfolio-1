@@ -10,7 +10,7 @@ import './LoadingScreen.css'
  * - Once fully arranged, the center logo smoothly transitions directly to its
  *   destination in the top-left of the Hero page header.
  * - Concurrently, onStartTransition notifies the Hero page to reveal its text,
- *   achieving a seamless cinematic transition with zero visual jump.
+ *   achieving a seamless cinematic transition with zero visual jump and no blank screen.
  */
 function LoadingScreen({ onStartTransition, onComplete }) {
   const rootRef = useRef(null)
@@ -22,20 +22,11 @@ function LoadingScreen({ onStartTransition, onComplete }) {
   useEffect(() => {
     document.documentElement.style.scrollbarGutter = 'stable'
     document.documentElement.style.overflow = 'hidden'
-    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches
 
     const finish = () => {
       document.documentElement.style.overflow = ''
       setDone(true)
       onComplete?.()
-    }
-
-    if (reduce) {
-      onStartTransition?.()
-      const t = setTimeout(() => {
-        gsap.to(rootRef.current, { opacity: 0, duration: 0.3, onComplete: finish })
-      }, 200)
-      return () => clearTimeout(t)
     }
 
     const canvas = canvasRef.current
@@ -47,7 +38,6 @@ function LoadingScreen({ onStartTransition, onComplete }) {
     let tiles = []
     let imgLoaded = false
     const img = new Image()
-    img.src = '/hero/hero-bg.png'
 
     const setupCanvas = () => {
       const W = window.innerWidth
@@ -227,25 +217,23 @@ function LoadingScreen({ onStartTransition, onComplete }) {
       grad.addColorStop(1, 'rgba(22, 13, 8, 0.82)')
       ctx.fillStyle = grad
       ctx.fillRect(0, 0, W, H)
+
+      const radialGrad = ctx.createRadialGradient(W / 2, H / 2, Math.min(W, H) * 0.2, W / 2, H / 2, Math.max(W, H) * 0.75)
+      radialGrad.addColorStop(0, 'rgba(22, 13, 8, 0)')
+      radialGrad.addColorStop(1, 'rgba(22, 13, 8, 0.55)')
+      ctx.fillStyle = radialGrad
+      ctx.fillRect(0, 0, W, H)
     }
 
     const state = { progress: 0 }
 
-    img.onload = () => {
-      imgLoaded = true
-      setupCanvas()
-      render(0)
-
+    const startAnimation = () => {
       animationTimeline = gsap.timeline({
         onComplete: () => {
-          // 1. Trigger Hero texts & StaggeredMenu transition
-          onStartTransition?.()
-
-          // 2. Measure target header logo destination (.sm-logo-img or .sm-logo)
+          // 1. Measure target header logo destination (.sm-logo-img or .sm-logo)
           const targetEl = document.querySelector('.sm-logo-img') || document.querySelector('.sm-logo')
           const currentEl = logoRef.current
           const canvasEl = canvasRef.current
-          const rootEl = rootRef.current
 
           let dx = 0
           let dy = 0
@@ -255,10 +243,13 @@ function LoadingScreen({ onStartTransition, onComplete }) {
             const currentRect = currentEl.getBoundingClientRect()
             if (targetEl) {
               const targetRect = targetEl.getBoundingClientRect()
-              dx = targetRect.left - currentRect.left
-              dy = targetRect.top - currentRect.top
-              scale = targetRect.height / currentRect.height
-            } else {
+              if (targetRect.height > 0) {
+                dx = targetRect.left - currentRect.left
+                dy = targetRect.top - currentRect.top
+                scale = targetRect.height / currentRect.height
+              }
+            }
+            if (dx === 0 && dy === 0) {
               const isMobile = window.innerWidth <= 640
               const targetX = isMobile ? 16 : 24
               const targetY = isMobile ? 14 : 20
@@ -270,21 +261,29 @@ function LoadingScreen({ onStartTransition, onComplete }) {
           }
 
           const exitTl = gsap.timeline({
-            onComplete: finish,
+            onComplete: () => {
+              // Seamless handoff: reveal header logo and trigger text entrance
+              if (targetEl) {
+                targetEl.style.opacity = '1'
+              }
+              // Logo is now in position in top-left -> trigger text entrance
+              onStartTransition?.()
+              finish()
+            },
           })
 
-          // Fade out the canvas background (0.75s) - perfectly revealing the identical Hero background
+          // Cross-fade the canvas immediately into the identical Hero background (0.35s)
           exitTl.to(
             canvasEl,
             {
               opacity: 0,
-              duration: 0.75,
-              ease: 'power2.inOut',
+              duration: 0.35,
+              ease: 'power2.out',
             },
             0
           )
 
-          // Smoothly glide the logo to the exact top-left position (0.85s)
+          // Smoothly glide the logo to the exact top-left position (0.8s)
           exitTl.to(
             currentEl,
             {
@@ -292,30 +291,19 @@ function LoadingScreen({ onStartTransition, onComplete }) {
               y: dy,
               scale: scale,
               transformOrigin: '0 0',
-              duration: 0.85,
+              duration: 0.8,
               ease: 'power3.inOut',
-              filter: 'drop-shadow(0 2px 10px rgba(0,0,0,0.45))',
+              filter: 'drop-shadow(0 2px 8px rgba(0,0,0,0.35))',
             },
             0
-          )
-
-          // Softly fade the root container at the very end
-          exitTl.to(
-            rootEl,
-            {
-              opacity: 0,
-              duration: 0.15,
-              ease: 'power1.out',
-            },
-            0.78
           )
         },
       })
 
       // Logo entrance & pixel assembly
       animationTimeline
-        .set(logoRef.current, { opacity: 0, scale: 0.92, y: 14 })
-        .to(logoRef.current, { opacity: 1, scale: 1, y: 0, duration: 0.75, ease: 'power3.out' }, 0.1)
+        .set(logoRef.current, { opacity: 0, scale: 0.94, y: 12 })
+        .to(logoRef.current, { opacity: 1, scale: 1, y: 0, duration: 0.65, ease: 'power3.out' }, 0.1)
         .to(
           state,
           {
@@ -326,15 +314,25 @@ function LoadingScreen({ onStartTransition, onComplete }) {
               render(state.progress)
             },
           },
-          0.2
+          0.15
         )
-        // Brief hold when fully assembled
-        .to({}, { duration: 0.15 })
+        // Brief hold when fully assembled so user sees the perfected space
+        .to({}, { duration: 0.18 })
     }
 
-    // In case image is already cached
+    const start = () => {
+      if (imgLoaded) return
+      imgLoaded = true
+      setupCanvas()
+      render(0)
+      startAnimation()
+    }
+
+    img.onload = start
+    img.src = '/hero/hero-bg.png'
+
     if (img.complete && img.naturalWidth) {
-      img.onload()
+      start()
     }
 
     const handleResize = () => {
