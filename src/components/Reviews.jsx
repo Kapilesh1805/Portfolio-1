@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback, useMemo } from 'react'
 import { ChevronLeft, ChevronRight, Star, CheckCircle2, Camera, X, Maximize2 } from 'lucide-react'
 import LogoLoop from './animations/LogoLoop'
+import FoldText from './animations/FoldText'
 
 // Real Google Reviews for Balaji Interior Decor with client photos
 const googleReviews = [
@@ -300,13 +301,60 @@ function Reviews() {
                 )}
               </div>
 
-              <h3 className="font-serif text-[clamp(1.4rem,2.4vw,2.1rem)] font-normal leading-snug !text-ivory mb-5">
-                &ldquo;{current.headline}&rdquo;
+              <h3 className="font-serif text-[clamp(1.4rem,2.4vw,2.1rem)] font-normal leading-snug !text-ivory mb-5 min-h-[3.6rem]">
+                <span className="text-accent/80 font-serif mr-1 select-none">&ldquo;</span>
+                <FoldText
+                  key={current.name + '-headline'}
+                  text={current.headline}
+                  foldStyle="paper"
+                  splitBy="word"
+                  hinge="top"
+                  trigger="mount"
+                  foldAngle={92}
+                  duration={0.65}
+                  stagger={0.035}
+                  staggerFrom="start"
+                  ease="power3.out"
+                  hoverRefold={true}
+                  refoldRadius={120}
+                  refoldAngle={35}
+                  perspective={700}
+                  creaseShading={0.45}
+                  fontSize="inherit"
+                  fontWeight="inherit"
+                  color="#FDF8F5"
+                  className="font-serif leading-snug"
+                />
+                <span className="text-accent/80 font-serif ml-1 select-none">&rdquo;</span>
               </h3>
 
-              <p className="text-[.95rem] md:text-[1.02rem] leading-[1.8] text-ivory/85 whitespace-pre-line max-w-2xl">
-                {current.content}
-              </p>
+              <div className="text-[.95rem] md:text-[1.02rem] leading-[1.8] text-ivory/85 max-w-2xl min-h-[5rem]">
+                <FoldText
+                  key={current.name + '-comment'}
+                  text={current.content}
+                  foldStyle="paper"
+                  splitBy="word"
+                  hinge="top"
+                  trigger="mount"
+                  foldAngle={90}
+                  duration={0.45}
+                  delay={0.15}
+                  stagger={0.012}
+                  staggerFrom="start"
+                  ease="power2.out"
+                  hoverRefold={true}
+                  refoldRadius={100}
+                  refoldAngle={30}
+                  perspective={700}
+                  creaseShading={0.35}
+                  fontSize="inherit"
+                  fontWeight="300"
+                  lineHeight="1.8"
+                  letterSpacing="normal"
+                  color="rgba(253, 248, 245, 0.85)"
+                  className="font-sans leading-[1.8] block"
+                />
+              </div>
 
               {/* Attached customer photos infinite loop - merges seamlessly into background */}
               {current.photos && current.photos.length > 0 && (

@@ -99,10 +99,10 @@ function About({ scrollTo }) {
             <span className="text-ivory/60">CHENNAI EST. 2014</span>
           </div>
 
-          {/* Unified Serif Font (Playfair Display) across both phrases */}
-          <h2 className="mt-2 text-2xl md:text-3xl lg:text-[2.6rem] font-serif font-normal tracking-tight text-ivory leading-[1.15]">
-            Craftsmanship without compromise.{' '}
-            <span className="font-serif italic text-bronze-light">Homes shaped for living.</span>
+          {/* Unified Italic Serif Font (Playfair Display Italic) across both phrases */}
+          <h2 className="mt-2 text-2xl md:text-3xl lg:text-[2.6rem] font-serif italic font-normal tracking-tight leading-[1.15]">
+            <span className="text-ivory">Craftsmanship without compromise.</span>{' '}
+            <span className="text-bronze-light">Homes shaped for living.</span>
           </h2>
         </div>
 
@@ -146,27 +146,24 @@ function About({ scrollTo }) {
                     aria-label={`Inspect ${spot.title}`}
                   >
                     <span
-                      className={`absolute -inset-3 rounded-full transition-all duration-500 ${
-                        isSelected
+                      className={`absolute -inset-3 rounded-full transition-all duration-500 ${isSelected
                           ? 'bg-bronze/35 animate-ping'
                           : 'bg-white/10 group-hover/pin:bg-bronze/25'
-                      }`}
+                        }`}
                     />
                     <span
-                      className={`relative flex h-8 w-8 items-center justify-center rounded-full font-mono text-[.72rem] font-bold shadow-xl transition-all duration-300 ${
-                        isSelected
+                      className={`relative flex h-8 w-8 items-center justify-center rounded-full font-mono text-[.72rem] font-bold shadow-xl transition-all duration-300 ${isSelected
                           ? 'bg-bronze text-[#1A110B] scale-125 ring-4 ring-bronze/30'
                           : 'bg-black/80 text-ivory border border-ivory/30 group-hover/pin:border-bronze group-hover/pin:text-bronze'
-                      }`}
+                        }`}
                     >
                       {spot.number}
                     </span>
 
                     {/* Floating Micro-badge for Pin */}
                     <span
-                      className={`pointer-events-none absolute left-1/2 -top-8 -translate-x-1/2 whitespace-nowrap rounded-md bg-black/85 px-2.5 py-1 font-mono text-[.6rem] uppercase tracking-wider text-ivory border border-ivory/15 shadow-md transition-opacity duration-300 ${
-                        isSelected ? 'opacity-100' : 'opacity-0 group-hover/pin:opacity-100'
-                      }`}
+                      className={`pointer-events-none absolute left-1/2 -top-8 -translate-x-1/2 whitespace-nowrap rounded-md bg-black/85 px-2.5 py-1 font-mono text-[.6rem] uppercase tracking-wider text-ivory border border-ivory/15 shadow-md transition-opacity duration-300 ${isSelected ? 'opacity-100' : 'opacity-0 group-hover/pin:opacity-100'
+                        }`}
                     >
                       {spot.category}
                     </span>
@@ -181,11 +178,10 @@ function About({ scrollTo }) {
                 <button
                   key={spot.id}
                   onClick={() => setActiveHotspot(spot)}
-                  className={`text-left rounded-lg p-2.5 transition-all duration-300 border cursor-pointer ${
-                    activeHotspot.id === spot.id
+                  className={`text-left rounded-lg p-2.5 transition-all duration-300 border cursor-pointer ${activeHotspot.id === spot.id
                       ? 'border-bronze bg-bronze/10 text-ivory shadow-sm'
                       : 'border-ivory/10 bg-black/20 text-ivory/60 hover:text-ivory hover:border-ivory/20'
-                  }`}
+                    }`}
                 >
                   <div className="font-mono text-[.6rem] text-bronze uppercase">
                     {spot.number} / {spot.category}
@@ -286,12 +282,6 @@ function About({ scrollTo }) {
             </div>
           ))}
         </div>
-      </div>
-
-      {/* Bottom Subtle Status Bar */}
-      <div className="relative z-10 pt-4 border-t border-ivory/10 flex flex-col sm:flex-row items-center justify-between text-[.72rem] font-mono uppercase tracking-widest text-ivory/50">
-        <span>Selected Section / 01 About Us</span>
-        <span>Velachery • OMR • Anna Nagar • ECR • Chennai</span>
       </div>
     </section>
   )

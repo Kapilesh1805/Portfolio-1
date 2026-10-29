@@ -76,16 +76,14 @@ function CubeTransitionStage({ transitionData, children, onComplete }) {
   const cubeCenter = `50% 50% -${halfWidth}px`
   const perspective = Math.max(1400, halfWidth * 2.4)
 
-  // LEFT_TO_RIGHT:
-  // - Parent cube rotates 0 -> +90deg (turns to the right)
-  // - Front Face (Outgoing): starts at 0deg, swings to right side (+90deg)
-  // - Left Face (Incoming): starts at -90deg (attached at left edge), swings into front view (0deg)
-  // RIGHT_TO_LEFT:
-  // - Parent cube rotates 0 -> -90deg (turns to the left)
-  // - Front Face (Outgoing): starts at 0deg, swings to left side (-90deg)
-  // - Right Face (Incoming): starts at +90deg (attached at right edge), swings into front view (0deg)
-  const targetCubeRotation = turnsLeftToRight ? 90 : -90
-  const incomingStartAngle = turnsLeftToRight ? -90 : 90
+  // LEFT_TO_RIGHT (Entering each service):
+  // - Parent cube rotates 0 -> -90deg
+  // - Incoming Face starts at +90deg (on the right) and swings into front view (0deg)
+  // RIGHT_TO_LEFT (Returning to All services):
+  // - Parent cube rotates 0 -> +90deg
+  // - Incoming Face starts at -90deg (on the left) and swings into front view (0deg)
+  const targetCubeRotation = turnsLeftToRight ? -90 : 90
+  const incomingStartAngle = turnsLeftToRight ? 90 : -90
 
   return (
     <div
