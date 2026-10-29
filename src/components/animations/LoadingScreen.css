@@ -5,64 +5,17 @@
   height: 100vh;
   z-index: 100;
   overflow: hidden;
-  background: #180E09;
+  background: #160D08;
 }
 
-.loading-panel {
-  position: absolute;
-  left: 0;
-  right: 0;
-  width: 100%;
-  height: 50%;
-  overflow: hidden;
-  background: #1E130D;
-}
-
-.loading-panel--top {
-  top: 0;
-}
-
-.loading-panel--bottom {
-  bottom: 0;
-}
-
-/* Background image filling 100vh inside each 50vh panel for seamless alignment */
-.loading-panel__bg {
-  position: absolute;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background-image: url('/loader-bg-arch.jpg');
-  background-size: cover;
-  background-position: center center;
-  background-repeat: no-repeat;
-  transform-origin: center center;
-  animation: loaderKenBurns 3.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
-}
-
-.loading-panel__bg--top {
-  top: 0;
-}
-
-.loading-panel__bg--bottom {
-  bottom: 0;
-}
-
-/* Atmospheric warm chocolate / espresso overlay to give contrast and luxury depth */
-.loading-panel__overlay {
+/* Canvas rendering the scattered pixel blocks assembling into /hero/hero-bg.png */
+.loading-canvas {
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, rgba(22, 13, 8, 0.42), rgba(22, 13, 8, 0.46));
-  pointer-events: none;
-}
-
-@keyframes loaderKenBurns {
-  0% {
-    transform: scale(1);
-  }
-  100% {
-    transform: scale(1.055);
-  }
+  width: 100%;
+  height: 100%;
+  display: block;
+  z-index: 1;
 }
 
 .loading-content {
@@ -77,7 +30,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 1.4rem;
+  gap: 1.25rem;
   padding: 0 6vw;
   text-align: center;
   pointer-events: none;
@@ -85,29 +38,54 @@
 
 .loading-mark {
   margin: 0;
-  width: min(360px, 80vw);
+  width: min(340px, 80vw);
   height: auto;
   object-fit: contain;
-  /* Ambient warm backlight glow */
+  /* Ambient warm backlight glow matching original Balaji logo aesthetics */
   filter: drop-shadow(0 0 35px rgba(255, 248, 240, 0.45))
           drop-shadow(0 12px 28px rgba(0, 0, 0, 0.65));
   will-change: transform, opacity;
 }
 
+.loading-status-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.loading-counter {
+  font-family: 'DM Mono', monospace;
+  font-size: clamp(1.35rem, 3.2vw, 1.75rem);
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  color: #FAF7F2;
+  text-shadow: 0 2px 14px rgba(0, 0, 0, 0.85);
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+}
+
+.loading-caption {
+  font-family: 'DM Mono', monospace;
+  font-size: clamp(0.62rem, 1.4vw, 0.72rem);
+  font-weight: 400;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: #C98E7A;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8);
+}
+
 .loading-line {
   width: min(180px, 45vw);
-  height: 2.5px;
+  height: 2px;
   background: linear-gradient(90deg, transparent, #C98E7A, transparent);
   border-radius: 9999px;
-  box-shadow: 0 0 16px rgba(201, 142, 122, 0.7);
+  box-shadow: 0 0 16px rgba(201, 142, 122, 0.75);
   transform-origin: center center;
   will-change: transform, opacity;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .loading-panel__bg {
-    animation: none;
-  }
   .loading-line {
     transition: none;
   }
