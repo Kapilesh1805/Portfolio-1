@@ -48,7 +48,7 @@ function Home() {
         scroll()
         try {
           sessionStorage.removeItem('returnTo')
-        } catch {}
+        } catch { }
       }, 2500)
       return () => {
         clearTimeout(t)
@@ -68,14 +68,13 @@ function Home() {
         items={menuItems}
         displaySocials={false}
         displayItemNumbering
-        logoUrl="/Logo.webp"
+        logoUrl="/loading_logo.webp"
         menuButtonColor="#FFFFFF"
         openMenuButtonColor="#C98E7A"
         changeMenuColorOnOpen
         colors={['#4A2E1F', '#C98E7A']}
         accentColor="#C98E7A"
       />
-
       <main>
         <div className="stack-hero-about">
           <Hero />
