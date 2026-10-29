@@ -10,15 +10,21 @@ if ('scrollRestoration' in history) history.scrollRestoration = 'manual'
 
 function App() {
   const [loading, setLoading] = useState(true)
+  const [heroEntrance, setHeroEntrance] = useState(false)
 
   return (
     <>
-      {loading && <LoadingScreen onComplete={() => setLoading(false)} />}
+      {loading && (
+        <LoadingScreen
+          onStartTransition={() => setHeroEntrance(true)}
+          onComplete={() => setLoading(false)}
+        />
+      )}
 
       <div className="overflow-x-clip">
         <PageTransition>
           <Routes>
-            <Route path="/" element={<Home />} />
+            <Route path="/" element={<Home heroEntrance={!loading || heroEntrance} />} />
             <Route path="/services/:slug" element={<ServicePage />} />
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>

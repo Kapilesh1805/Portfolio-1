@@ -25,7 +25,7 @@ const menuItems = [
  * Page structure:
  * Hero -> About Us -> Services (Projects) -> Why Us -> Estimate -> Customer Reviews (Testimonials) -> Contact -> Footer
  */
-function Home() {
+function Home({ heroEntrance = true }) {
   // Coming back from a service page: land on the section the visitor left from.
   // Must run BEFORE useBlurReveal so sections already passed are not re-blurred.
   useLayoutEffect(() => {
@@ -74,10 +74,11 @@ function Home() {
         changeMenuColorOnOpen
         colors={['#4A2E1F', '#C98E7A']}
         accentColor="#C98E7A"
+        heroEntrance={heroEntrance}
       />
       <main>
         <div className="stack-hero-about">
-          <Hero />
+          <Hero heroEntrance={heroEntrance} />
           <About scrollTo={scrollTo} />
         </div>
         <Services />

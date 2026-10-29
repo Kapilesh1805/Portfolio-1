@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion'
 import { ArrowDown, Sparkles, ArrowRight } from 'lucide-react'
 
-function Hero() {
+function Hero({ heroEntrance = true }) {
   return (
     <section
       className="relative min-h-screen px-[5vw] pt-28 md:pt-[clamp(7rem,11vw,9.5rem)] pb-10 flex flex-col justify-between max-md:px-[6vw] max-md:pt-24 max-md:pb-8 overflow-hidden text-ivory"
@@ -29,9 +29,9 @@ function Hero() {
 
       {/* 2. Top Header Metadata */}
       <motion.div
-        initial={{ opacity: 0, y: -12 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+        initial={{ opacity: 0, y: -16 }}
+        animate={heroEntrance ? { opacity: 1, y: 0 } : { opacity: 0, y: -16 }}
+        transition={{ duration: 0.8, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
         className="relative z-10 flex flex-wrap items-center justify-between gap-4"
       >
         <div className="flex items-center gap-2.5 font-mono text-[.7rem] md:text-[.74rem] tracking-[0.2em] uppercase text-bronze-light">
@@ -50,9 +50,13 @@ function Hero() {
       {/* 3. Central Hero Statement & Details */}
       <div className="relative z-10 my-auto py-8 md:py-12">
         <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.85, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
+          initial={{ opacity: 0, y: 36, filter: 'blur(10px)', scale: 0.96 }}
+          animate={
+            heroEntrance
+              ? { opacity: 1, y: 0, filter: 'blur(0px)', scale: 1 }
+              : { opacity: 0, y: 36, filter: 'blur(10px)', scale: 0.96 }
+          }
+          transition={{ duration: 0.95, delay: 0.22, ease: [0.16, 1, 0.3, 1] }}
           className="max-w-5xl"
         >
           <h1 className="font-serif text-[clamp(2.4rem,5.8vw,5.2rem)] font-light leading-[1.08] text-ivory tracking-[-0.025em] drop-shadow-[0_4px_24px_rgba(0,0,0,0.65)] text-balance">
@@ -62,9 +66,13 @@ function Hero() {
 
         {/* Lower Row: Supporting statement + Action CTAs aligned properly */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.85, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
+          initial={{ opacity: 0, y: 28, filter: 'blur(6px)' }}
+          animate={
+            heroEntrance
+              ? { opacity: 1, y: 0, filter: 'blur(0px)' }
+              : { opacity: 0, y: 28, filter: 'blur(6px)' }
+          }
+          transition={{ duration: 0.85, delay: 0.38, ease: [0.16, 1, 0.3, 1] }}
           className="mt-8 md:mt-12 grid grid-cols-1 lg:grid-cols-12 gap-6 items-end pt-6 md:pt-8 border-t border-ivory/20"
         >
           <div className="lg:col-span-7">
@@ -94,9 +102,9 @@ function Hero() {
 
       {/* 4. Bottom Footer Bar */}
       <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.7, delay: 0.45 }}
+        initial={{ opacity: 0, y: 16 }}
+        animate={heroEntrance ? { opacity: 1, y: 0 } : { opacity: 0, y: 16 }}
+        transition={{ duration: 0.75, delay: 0.55, ease: [0.16, 1, 0.3, 1] }}
         className="relative z-10 flex items-center justify-between font-mono text-[.68rem] md:text-[.72rem] tracking-widest uppercase text-ivory/70 border-t border-ivory/15 pt-4"
       >
         <div className="flex items-center gap-2">

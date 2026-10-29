@@ -6,18 +6,17 @@ import './LoadingScreen.css'
  * Full-screen preloader with orderly pixel scattering and reassembly:
  * - Uses the Hero living room background (/hero/hero-bg.png) as the base.
  * - Starts as an orderly deconstructed matrix of floating pixel tiles.
- * - During loading (0% -> 100%), tiles sweep diagonally across the space,
- *   aligning and locking into their exact coordinates with seamless precision.
- * - As the final pixels lock into place, the loader softly dissolves and
- *   seamlessly transitions into the Hero page, with zero visual jump.
+ * - As pixels arrange, the Balaji logo glows in the center.
+ * - Once fully arranged, the center logo smoothly transitions directly to its
+ *   destination in the top-left of the Hero page header.
+ * - Concurrently, onStartTransition notifies the Hero page to reveal its text,
+ *   achieving a seamless cinematic transition with zero visual jump.
  */
-function LoadingScreen({ onComplete }) {
+function LoadingScreen({ onStartTransition, onComplete }) {
   const rootRef = useRef(null)
   const canvasRef = useRef(null)
-  const contentRef = useRef(null)
+  const logoWrapRef = useRef(null)
   const logoRef = useRef(null)
-  const lineRef = useRef(null)
-  const [percent, setPercent] = useState(0)
   const [done, setDone] = useState(false)
 
   useEffect(() => {
@@ -32,9 +31,10 @@ function LoadingScreen({ onComplete }) {
     }
 
     if (reduce) {
+      onStartTransition?.()
       const t = setTimeout(() => {
-        gsap.to(rootRef.current, { opacity: 0, duration: 0.4, onComplete: finish })
-      }, 300)
+        gsap.to(rootRef.current, { opacity: 0, duration: 0.3, onComplete: finish })
+      }, 200)
       return () => clearTimeout(t)
     }
 
@@ -238,38 +238,98 @@ function LoadingScreen({ onComplete }) {
 
       animationTimeline = gsap.timeline({
         onComplete: () => {
-          gsap
-            .timeline({ onComplete: finish })
-            // 1. HUD content smoothly rises and fades
-            .to(contentRef.current, { opacity: 0, y: -20, duration: 0.45, ease: 'power2.in' }, 0)
-            // 2. Loading screen softly reveals the Hero page (which shares the identical background)
-            .to(rootRef.current, { opacity: 0, duration: 0.65, ease: 'power3.out' }, 0.15)
-            .to(rootRef.current, { pointerEvents: 'none' }, 0.15)
+          // 1. Trigger Hero texts & StaggeredMenu transition
+          onStartTransition?.()
+
+          // 2. Measure target header logo destination (.sm-logo-img or .sm-logo)
+          const targetEl = document.querySelector('.sm-logo-img') || document.querySelector('.sm-logo')
+          const currentEl = logoRef.current
+          const canvasEl = canvasRef.current
+          const rootEl = rootRef.current
+
+          let dx = 0
+          let dy = 0
+          let scale = 0.32
+
+          if (currentEl) {
+            const currentRect = currentEl.getBoundingClientRect()
+            if (targetEl) {
+              const targetRect = targetEl.getBoundingClientRect()
+              dx = targetRect.left - currentRect.left
+              dy = targetRect.top - currentRect.top
+              scale = targetRect.height / currentRect.height
+            } else {
+              const isMobile = window.innerWidth <= 640
+              const targetX = isMobile ? 16 : 24
+              const targetY = isMobile ? 14 : 20
+              const targetH = isMobile ? 38 : 90
+              dx = targetX - currentRect.left
+              dy = targetY - currentRect.top
+              scale = targetH / currentRect.height
+            }
+          }
+
+          const exitTl = gsap.timeline({
+            onComplete: finish,
+          })
+
+          // Fade out the canvas background (0.75s) - perfectly revealing the identical Hero background
+          exitTl.to(
+            canvasEl,
+            {
+              opacity: 0,
+              duration: 0.75,
+              ease: 'power2.inOut',
+            },
+            0
+          )
+
+          // Smoothly glide the logo to the exact top-left position (0.85s)
+          exitTl.to(
+            currentEl,
+            {
+              x: dx,
+              y: dy,
+              scale: scale,
+              transformOrigin: '0 0',
+              duration: 0.85,
+              ease: 'power3.inOut',
+              filter: 'drop-shadow(0 2px 10px rgba(0,0,0,0.45))',
+            },
+            0
+          )
+
+          // Softly fade the root container at the very end
+          exitTl.to(
+            rootEl,
+            {
+              opacity: 0,
+              duration: 0.15,
+              ease: 'power1.out',
+            },
+            0.78
+          )
         },
       })
 
-      // Logo entrance
+      // Logo entrance & pixel assembly
       animationTimeline
         .set(logoRef.current, { opacity: 0, scale: 0.92, y: 14 })
-        .set(lineRef.current, { scaleX: 0, opacity: 0 })
-        .to(logoRef.current, { opacity: 1, scale: 1, y: 0, duration: 0.85, ease: 'power3.out' }, 0.1)
-        .to(lineRef.current, { scaleX: 1, opacity: 1, duration: 0.8, ease: 'power2.inOut' }, '-=0.4')
-        // Progress animation: smoothly assembles pixels from 0 to 1
+        .to(logoRef.current, { opacity: 1, scale: 1, y: 0, duration: 0.75, ease: 'power3.out' }, 0.1)
         .to(
           state,
           {
             progress: 1,
-            duration: 2.3,
+            duration: 1.85,
             ease: 'power2.inOut',
             onUpdate: () => {
               render(state.progress)
-              setPercent(Math.round(state.progress * 100))
             },
           },
           0.2
         )
-        // Brief hold when fully assembled so user sees the perfected space
-        .to({}, { duration: 0.35 })
+        // Brief hold when fully assembled
+        .to({}, { duration: 0.15 })
     }
 
     // In case image is already cached
@@ -288,7 +348,7 @@ function LoadingScreen({ onComplete }) {
       window.removeEventListener('resize', handleResize)
       if (animationTimeline) animationTimeline.kill()
     }
-  }, [onComplete])
+  }, [onStartTransition, onComplete])
 
   if (done) return null
 
@@ -296,21 +356,13 @@ function LoadingScreen({ onComplete }) {
     <div ref={rootRef} className="loading-screen" aria-hidden="true">
       <canvas ref={canvasRef} className="loading-canvas" />
 
-      <div ref={contentRef} className="loading-content">
+      <div ref={logoWrapRef} className="loading-logo-wrap">
         <img
           ref={logoRef}
           className="loading-mark"
           src="/loading_logo.webp"
           alt="Balaji Interior Decor"
-          width="340"
         />
-
-        <div className="loading-status-wrap">
-          <div className="loading-counter">{percent}%</div>
-          <div className="loading-caption">Assembling Living Interior</div>
-        </div>
-
-        <div ref={lineRef} className="loading-line" />
       </div>
     </div>
   )
