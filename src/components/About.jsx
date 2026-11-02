@@ -59,9 +59,9 @@ const HOTSPOTS = [
     x: '78%',
     y: '65%',
     number: '04',
-    title: '35-Day Handover & 7-Year Warranty',
+    title: '30-Day Handover & 7-Year Warranty',
     category: 'Client Assurance',
-    specs: ['Fixed Line-Item Pricing', 'Strict 30–35 Day Turnaround', 'Daily WhatsApp Site Log', '7-Year Flat Structural Warranty'],
+    specs: ['Fixed Line-Item Pricing', 'Strict 30 Day Turnaround', 'Daily WhatsApp Site Log', '7-Year Flat Structural Warranty'],
     summary:
       'No subcontractor roulette. No surprise cost escalations halfway through your project. We commit to a calendar completion date and back every hinge, carcass, and laminate with a 7-year guarantee.',
     clientProof: '"Delivered 4 days ahead of schedule with spotless daily site cleanup." — Mouliswaran S.',
@@ -72,7 +72,7 @@ const HOTSPOTS = [
 const MILESTONES = [
   { value: '24+', label: 'Years of Craft', detail: 'Serving Chennai since 2000' },
   { value: '120+', label: 'Completed Homes', detail: 'Across Velachery, OMR, Anna Nagar & ECR' },
-  { value: '35', label: 'Days Handover', detail: 'Committed calendar turnaround' },
+  { value: '30', label: 'Days Handover', detail: 'Committed calendar turnaround' },
   { value: '7 Yrs', label: 'Flat Warranty', detail: 'Comprehensive structural peace of mind' },
 ]
 
@@ -144,14 +144,14 @@ function About({ scrollTo }) {
                   >
                     <span
                       className={`absolute -inset-3 rounded-full transition-all duration-500 ${isSelected
-                          ? 'bg-bronze/35 animate-ping'
-                          : 'bg-white/10 group-hover/pin:bg-bronze/25'
+                        ? 'bg-bronze/35 animate-ping'
+                        : 'bg-white/10 group-hover/pin:bg-bronze/25'
                         }`}
                     />
                     <span
                       className={`relative flex h-8 w-8 items-center justify-center rounded-full font-mono text-[.72rem] font-bold shadow-xl transition-all duration-300 ${isSelected
-                          ? 'bg-bronze text-[#1A110B] scale-125 ring-4 ring-bronze/30'
-                          : 'bg-black/80 text-ivory border border-ivory/30 group-hover/pin:border-bronze group-hover/pin:text-bronze'
+                        ? 'bg-bronze text-[#1A110B] scale-125 ring-4 ring-bronze/30'
+                        : 'bg-black/80 text-ivory border border-ivory/30 group-hover/pin:border-bronze group-hover/pin:text-bronze'
                         }`}
                     >
                       {spot.number}
@@ -176,8 +176,8 @@ function About({ scrollTo }) {
                   key={spot.id}
                   onClick={() => setActiveHotspot(spot)}
                   className={`text-left rounded-lg p-2.5 transition-all duration-300 border cursor-pointer ${activeHotspot.id === spot.id
-                      ? 'border-bronze bg-bronze/10 text-ivory shadow-sm'
-                      : 'border-ivory/10 bg-black/20 text-ivory/60 hover:text-ivory hover:border-ivory/20'
+                    ? 'border-bronze bg-bronze/10 text-ivory shadow-sm'
+                    : 'border-ivory/10 bg-black/20 text-ivory/60 hover:text-ivory hover:border-ivory/20'
                     }`}
                 >
                   <div className="font-mono text-[.6rem] text-bronze uppercase">

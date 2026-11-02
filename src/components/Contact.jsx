@@ -14,10 +14,10 @@ function Contact() {
       </div>
 
       <div className="mx-auto my-auto mb-12 mt-16 md:mt-28 flex w-full max-w-275 items-end justify-between max-md:block">
-        <h2 className="text-[clamp(3.5rem,8.5vw,9.5rem)] font-medium leading-[.96] tracking-[-.055em] text-heading">
-          Start a
+        <h2 className="text-[clamp(2.4rem,6.4vw,6.5rem)] font-medium leading-[1.02] tracking-[-.045em] text-heading">
+          Let&apos;s Build Your
           <br />
-          <em className="font-serif font-medium text-accent">conversation.</em>
+          <em className="font-serif font-medium text-accent">Dream Home.</em>
         </h2>
         <a
           className="flex items-center gap-4 border-b border-accent px-[.2rem] pb-3 font-mono text-[.8rem] text-accent transition-colors duration-[250ms] hover:border-heading hover:text-heading max-md:mt-10 max-md:w-max"
