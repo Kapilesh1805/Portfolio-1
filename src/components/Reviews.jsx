@@ -393,75 +393,75 @@ function Reviews() {
                 onTouchMove={(e) => e.stopPropagation()}
                 onTouchEnd={(e) => e.stopPropagation()}
               >
-                  <div className="flex flex-wrap items-center justify-between gap-2 mb-3">
-                    <p className="font-mono text-[.7rem] uppercase tracking-wider text-bronze-light flex items-center gap-2 mb-0">
-                      <Camera size={13} className="text-accent" />
-                      <span>Finished Project Photos by {current.name}</span>
-                      <span className="text-[.62rem] text-ivory/40 font-normal">({current.photos.length} photos)</span>
-                    </p>
-                    <span className="font-mono text-[.64rem] text-ivory/50 flex items-center gap-1.5">
-                      <span className="inline-block w-1.5 h-1.5 rounded-full bg-accent animate-pulse" />
-                      Tap photo to enlarge · Drag to scroll
-                    </span>
-                  </div>
-
-                  {/* Clean LogoLoop merging directly with the section background */}
-                  <div className="relative w-full overflow-hidden py-1">
-                    <LogoLoop
-                      key={current.name}
-                      logos={photoLogos}
-                      speed={36}
-                      logoHeight={115}
-                      gap={14}
-                      pauseOnHover={true}
-                      scaleOnHover={true}
-                      fadeOut={true}
-                      fadeOutWidth={0.08}
-                      intro={false}
-                      ariaLabel={`${current.name} project photos loop`}
-                      renderItem={(item, key) => (
-                        <div
-                          key={key}
-                          className="group/photo relative h-[115px] w-[170px] shrink-0 overflow-hidden rounded-xl border border-ivory/20 shadow-md transition-all duration-300 hover:border-accent hover:shadow-accent/25 cursor-pointer bg-dark/40"
-                          onPointerDown={(e) => {
-                            pointerStartPos.current = { x: e.clientX, y: e.clientY }
-                            dragDistanceRef.current = 0
-                          }}
-                          onPointerMove={(e) => {
-                            const dx = e.clientX - pointerStartPos.current.x
-                            const dy = e.clientY - pointerStartPos.current.y
-                            dragDistanceRef.current = Math.hypot(dx, dy)
-                          }}
-                          onClick={(e) => {
-                            if (dragDistanceRef.current > 8) {
-                              e.preventDefault()
-                              e.stopPropagation()
-                              return
-                            }
-                            item.onClick?.()
-                          }}
-                        >
-                          <img
-                            src={item.src}
-                            alt={item.alt || ''}
-                            className="logoloop__photo transition-transform duration-500 group-hover/photo:scale-108"
-                            draggable={false}
-                            loading="eager"
-                          />
-                          <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-transparent opacity-0 group-hover/photo:opacity-100 transition-opacity p-2 flex flex-col justify-between pointer-events-none">
-                            <span className="self-end rounded-full bg-black/70 p-1 text-ivory/90 backdrop-blur-sm shadow">
-                              <Maximize2 size={12} />
-                            </span>
-                            <span className="font-mono text-[.62rem] text-ivory line-clamp-1 leading-tight font-medium">
-                              {item.alt}
-                            </span>
-                          </div>
-                        </div>
-                      )}
-                    />
-                  </div>
+                <div className="flex flex-wrap items-center justify-between gap-2 mb-3">
+                  <p className="font-mono text-[.7rem] uppercase tracking-wider text-bronze-light flex items-center gap-2 mb-0">
+                    <Camera size={13} className="text-accent" />
+                    <span>Homes we Designed. Stories they Tell</span>
+                    <span className="text-[.62rem] text-ivory/40 font-normal">({current.photos.length} photos)</span>
+                  </p>
+                  <span className="font-mono text-[.64rem] text-ivory/50 flex items-center gap-1.5">
+                    <span className="inline-block w-1.5 h-1.5 rounded-full bg-accent animate-pulse" />
+                    Tap photo to enlarge · Drag to scroll
+                  </span>
                 </div>
-              )}
+
+                {/* Clean LogoLoop merging directly with the section background */}
+                <div className="relative w-full overflow-hidden py-1">
+                  <LogoLoop
+                    key={current.name}
+                    logos={photoLogos}
+                    speed={36}
+                    logoHeight={115}
+                    gap={14}
+                    pauseOnHover={true}
+                    scaleOnHover={true}
+                    fadeOut={true}
+                    fadeOutWidth={0.08}
+                    intro={false}
+                    ariaLabel={`${current.name} project photos loop`}
+                    renderItem={(item, key) => (
+                      <div
+                        key={key}
+                        className="group/photo relative h-[115px] w-[170px] shrink-0 overflow-hidden rounded-xl border border-ivory/20 shadow-md transition-all duration-300 hover:border-accent hover:shadow-accent/25 cursor-pointer bg-dark/40"
+                        onPointerDown={(e) => {
+                          pointerStartPos.current = { x: e.clientX, y: e.clientY }
+                          dragDistanceRef.current = 0
+                        }}
+                        onPointerMove={(e) => {
+                          const dx = e.clientX - pointerStartPos.current.x
+                          const dy = e.clientY - pointerStartPos.current.y
+                          dragDistanceRef.current = Math.hypot(dx, dy)
+                        }}
+                        onClick={(e) => {
+                          if (dragDistanceRef.current > 8) {
+                            e.preventDefault()
+                            e.stopPropagation()
+                            return
+                          }
+                          item.onClick?.()
+                        }}
+                      >
+                        <img
+                          src={item.src}
+                          alt={item.alt || ''}
+                          className="logoloop__photo transition-transform duration-500 group-hover/photo:scale-108"
+                          draggable={false}
+                          loading="eager"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-transparent opacity-0 group-hover/photo:opacity-100 transition-opacity p-2 flex flex-col justify-between pointer-events-none">
+                          <span className="self-end rounded-full bg-black/70 p-1 text-ivory/90 backdrop-blur-sm shadow">
+                            <Maximize2 size={12} />
+                          </span>
+                          <span className="font-mono text-[.62rem] text-ivory line-clamp-1 leading-tight font-medium">
+                            {item.alt}
+                          </span>
+                        </div>
+                      </div>
+                    )}
+                  />
+                </div>
+              </div>
+            )}
 
             <div className="mt-7 pt-5 border-t border-ivory/15 flex flex-wrap items-center justify-between gap-4">
               <div>
@@ -516,8 +516,8 @@ function Reviews() {
                       setActiveIndex(idx)
                     }}
                     className={`w-full text-left p-3.5 sm:p-4 rounded-xl transition-all cursor-pointer border ${isSelected
-                        ? 'bg-ivory/15 border-accent shadow-lg ring-1 ring-accent/40 border-l-4 border-l-accent'
-                        : 'bg-ivory/5 border-ivory/10 hover:border-ivory/30 hover:bg-ivory/10 text-ivory/75 hover:text-ivory'
+                      ? 'bg-ivory/15 border-accent shadow-lg ring-1 ring-accent/40 border-l-4 border-l-accent'
+                      : 'bg-ivory/5 border-ivory/10 hover:border-ivory/30 hover:bg-ivory/10 text-ivory/75 hover:text-ivory'
                       }`}
                   >
                     <div className="flex items-center justify-between mb-1">

@@ -71,7 +71,7 @@ const HOTSPOTS = [
 
 const MILESTONES = [
   { value: '24+', label: 'Years of Craft', detail: 'Serving Chennai since 2000' },
-  { value: '120+', label: 'Completed Homes', detail: 'Across Velachery, OMR, Anna Nagar & ECR' },
+  { value: '450+', label: 'Completed Homes', detail: 'Across Velachery, OMR, Anna Nagar & ECR' },
   { value: '30', label: 'Days Handover', detail: 'Committed calendar turnaround' },
   { value: '7 Yrs', label: 'Flat Warranty', detail: 'Comprehensive structural peace of mind' },
 ]
@@ -199,6 +199,7 @@ function About({ scrollTo }) {
                 initial={{ opacity: 0, x: 12 }}
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: -12 }}
+
                 transition={{ duration: 0.35 }}
                 className="rounded-2xl border border-ivory/15 bg-black/40 p-6 md:p-8 backdrop-blur-md shadow-xl"
               >

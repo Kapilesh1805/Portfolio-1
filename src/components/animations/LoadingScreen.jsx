@@ -280,18 +280,18 @@ function LoadingScreen({ onStartTransition, onComplete }) {
             },
           })
 
-          // Cross-fade the canvas immediately into the identical Hero background
+          // Cross-fade the canvas smoothly into the identical Hero background
           exitTl.to(
             canvasEl,
             {
               opacity: 0,
-              duration: isMobile ? 0.25 : 0.35,
+              duration: isMobile ? 0.35 : 0.5,
               ease: 'power2.out',
             },
             0
           )
 
-          // Smoothly glide the logo to the exact top-left position
+          // Smoothly glide the logo to the exact top-left position (Option 2: Luxury Cinematic)
           exitTl.to(
             currentEl,
             {
@@ -299,8 +299,8 @@ function LoadingScreen({ onStartTransition, onComplete }) {
               y: dy,
               scale: scale,
               transformOrigin: '0 0',
-              duration: isMobile ? 0.6 : 0.8,
-              ease: 'power3.inOut',
+              duration: isMobile ? 1.1 : 1.4,
+              ease: 'power2.inOut',
               filter: 'drop-shadow(0 2px 8px rgba(0,0,0,0.35))',
             },
             0
