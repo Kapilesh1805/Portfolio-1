@@ -34,11 +34,15 @@ function Hero({ heroEntrance = true }) {
         transition={{ duration: 0.65, delay: 0.08, ease: [0.16, 1, 0.3, 1] }}
         className="relative z-10 flex flex-wrap items-center justify-between gap-4"
       >
-        <div className="flex items-center gap-2.5 font-mono text-[.7rem] md:text-[.74rem] tracking-[0.2em] uppercase text-bronze-light">
-          <span className="inline-block w-2 h-2 rounded-full bg-accent animate-pulse" />
-          <span className="font-medium text-ivory">Balaji Interior Decor</span>
-          <span className="text-ivory/40">●</span>
-          <span>Est. 2014</span>
+        <div className="flex items-center gap-2 sm:gap-2.5 font-mono uppercase text-bronze-light">
+          <span className="inline-block w-2 h-2 md:w-2.5 md:h-2.5 rounded-full bg-accent animate-pulse shrink-0" />
+          <span className="font-semibold text-ivory text-[.88rem] sm:text-[.94rem] md:text-[1.05rem] tracking-[0.16em]">
+            Balaji Interior Decor
+          </span>
+          <span className="text-ivory/40 text-[.75rem] md:text-[.85rem]">●</span>
+          <span className="text-[.76rem] sm:text-[.82rem] md:text-[.88rem] tracking-[0.18em] font-medium text-bronze-light">
+            Est. 2000
+          </span>
         </div>
 
         <div className="hidden sm:flex items-center gap-2 rounded-full bg-ivory/10 px-3.5 py-1 backdrop-blur-md border border-ivory/15 font-mono text-[.68rem] tracking-wider text-ivory/85 uppercase">

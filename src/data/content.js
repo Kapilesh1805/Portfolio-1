@@ -71,7 +71,7 @@ export const business = {
 
 // "Why choose us" row. CONFIRM EVERY CLAIM WITH THE CLIENT before publishing.
 export const whyUs = {
-  title: 'Why Homeowners Love Working With Us',
+  title: 'Craftsmanship You Can Count On',
   items: [
     { icon: 'calendar', title: 'Delivery in 30 days' },
     { icon: 'rupee', title: 'No Hidden Costs' },

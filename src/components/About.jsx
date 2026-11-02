@@ -70,7 +70,7 @@ const HOTSPOTS = [
 ]
 
 const MILESTONES = [
-  { value: '10+', label: 'Years of Craft', detail: 'Serving Chennai since 2014' },
+  { value: '24+', label: 'Years of Craft', detail: 'Serving Chennai since 2000' },
   { value: '120+', label: 'Completed Homes', detail: 'Across Velachery, OMR, Anna Nagar & ECR' },
   { value: '35', label: 'Days Handover', detail: 'Committed calendar turnaround' },
   { value: '7 Yrs', label: 'Flat Warranty', detail: 'Comprehensive structural peace of mind' },
@@ -96,7 +96,7 @@ function About({ scrollTo }) {
             <span className="inline-block h-1.5 w-1.5 rounded-full bg-bronze animate-pulse" />
             <span>01 / ABOUT BALAJI INTERIOR DECOR</span>
             <span className="text-ivory/30">•</span>
-            <span className="text-ivory/60">CHENNAI EST. 2014</span>
+            <span className="text-ivory/60">CHENNAI EST. 2000</span>
           </div>
 
           {/* Unified Italic Serif Font (Playfair Display Italic) across both phrases */}

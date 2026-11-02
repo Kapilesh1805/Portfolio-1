@@ -145,14 +145,14 @@ function Estimate() {
       <div className="relative z-10 mx-auto mt-12 md:mt-24 grid w-full max-w-275 grid-cols-[1.2fr_.8fr] items-center gap-[5vw] max-lg:mt-10 max-lg:grid-cols-1">
         <div>
           <h2
-            className="text-[clamp(2.2rem,4.4vw,4.4rem)] font-semibold leading-[1.08] tracking-[-.04em] !text-white"
+            className="text-[clamp(2.1rem,4.2vw,4rem)] font-semibold leading-[1.15] tracking-[-.035em] !text-white text-balance"
             style={{ color: '#FFFFFF' }}
           >
-            Want Clarity on Your
+            Your Dream Home Budget?
             <br />
-            Interior Budget?
+            Let's figure it out, Together.
             <br />
-            Get a FREE Quote Now.
+            <span className="text-accent font-serif italic font-normal">Vision to value.</span>
           </h2>
         </div>
 
