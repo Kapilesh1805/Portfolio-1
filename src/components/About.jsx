@@ -101,8 +101,8 @@ function About({ scrollTo }) {
 
           {/* Unified Italic Serif Font (Playfair Display Italic) across both phrases */}
           <h2 className="mt-2 text-2xl md:text-3xl lg:text-[2.6rem] font-serif italic font-normal tracking-tight leading-[1.15]">
-            <span className="text-ivory">Craftsmanship without compromise.</span>{' '}
-            <span className="text-bronze-light">Homes shaped for living.</span>
+            <span className="text-ivory">Uncompromising craftsmanship.</span>{' '}
+            <span className="text-bronze-light">Homes shaped to Living.</span>
           </h2>
         </div>
 
