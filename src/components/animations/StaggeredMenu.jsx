@@ -43,6 +43,28 @@ export const StaggeredMenu = ({
   const busyRef = useRef(false);
   const itemEntranceTweenRef = useRef(null);
 
+  const [activeSection, setActiveSection] = useState('home');
+
+  React.useEffect(() => {
+    const sectionIds = ['home', 'about', 'services', 'why-us', 'estimate', 'reviews', 'contact'];
+    const handleScroll = () => {
+      const scrollPos = window.scrollY + 250;
+      for (let i = sectionIds.length - 1; i >= 0; i--) {
+        const el = document.getElementById(sectionIds[i]);
+        if (el) {
+          const top = el.offsetTop;
+          if (scrollPos >= top) {
+            setActiveSection(sectionIds[i]);
+            break;
+          }
+        }
+      }
+    };
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll();
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   useLayoutEffect(() => {
     const ctx = gsap.context(() => {
       const panel = panelRef.current;
@@ -465,51 +487,99 @@ export const StaggeredMenu = ({
         })()}
       </div>
       <header className="staggered-menu-header" aria-label="Main navigation header">
-        <a
-          href="#home"
-          className="sm-logo"
-          aria-label="Balaji Interior Decor Home"
-          onClick={handleLogoClick}
-        >
-          <img
-            src={logoUrl || '/Logo.webp'}
-            alt="Balaji Interior Decor Logo"
-            className="sm-logo-img"
-            draggable={false}
-            style={{
-              opacity: heroEntrance ? 1 : 0,
-              transition: 'opacity 0.25s ease',
-            }}
-          />
-        </a>
-        <button
-          ref={toggleBtnRef}
-          className="sm-toggle"
+        <div className="sm-logo-wrap">
+          <a
+            href="#home"
+            className="sm-logo"
+            aria-label="Balaji Interior Decor Home"
+            onClick={handleLogoClick}
+          >
+            <img
+              src={logoUrl || '/Logo.webp'}
+              alt="Balaji Interior Decor Logo"
+              className="sm-logo-img"
+              draggable={false}
+              style={{
+                opacity: heroEntrance ? 1 : 0,
+                transition: 'opacity 0.25s ease',
+              }}
+            />
+          </a>
+        </div>
+
+        {/* Desktop & Tablet Floating Horizontal Navigation (Option 1: Smoked Obsidian Frosted Glass) */}
+        <nav
+          className="sm-horizontal-nav"
           style={{
             opacity: heroEntrance ? 1 : 0,
-            transform: heroEntrance ? 'none' : 'translateX(28px)',
-            transition: 'opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.15s, transform 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.15s',
+            transform: heroEntrance ? 'translateY(0)' : 'translateY(-14px)',
+            transition: 'opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.12s, transform 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.12s',
           }}
-          aria-label={open ? 'Close menu' : 'Open menu'}
-          aria-expanded={open}
-          aria-controls="staggered-menu-panel"
-          onClick={toggleMenu}
-          type="button"
+          aria-label="Main horizontal navigation"
         >
-          <span ref={textWrapRef} className="sm-toggle-textWrap" aria-hidden="true">
-            <span ref={textInnerRef} className="sm-toggle-textInner">
-              {textLines.map((l, i) => (
-                <span className="sm-toggle-line" key={i}>
-                  {l}
-                </span>
-              ))}
+          {items && items.length > 0 && items.map((it) => {
+            const sectionId = it.link?.replace('#', '');
+            const isActive = activeSection === sectionId;
+            return (
+              <a
+                key={it.label}
+                href={it.link}
+                onClick={(e) => handleItemClick(e, it.link)}
+                className={`sm-nav-link ${isActive ? 'is-active' : ''}`}
+                aria-current={isActive ? 'true' : undefined}
+              >
+                {isActive && <span className="sm-nav-dot" aria-hidden="true" />}
+                <span>{it.label}</span>
+              </a>
+            );
+          })}
+        </nav>
+
+        <div className="sm-header-actions">
+          {/* Desktop Quick Action CTA */}
+          <a
+            href="#estimate"
+            onClick={(e) => handleItemClick(e, '#estimate')}
+            className="sm-cta-btn"
+            style={{
+              opacity: heroEntrance ? 1 : 0,
+              transform: heroEntrance ? 'translateY(0)' : 'translateY(-14px)',
+              transition: 'opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.18s, transform 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.18s',
+            }}
+          >
+            <span>Get Estimate</span>
+          </a>
+
+          {/* Mobile Menu Toggle Button */}
+          <button
+            ref={toggleBtnRef}
+            className="sm-toggle"
+            style={{
+              opacity: heroEntrance ? 1 : 0,
+              transform: heroEntrance ? 'none' : 'translateX(28px)',
+              transition: 'opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.15s, transform 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.15s',
+            }}
+            aria-label={open ? 'Close menu' : 'Open menu'}
+            aria-expanded={open}
+            aria-controls="staggered-menu-panel"
+            onClick={toggleMenu}
+            type="button"
+          >
+            <span ref={textWrapRef} className="sm-toggle-textWrap" aria-hidden="true">
+              <span ref={textInnerRef} className="sm-toggle-textInner">
+                {textLines.map((l, i) => (
+                  <span className="sm-toggle-line" key={i}>
+                    {l}
+                  </span>
+                ))}
+              </span>
             </span>
-          </span>
-          <span ref={iconRef} className="sm-icon" aria-hidden="true">
-            <span ref={plusHRef} className="sm-icon-line" />
-            <span ref={plusVRef} className="sm-icon-line sm-icon-line-v" />
-          </span>
-        </button>
+            <span ref={iconRef} className="sm-icon" aria-hidden="true">
+              <span ref={plusHRef} className="sm-icon-line" />
+              <span ref={plusVRef} className="sm-icon-line sm-icon-line-v" />
+            </span>
+          </button>
+        </div>
       </header>
 
       <aside id="staggered-menu-panel" ref={panelRef} className="staggered-menu-panel" aria-hidden={!open}>
