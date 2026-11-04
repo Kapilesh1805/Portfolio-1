@@ -5,6 +5,7 @@ import Services from '../components/Services'
 import WhyUs from '../components/WhyUs'
 import Reviews from '../components/Reviews'
 import Estimate from '../components/Estimate'
+import Location from '../components/Location'
 import Contact from '../components/Contact'
 import Footer from '../components/Footer'
 import StaggeredMenu from '../components/animations/StaggeredMenu'
@@ -18,12 +19,13 @@ const menuItems = [
   { label: 'Why Us', ariaLabel: 'Why choose Balaji Interior Decor', link: '#why-us' },
   { label: 'Estimate', ariaLabel: 'Calculate your interior estimate', link: '#estimate' },
   { label: 'Reviews', ariaLabel: 'Customer reviews and testimonials', link: '#reviews' },
+  { label: 'Visit Us', ariaLabel: 'Visit our Selaiyur Tambaram studio', link: '#location' },
   { label: 'Contact', ariaLabel: 'Get in touch with us', link: '#contact' },
 ]
 
 /**
  * Page structure:
- * Hero -> About Us -> Services (Projects) -> Why Us -> Estimate -> Customer Reviews (Testimonials) -> Contact -> Footer
+ * Hero -> About Us -> Services (Projects) -> Why Us -> Estimate -> Customer Reviews (Testimonials) -> Location (Experience Studio) -> Contact -> Footer
  */
 function Home({ heroEntrance = true }) {
   // Coming back from a service page: land on the section the visitor left from.
@@ -102,6 +104,7 @@ function Home({ heroEntrance = true }) {
         <WhyUs />
         <Estimate />
         <Reviews />
+        <Location />
         <Contact />
       </main>
       <Footer />

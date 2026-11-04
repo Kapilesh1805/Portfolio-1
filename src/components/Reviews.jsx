@@ -16,27 +16,27 @@ const googleReviews = [
       'Balaji Interior Decor was a great choice for our villa. They did a wonderful job with the design and color choices, especially the TV unit and partition wall, which are eye-catching. The woodworks used high-quality materials. The designer was cooperative, fabulous, and maintained professionalism throughout the project. He remains responsive and ready for any touch-up work.',
     photos: [
       {
-        src: '/reviews/faritha/villa-tv-unit-shelving.jpg',
+        src: '/reviews/faritha/villa-tv-unit-shelving.webp',
         caption: 'Custom Villa TV Entertainment Unit with Ambient Backlighting & Display Niches',
       },
       {
-        src: '/reviews/faritha/villa-dining-living-partition.jpg',
+        src: '/reviews/faritha/villa-dining-living-partition.webp',
         caption: 'Open-Concept Dining & Living Villa Interior with Bar Partition Unit',
       },
       {
-        src: '/reviews/faritha/contemporary-kitchen-chimney.jpg',
+        src: '/reviews/faritha/contemporary-kitchen-chimney.webp',
         caption: 'Contemporary Modular Kitchen with Fluted Glass Cabinets & Stainless Chimney',
       },
       {
-        src: '/reviews/faritha/bedroom-wardrobe-doorway-lofts.jpg',
+        src: '/reviews/faritha/bedroom-wardrobe-doorway-lofts.webp',
         caption: 'Full-Wall Bedroom Wardrobe with Integrated Dressing Mirror & Overhead Lofts',
       },
       {
-        src: '/reviews/faritha/modular-wardrobe-open-lofts.jpg',
+        src: '/reviews/faritha/modular-wardrobe-open-lofts.webp',
         caption: 'Custom Walk-Through Modular Wardrobe with Accent Wallpaper & Top Lofts',
       },
       {
-        src: '/reviews/faritha/bedroom-wardrobe-wallpaper.jpg',
+        src: '/reviews/faritha/bedroom-wardrobe-wallpaper.webp',
         caption: 'Minimalist Dual-Tone Wardrobe Layout with Textured Botanical Accent Wall',
       },
     ],
@@ -52,23 +52,23 @@ const googleReviews = [
       "The quality of Mr. Balaji's work is outstanding; he paid great attention to details and ensured that everything was perfectly aligned and done. All the interior works with cabinets look so beautiful, that it transformed my home with an aesthetic look. He also helped me choose materials that fit my budget while still achieving a high-end look.\n\nFrom our initial consultation, Mr. Balaji was very attentive and genuinely interested in bringing my vision to life, providing insightful suggestions that enhanced my original ideas. The team completed the project ahead of schedule and maintained a clean environment throughout the installation process. I highly recommend Mr. Balaji and team for high quality wood-works.",
     photos: [
       {
-        src: '/reviews/vatsala/display-showcase-fluted-wood.jpg',
+        src: '/reviews/vatsala/display-showcase-fluted-wood.webp',
         caption: 'Illuminated Curio Showcase with Warm Backlighting & Fluted Wood Accents',
       },
       {
-        src: '/reviews/vatsala/crockery-pantry-cabinet.jpg',
+        src: '/reviews/vatsala/crockery-pantry-cabinet.webp',
         caption: 'Crockery Unit & Dining Pantry with Vertical Fluted Wood & Marble Splash',
       },
       {
-        src: '/reviews/vatsala/pooja-mandir-bells-jali.png',
+        src: '/reviews/vatsala/pooja-mandir-bells-jali.webp',
         caption: 'Custom Pooja Mandir with Intricate CNC Jali & Traditional Brass Bells Motif',
       },
       {
-        src: '/reviews/vatsala/modular-kitchen-chimney.jpg',
+        src: '/reviews/vatsala/modular-kitchen-chimney.webp',
         caption: 'L-Shaped Modular Kitchen with High-Gloss Acrylic Cabinets & Chimney',
       },
       {
-        src: '/reviews/vatsala/glossy-kitchen-drawers.png',
+        src: '/reviews/vatsala/glossy-kitchen-drawers.webp',
         caption: 'Sleek Base Cabinets with Louvre Ventilation & Soft-Close Tandem Drawers',
       },
     ],
@@ -88,23 +88,23 @@ const googleReviews = [
         caption: 'Full-Height Master Bedroom Wardrobe & Top Lofts',
       },
       {
-        src: '/reviews/mouliswaran/wardrobe-loft-1.png',
+        src: '/reviews/mouliswaran/wardrobe-loft-1.webp',
         caption: 'Black & White Textured Wardrobe with Full-Length Dressing Mirror',
       },
       {
-        src: '/reviews/mouliswaran/wardrobe-loft-2.png',
+        src: '/reviews/mouliswaran/wardrobe-loft-2.webp',
         caption: 'Corner Wardrobe Architecture with Geometric Dual-Tone Panels',
       },
       {
-        src: '/reviews/mouliswaran/bedroom-interior-3.png',
+        src: '/reviews/mouliswaran/bedroom-interior-3.webp',
         caption: 'Bedroom Wall Storage & Finished Ceiling Detailing',
       },
       {
-        src: '/reviews/mouliswaran/modular-kitchen-4.png',
+        src: '/reviews/mouliswaran/modular-kitchen-4.webp',
         caption: 'Complete Modular Kitchen Layout with Upper & Lower Units',
       },
       {
-        src: '/reviews/mouliswaran/kitchen-cabinets-5.png',
+        src: '/reviews/mouliswaran/kitchen-cabinets-5.webp',
         caption: 'Customized Under-Counter Storage & Modular Hardware',
       },
     ],
@@ -120,15 +120,15 @@ const googleReviews = [
       'Balaji interiors works so much innovative, creativity and good finishing. Especially they satisfy customers dream and finished work on stipulated time. Price was much reasonable compared to other interior decors. All works and owner are pleasing. Enclosed photos of their works for perusal.\n\nThank you sir.',
     photos: [
       {
-        src: '/reviews/balaji-ai/full-wall-wardrobe-dresser.png',
+        src: '/reviews/balaji-ai/full-wall-wardrobe-dresser.webp',
         caption: 'Full-Wall 6-Door Wardrobe with Overhead Lofts & Integrated Dressing Mirror with Drawers',
       },
       {
-        src: '/reviews/balaji-ai/grand-pooja-mandir-crockery.png',
+        src: '/reviews/balaji-ai/grand-pooja-mandir-crockery.webp',
         caption: 'Grand Living Room Wall Unit with Custom CNC Jali Pooja Mandir & Glass Crockery Cabinets',
       },
       {
-        src: '/reviews/balaji-ai/calacatta-marble-tv-console.png',
+        src: '/reviews/balaji-ai/calacatta-marble-tv-console.webp',
         caption: 'Calacatta Marble Feature Wall Panel with Gold Metallic Inlays & Floating Black Marble Console',
       },
     ],
@@ -144,19 +144,19 @@ const googleReviews = [
       'I approached the work for TV Unit and false ceiling, I fully satisfied with the work. I was so happy to give the review for this work. I recommend to my friends also. Thank you to Balaji Interior Decor.',
     photos: [
       {
-        src: '/reviews/arul/tv-unit-ambient-backlight.jpg',
+        src: '/reviews/arul/tv-unit-ambient-backlight.webp',
         caption: 'Living Room TV Unit with Warm Ambient Backlighting & Floating White Console',
       },
       {
-        src: '/reviews/arul/tv-wall-fluted-marble-panel.jpg',
+        src: '/reviews/arul/tv-wall-fluted-marble-panel.webp',
         caption: 'TV Feature Wall with Warm Teak Laminate, Fluted Wood & Marble Detailing',
       },
       {
-        src: '/reviews/arul/false-ceiling-blue-cove-full.png',
+        src: '/reviews/arul/false-ceiling-blue-cove-full.webp',
         caption: 'Dual Fan False Ceiling with Ambient Blue Cove Neon Glow & Peripheral Warm Troughs',
       },
       {
-        src: '/reviews/arul/designer-false-ceiling-lighting.png',
+        src: '/reviews/arul/designer-false-ceiling-lighting.webp',
         caption: 'Designer Geometric False Ceiling with Recessed Warm Spotlights',
       },
     ],
@@ -172,27 +172,27 @@ const googleReviews = [
       'We know Balaji Interior for 15 years and the quality of their work is always amazing. Always friendly with high quality materials they used to build the products they provided on time. He has the fantastic team and they work very hard to achieve the quality product. Many thanks to Balaji Sir and I strongly recommend him for any such type of interior works.',
     photos: [
       {
-        src: '/reviews/subramanian/foyer-radha-krishna-swing.jpg',
+        src: '/reviews/subramanian/foyer-radha-krishna-swing.webp',
         caption: 'Custom Foyer Wall Feature with Radha Krishna Swing Art & Warm Spotlight Paneling',
       },
       {
-        src: '/reviews/subramanian/bedroom-wardrobe-dresser.jpg',
+        src: '/reviews/subramanian/bedroom-wardrobe-dresser.webp',
         caption: 'Horizontal Zebra-Grain Master Wardrobe with Integrated Full-Length Dresser & Ceiling Lofts',
       },
       {
-        src: '/reviews/subramanian/washbasin-vanity-moroccan.jpg',
+        src: '/reviews/subramanian/washbasin-vanity-moroccan.webp',
         caption: 'Washbasin Vanity Unit with Earth-Tone Marble Laminate & Moroccan Tile Backsplash',
       },
       {
-        src: '/reviews/subramanian/dual-tone-wardrobe-lofts.jpg',
+        src: '/reviews/subramanian/dual-tone-wardrobe-lofts.webp',
         caption: 'Textured Dual-Tone Bedroom Wardrobes with Deep Wood Overhead Lofts',
       },
       {
-        src: '/reviews/subramanian/continuous-overhead-lofts.jpg',
+        src: '/reviews/subramanian/continuous-overhead-lofts.webp',
         caption: 'Continuous Wrap-Around Deep Cherry Wood Ceiling Storage Units',
       },
       {
-        src: '/reviews/subramanian/gloss-marble-wardrobe.jpg',
+        src: '/reviews/subramanian/gloss-marble-wardrobe.webp',
         caption: '3-Door High-Gloss Marble Textured Wardrobe with Chrome Handles',
       },
     ],

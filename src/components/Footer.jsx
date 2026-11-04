@@ -10,11 +10,25 @@ function Footer() {
         for spaces &amp; stories.
       </p>
       <div className="flex gap-[1.2rem] max-md:flex-col max-md:gap-[.7rem]">
+        <a
+          className="font-mono text-[.67rem] uppercase text-surface transition-colors hover:text-accent"
+          href="#location"
+        >
+          Visit Us
+        </a>
+        <a
+          className="font-mono text-[.67rem] uppercase text-surface transition-colors hover:text-accent"
+          href="https://wa.me/919500005400"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          WhatsApp
+        </a>
         <a className="font-mono text-[.67rem] uppercase text-surface transition-colors hover:text-accent" href="mailto:hello@atelier.studio">
           Email
         </a>
-        <a className="font-mono text-[.67rem] uppercase text-surface transition-colors hover:text-accent" href="tel:9841183855">
-          Contact
+        <a className="font-mono text-[.67rem] uppercase text-surface transition-colors hover:text-accent" href="tel:+919500005400">
+          Phone
         </a>
         <a
           className="font-mono text-[.67rem] uppercase text-surface transition-colors hover:text-accent"

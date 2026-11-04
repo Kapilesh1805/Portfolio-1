@@ -65,7 +65,8 @@ export const serviceAreas = [
 // ---------------------------------------------------------------------------
 export const business = {
   name: 'Balaji Interior Decor',
-  whatsapp: '',
+  whatsapp: '919500005400',
+  phone: '+91 9500005400',
   email: 'hello@atelier.studio',
 }
 

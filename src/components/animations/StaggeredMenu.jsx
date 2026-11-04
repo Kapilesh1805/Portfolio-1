@@ -46,7 +46,7 @@ export const StaggeredMenu = ({
   const [activeSection, setActiveSection] = useState('home');
 
   React.useEffect(() => {
-    const sectionIds = ['home', 'about', 'services', 'why-us', 'estimate', 'reviews', 'contact'];
+    const sectionIds = ['home', 'about', 'services', 'why-us', 'estimate', 'reviews', 'location', 'contact'];
     const handleScroll = () => {
       const scrollPos = window.scrollY + 250;
       for (let i = sectionIds.length - 1; i >= 0; i--) {
