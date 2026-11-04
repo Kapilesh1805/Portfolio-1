@@ -79,11 +79,48 @@ export default function Location() {
         </div>
       </div>
 
-      {/* Main Grid: Details on Left, Interactive Map on Right */}
+      {/* Main Grid: On mobile, Map is on top (order-1), Details on bottom (order-2); on desktop side-by-side */}
       <div className="relative z-10 my-auto py-8 md:py-12">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-stretch">
-          {/* Left Column: Address Card & Direction Actions */}
-          <div className="lg:col-span-5 flex flex-col justify-between space-y-6">
+          
+          {/* Map Column: order-1 on mobile (top), lg:order-2 on desktop (right) */}
+          <div className="order-1 lg:order-2 lg:col-span-7 flex flex-col">
+            <div className="relative w-full h-full min-h-[360px] md:min-h-[500px] overflow-hidden rounded-2xl border border-ivory/15 bg-black/70 shadow-2xl group">
+              {/* Google Maps Interactive Iframe with official Balaji Interior Decor pin */}
+              <iframe
+                title="Balaji Interior Decor Google Maps Location"
+                src={GMAPS_EMBED_URL}
+                className="w-full h-full min-h-[360px] md:min-h-[500px] border-0"
+                style={{ filter: 'contrast(1.05) brightness(0.92)' }}
+                allowFullScreen=""
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+              />
+
+              {/* Top-Right Clean Button: Open Full Map (no overlapping pin badge) */}
+              <div className="pointer-events-none absolute top-4 right-4 z-20">
+                <a
+                  href={GMAPS_VIEW_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="pointer-events-auto flex items-center gap-1.5 rounded-full bg-black/90 hover:bg-black px-4 py-2 border border-ivory/25 hover:border-bronze font-mono text-[.68rem] uppercase tracking-wider text-bronze hover:text-ivory transition-all shadow-xl cursor-pointer"
+                >
+                  <span>Open Full Map</span>
+                  <ExternalLink size={12} />
+                </a>
+              </div>
+
+              {/* Bottom Address Reminder */}
+              <div className="pointer-events-none absolute bottom-4 left-4 right-4 flex items-center justify-between z-20">
+                <div className="rounded-lg bg-black/90 px-3.5 py-1.5 border border-ivory/15 backdrop-blur-md text-[.7rem] text-ivory/80 font-mono">
+                  📍 No 24, Agaram Main Road, Selaiyur, Tambaram - 600073
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Details Column: order-2 on mobile (bottom), lg:order-1 on desktop (left) */}
+          <div className="order-2 lg:order-1 lg:col-span-5 flex flex-col justify-between space-y-6">
             {/* Primary Address Card */}
             <div className="rounded-2xl border border-ivory/15 bg-black/40 p-6 md:p-8 backdrop-blur-md shadow-xl flex flex-col justify-between h-full">
               <div>
@@ -178,67 +215,6 @@ export default function Location() {
             </div>
           </div>
 
-          {/* Right Column: Google Maps Interactive Window with Pin Marker */}
-          <div className="lg:col-span-7 flex flex-col">
-            <div className="relative w-full h-full min-h-[440px] md:min-h-[520px] overflow-hidden rounded-2xl border border-ivory/15 bg-black/70 shadow-2xl group">
-              {/* Google Maps Interactive Iframe */}
-              <iframe
-                title="Balaji Interior Decor Google Maps Location"
-                src={GMAPS_EMBED_URL}
-                className="w-full h-full min-h-[440px] md:min-h-[520px] border-0"
-                style={{ filter: 'contrast(1.05) brightness(0.92)' }}
-                allowFullScreen=""
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-              />
-
-              {/* Floating Map Header Overlay with Studio Pin info */}
-              <div className="pointer-events-none absolute top-4 left-4 right-4 flex items-center justify-between gap-2 z-20">
-                <div className="flex items-center gap-2.5 rounded-full bg-black/90 px-4 py-2 border border-bronze/40 backdrop-blur-md shadow-xl pointer-events-auto">
-                  <div className="relative flex h-2.5 w-2.5 items-center justify-center">
-                    <span className="absolute h-full w-full rounded-full bg-red-500 animate-ping" />
-                    <span className="h-2 w-2 rounded-full bg-red-500" />
-                  </div>
-                  <span className="font-mono text-[.7rem] uppercase tracking-wider text-ivory font-semibold">
-                    Balaji Interior Decor Pin
-                  </span>
-                </div>
-
-                {/* Direct Google Maps link button on the map */}
-                <a
-                  href={GMAPS_VIEW_URL}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="pointer-events-auto flex items-center gap-1.5 rounded-full bg-black/90 hover:bg-black px-4 py-2 border border-ivory/25 hover:border-bronze font-mono text-[.68rem] uppercase tracking-wider text-bronze hover:text-ivory transition-all shadow-xl cursor-pointer"
-                >
-                  <span>Open Full Map</span>
-                  <ExternalLink size={12} />
-                </a>
-              </div>
-
-              {/* Center Map Pinpoint Beacon to visually mark the exact studio on the map */}
-              <div className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-10 flex flex-col items-center">
-                <div className="relative flex items-center justify-center">
-                  <span className="absolute h-14 w-14 rounded-full bg-red-500/25 animate-ping" />
-                  <span className="absolute h-8 w-8 rounded-full bg-red-500/40" />
-                  <div className="relative z-10 flex h-9 w-9 items-center justify-center rounded-full bg-red-600 text-white shadow-2xl ring-2 ring-white">
-                    <MapPin size={20} className="fill-white text-red-600" />
-                  </div>
-                </div>
-                <div className="mt-2 rounded-lg bg-black/95 px-3 py-1 font-mono text-[.68rem] font-bold text-ivory shadow-2xl border border-bronze/40 flex items-center gap-1.5 backdrop-blur-md whitespace-nowrap">
-                  <span className="h-1.5 w-1.5 rounded-full bg-[#25D366]" />
-                  <span>Balaji Interior Decor (No. 24)</span>
-                </div>
-              </div>
-
-              {/* Bottom Subtle Overlay Reminder */}
-              <div className="pointer-events-none absolute bottom-4 left-4 right-4 flex items-center justify-between z-20">
-                <div className="rounded-lg bg-black/90 px-3.5 py-1.5 border border-ivory/15 backdrop-blur-md text-[.7rem] text-ivory/80 font-mono">
-                  📍 No 24, Agaram Main Road, Selaiyur, Tambaram - 600073
-                </div>
-              </div>
-            </div>
-          </div>
         </div>
       </div>
     </section>
