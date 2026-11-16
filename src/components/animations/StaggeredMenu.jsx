@@ -46,7 +46,7 @@ export const StaggeredMenu = ({
   const [activeSection, setActiveSection] = useState('home');
 
   React.useEffect(() => {
-    const sectionIds = ['home', 'about', 'services', 'why-us', 'estimate', 'reviews', 'location', 'contact'];
+    const sectionIds = ['home', 'about', 'services', 'why-us', 'reviews', 'location', 'contact'];
     const handleScroll = () => {
       const scrollPos = window.scrollY + 250;
       for (let i = sectionIds.length - 1; i >= 0; i--) {
@@ -537,18 +537,6 @@ export const StaggeredMenu = ({
 
         <div className="sm-header-actions">
           {/* Desktop Quick Action CTA */}
-          <a
-            href="#estimate"
-            onClick={(e) => handleItemClick(e, '#estimate')}
-            className="sm-cta-btn"
-            style={{
-              opacity: heroEntrance ? 1 : 0,
-              transform: heroEntrance ? 'translateY(0)' : 'translateY(-14px)',
-              transition: 'opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.18s, transform 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.18s',
-            }}
-          >
-            <span>Get Estimate</span>
-          </a>
 
           {/* Mobile Menu Toggle Button */}
           <button

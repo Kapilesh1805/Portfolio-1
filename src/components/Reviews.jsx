@@ -282,23 +282,23 @@ function Reviews() {
 
   return (
     <section
-      className="min-h-screen bg-espresso text-ivory px-[5vw] py-20 md:py-28 flex flex-col justify-between max-md:px-[6vw]"
+      className="min-h-screen bg-section text-body px-[5vw] py-20 md:py-28 flex flex-col justify-between max-md:px-[6vw]"
       id="reviews"
       data-scroll-section
     >
       {/* Header bar */}
       <div className="flex flex-wrap items-center justify-between gap-4">
         <div className="flex items-center gap-[1.8rem] font-mono text-[.67rem] tracking-widest uppercase">
-          <span className="text-ivory">05</span>
-          <span className="text-bronze-light">Google Reviews</span>
+          <span className="text-heading font-semibold">04</span>
+          <span className="text-accent font-medium">Google Reviews</span>
         </div>
-        <div className="flex items-center gap-2.5 rounded-full bg-ivory/10 px-4 py-1.5 backdrop-blur-sm border border-ivory/15">
-          <div className="flex text-amber-400" aria-label="5 out of 5 stars">
+        <div className="flex items-center gap-2.5 rounded-full bg-white px-4 py-1.5 border border-surface/50 shadow-sm">
+          <div className="flex text-amber-500" aria-label="5 out of 5 stars">
             {[...Array(5)].map((_, i) => (
               <Star key={i} size={14} fill="currentColor" stroke="none" />
             ))}
           </div>
-          <span className="font-mono text-[.72rem] tracking-wider text-ivory uppercase font-medium">
+          <span className="font-mono text-[.72rem] tracking-wider text-heading uppercase font-semibold">
             4.8 / 5 on Google Reviews
           </span>
         </div>
@@ -316,20 +316,20 @@ function Reviews() {
               className="touch-pan-y"
             >
               <div className="mb-3 flex flex-wrap items-center gap-3">
-                <span className="rounded bg-accent/25 px-2.5 py-1 font-mono text-[.68rem] uppercase tracking-wider text-bronze-light font-medium">
+                <span className="rounded bg-accent/15 px-2.5 py-1 font-mono text-[.68rem] uppercase tracking-wider text-accent font-semibold">
                   {current.tag}
                 </span>
-                <span className="flex items-center gap-1 font-mono text-[.68rem] text-ivory/60">
-                  <CheckCircle2 size={13} className="text-green-400" /> Verified Google Review
+                <span className="flex items-center gap-1 font-mono text-[.68rem] text-body/75">
+                  <CheckCircle2 size={13} className="text-[#20bd5a]" /> Verified Google Review
                 </span>
                 {current.photos && current.photos.length > 0 && (
-                  <span className="flex items-center gap-1 font-mono text-[.68rem] text-accent/90 bg-accent/15 px-2 py-0.5 rounded">
+                  <span className="flex items-center gap-1 font-mono text-[.68rem] text-accent font-medium bg-accent/10 px-2 py-0.5 rounded border border-accent/20">
                     <Camera size={12} /> {current.photos.length} Project Photos
                   </span>
                 )}
               </div>
 
-              <h3 className="font-serif text-[clamp(1.4rem,2.4vw,2.1rem)] font-normal leading-snug !text-ivory mb-5 min-h-[3.6rem]">
+              <h3 className="font-serif text-[clamp(1.4rem,2.4vw,2.1rem)] font-normal leading-snug !text-heading mb-5 min-h-[3.6rem]">
                 <span className="text-accent/80 font-serif mr-1 select-none">&ldquo;</span>
                 <FoldText
                   key={current.name + '-headline'}
@@ -347,16 +347,16 @@ function Reviews() {
                   refoldRadius={120}
                   refoldAngle={35}
                   perspective={700}
-                  creaseShading={0.45}
+                  creaseShading={0.3}
                   fontSize="inherit"
                   fontWeight="inherit"
-                  color="#FDF8F5"
+                  color="#4A2E1F"
                   className="font-serif leading-snug"
                 />
                 <span className="text-accent/80 font-serif ml-1 select-none">&rdquo;</span>
               </h3>
 
-              <div className="text-[.95rem] md:text-[1.02rem] leading-[1.8] text-ivory/85 max-w-2xl min-h-[5rem]">
+              <div className="text-[.95rem] md:text-[1.02rem] leading-[1.8] text-body/90 max-w-2xl min-h-[5rem]">
                 <FoldText
                   key={current.name + '-comment'}
                   text={current.content}
@@ -374,12 +374,12 @@ function Reviews() {
                   refoldRadius={100}
                   refoldAngle={30}
                   perspective={700}
-                  creaseShading={0.35}
+                  creaseShading={0.25}
                   fontSize="inherit"
                   fontWeight="300"
                   lineHeight="1.8"
                   letterSpacing="normal"
-                  color="rgba(253, 248, 245, 0.85)"
+                  color="#4A2E1F"
                   className="font-sans leading-[1.8] block"
                 />
               </div>
@@ -388,18 +388,18 @@ function Reviews() {
             {/* Attached customer photos infinite loop - isolated from review swipe */}
             {current.photos && current.photos.length > 0 && (
               <div
-                className="mt-7 pt-5 border-t border-ivory/15"
+                className="mt-7 pt-5 border-t border-surface/40"
                 onTouchStart={(e) => e.stopPropagation()}
                 onTouchMove={(e) => e.stopPropagation()}
                 onTouchEnd={(e) => e.stopPropagation()}
               >
                 <div className="flex flex-wrap items-center justify-between gap-2 mb-3">
-                  <p className="font-mono text-[.7rem] uppercase tracking-wider text-bronze-light flex items-center gap-2 mb-0">
+                  <p className="font-mono text-[.7rem] uppercase tracking-wider text-heading flex items-center gap-2 mb-0 font-medium">
                     <Camera size={13} className="text-accent" />
                     <span>Homes we Designed. Stories they Tell</span>
-                    <span className="text-[.62rem] text-ivory/40 font-normal">({current.photos.length} photos)</span>
+                    <span className="text-[.62rem] text-body/60 font-normal">({current.photos.length} photos)</span>
                   </p>
-                  <span className="font-mono text-[.64rem] text-ivory/50 flex items-center gap-1.5">
+                  <span className="font-mono text-[.64rem] text-body/60 flex items-center gap-1.5">
                     <span className="inline-block w-1.5 h-1.5 rounded-full bg-accent animate-pulse" />
                     Tap photo to enlarge · Drag to scroll
                   </span>
@@ -422,7 +422,7 @@ function Reviews() {
                     renderItem={(item, key) => (
                       <div
                         key={key}
-                        className="group/photo relative h-[115px] w-[170px] shrink-0 overflow-hidden rounded-xl border border-ivory/20 shadow-md transition-all duration-300 hover:border-accent hover:shadow-accent/25 cursor-pointer bg-dark/40"
+                        className="group/photo relative h-[115px] w-[170px] shrink-0 overflow-hidden rounded-xl border border-surface/40 shadow-sm transition-all duration-300 hover:border-accent hover:shadow-md cursor-pointer bg-white"
                         onPointerDown={(e) => {
                           pointerStartPos.current = { x: e.clientX, y: e.clientY }
                           dragDistanceRef.current = 0
@@ -449,10 +449,10 @@ function Reviews() {
                           loading="eager"
                         />
                         <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-transparent opacity-0 group-hover/photo:opacity-100 transition-opacity p-2 flex flex-col justify-between pointer-events-none">
-                          <span className="self-end rounded-full bg-black/70 p-1 text-ivory/90 backdrop-blur-sm shadow">
+                          <span className="self-end rounded-full bg-black/70 p-1 text-white backdrop-blur-sm shadow">
                             <Maximize2 size={12} />
                           </span>
-                          <span className="font-mono text-[.62rem] text-ivory line-clamp-1 leading-tight font-medium">
+                          <span className="font-mono text-[.62rem] text-white line-clamp-1 leading-tight font-medium">
                             {item.alt}
                           </span>
                         </div>
@@ -463,10 +463,10 @@ function Reviews() {
               </div>
             )}
 
-            <div className="mt-7 pt-5 border-t border-ivory/15 flex flex-wrap items-center justify-between gap-4">
+            <div className="mt-7 pt-5 border-t border-surface/40 flex flex-wrap items-center justify-between gap-4">
               <div>
-                <p className="font-medium text-ivory text-[1.05rem] mb-0.5">{current.name}</p>
-                <p className="text-bronze-light font-mono text-[.74rem] uppercase tracking-wider mb-0">
+                <p className="font-semibold text-heading text-[1.05rem] mb-0.5">{current.name}</p>
+                <p className="text-accent font-mono text-[.74rem] uppercase tracking-wider mb-0 font-medium">
                   {current.badge} · {current.time}
                 </p>
               </div>
@@ -476,17 +476,17 @@ function Reviews() {
                 <button
                   onClick={prevReview}
                   aria-label="Previous review"
-                  className="flex h-10 w-10 items-center justify-center rounded-full border border-ivory/20 text-ivory transition-all hover:bg-ivory hover:text-espresso cursor-pointer"
+                  className="flex h-10 w-10 items-center justify-center rounded-full border border-surface/60 bg-white text-heading shadow-sm transition-all hover:bg-heading hover:text-white cursor-pointer"
                 >
                   <ChevronLeft size={18} />
                 </button>
-                <span className="font-mono text-[.74rem] text-ivory/60">
+                <span className="font-mono text-[.74rem] text-body/70 font-medium">
                   {safeIndex + 1} / {googleReviews.length}
                 </span>
                 <button
                   onClick={nextReview}
                   aria-label="Next review"
-                  className="flex h-10 w-10 items-center justify-center rounded-full border border-ivory/20 text-ivory transition-all hover:bg-ivory hover:text-espresso cursor-pointer"
+                  className="flex h-10 w-10 items-center justify-center rounded-full border border-surface/60 bg-white text-heading shadow-sm transition-all hover:bg-heading hover:text-white cursor-pointer"
                 >
                   <ChevronRight size={18} />
                 </button>
@@ -497,10 +497,10 @@ function Reviews() {
           {/* RIGHT: Clickable Reviewers Bar with Name & Context */}
           <div className="lg:col-span-5 xl:col-span-4">
             <div className="flex items-center justify-between mb-3 px-1">
-              <p className="font-mono text-[.72rem] uppercase tracking-widest text-bronze-light font-medium mb-0">
+              <p className="font-mono text-[.72rem] uppercase tracking-widest text-heading font-semibold mb-0">
                 Client Stories
               </p>
-              <span className="font-mono text-[.66rem] text-ivory/50">
+              <span className="font-mono text-[.66rem] text-body/60">
                 Select to view ({googleReviews.length})
               </span>
             </div>
@@ -516,29 +516,29 @@ function Reviews() {
                       setActiveIndex(idx)
                     }}
                     className={`w-full text-left p-3.5 sm:p-4 rounded-xl transition-all cursor-pointer border ${isSelected
-                      ? 'bg-ivory/15 border-accent shadow-lg ring-1 ring-accent/40 border-l-4 border-l-accent'
-                      : 'bg-ivory/5 border-ivory/10 hover:border-ivory/30 hover:bg-ivory/10 text-ivory/75 hover:text-ivory'
+                      ? 'bg-white border-accent shadow-md ring-1 ring-accent/30 border-l-4 border-l-accent'
+                      : 'bg-white/60 border-surface/30 hover:border-surface/70 hover:bg-white text-body shadow-sm'
                       }`}
                   >
                     <div className="flex items-center justify-between mb-1">
-                      <p className="text-[.94rem] font-medium text-ivory mb-0">{rev.name}</p>
+                      <p className="text-[.94rem] font-semibold text-heading mb-0">{rev.name}</p>
                       <div className="flex items-center gap-2">
                         {rev.photos && (
-                          <span className="flex items-center gap-1 text-[.65rem] font-mono text-accent uppercase bg-accent/15 px-1.5 py-0.5 rounded">
+                          <span className="flex items-center gap-1 text-[.65rem] font-mono text-accent uppercase bg-accent/15 px-1.5 py-0.5 rounded font-medium">
                             <Camera size={10} /> {rev.photos.length}
                           </span>
                         )}
-                        <div className="flex text-amber-400" aria-hidden="true">
+                        <div className="flex text-amber-500" aria-hidden="true">
                           {[...Array(5)].map((_, i) => (
                             <Star key={i} size={11} fill="currentColor" stroke="none" />
                           ))}
                         </div>
                       </div>
                     </div>
-                    <p className="text-[.76rem] text-bronze-light mb-1 font-mono uppercase tracking-wider font-medium">
+                    <p className="text-[.76rem] text-accent mb-1 font-mono uppercase tracking-wider font-semibold">
                       {rev.tag}
                     </p>
-                    <p className="text-[.8rem] text-ivory/65 mb-0 line-clamp-1 italic">
+                    <p className="text-[.8rem] text-body/80 mb-0 line-clamp-1 italic">
                       &ldquo;{rev.headline}&rdquo;
                     </p>
                   </button>

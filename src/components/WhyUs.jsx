@@ -63,7 +63,7 @@ function WhyUs() {
 
         <div className="mt-12 md:mt-14 flex flex-wrap items-center gap-6">
           <a
-            href="#estimate"
+            href="#contact"
             className="rounded-md bg-accent px-8 py-4 font-mono text-[.78rem] tracking-wider uppercase text-white shadow-sm transition-colors hover:bg-white hover:text-heading"
           >
             Book Free Consultation

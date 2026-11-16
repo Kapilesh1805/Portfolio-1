@@ -120,10 +120,10 @@ function ServicePage() {
 
         <div className="mx-auto mt-16 flex max-w-275 flex-wrap items-center justify-between gap-6 border-t border-surface/40 pt-10">
           <button
-            onClick={() => back('estimate')}
+            onClick={() => back('contact')}
             className="btn-primary rounded-full px-8 py-4 font-mono text-[.78rem] tracking-wider uppercase shadow-sm cursor-pointer"
           >
-            Get a free estimate
+            Book Free Consultation
           </button>
           <button
             onClick={() => go(`/services/${next.slug}`, { dir: 'forward' })}

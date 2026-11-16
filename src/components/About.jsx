@@ -4,10 +4,6 @@ import {
   Compass,
   ArrowDownRight,
   CheckCircle2,
-  Sparkles,
-  ShieldCheck,
-  Hammer,
-  Target,
 } from 'lucide-react'
 
 // ============================================================================
@@ -50,7 +46,6 @@ const HOTSPOTS = [
       },
     ],
     quote: 'At Balaji Interior Decor, based in Selaiyur, Tambaram, we believe every home tells a story.',
-    icon: Hammer,
   },
   {
     id: 'what-we-do',
@@ -82,7 +77,6 @@ const HOTSPOTS = [
       },
     ],
     quote: 'Whether it\'s a cozy home, a smart modular kitchen, or a modern office, we bring your vision to life with precision and quality.',
-    icon: Sparkles,
   },
   {
     id: 'why-choose-us',
@@ -114,7 +108,6 @@ const HOTSPOTS = [
       },
     ],
     quote: 'Craftsmanship without compromise. Homes shaped for living.',
-    icon: ShieldCheck,
   },
   {
     id: 'our-mission',
@@ -146,7 +139,6 @@ const HOTSPOTS = [
       },
     ],
     quote: 'To create beautiful, enduring spaces that enhance your comfort and lifestyle.',
-    icon: Target,
   },
 ]
 
@@ -345,58 +337,14 @@ function About({ scrollTo }) {
                 <div className="mt-5 pt-4 border-t border-ivory/10 flex items-center justify-between">
                   <span className="text-[.78rem] text-ivory/60">Ready to plan your space?</span>
                   <button
-                    onClick={() => scrollTo('estimate')}
+                    onClick={() => scrollTo('contact')}
                     className="inline-flex items-center gap-1.5 font-mono text-[.72rem] uppercase tracking-wider text-bronze hover:text-ivory transition-colors cursor-pointer"
                   >
-                    Estimate costs <ArrowDownRight size={14} />
+                    Get in touch <ArrowDownRight size={14} />
                   </button>
                 </div>
               </motion.div>
             </AnimatePresence>
-          </div>
-        </div>
-
-        {/* 4 Interactive Section Cards at the Bottom */}
-        <div className="mt-12 border-t border-ivory/10 pt-8">
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-4">
-            <div className="flex items-center gap-2 font-mono text-[.68rem] tracking-widest uppercase text-bronze">
-              <Sparkles size={13} className="text-bronze" />
-              <span>Explore The Dossier Sections</span>
-            </div>
-            <span className="font-mono text-[.65rem] text-ivory/50 uppercase">
-              Click any section below or tap pins 01–04 above
-            </span>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            {HOTSPOTS.map((spot) => {
-              const Icon = spot.icon
-              const isSelected = activeHotspot.id === spot.id
-              return (
-                <button
-                  key={spot.id}
-                  onClick={() => setActiveHotspot(spot)}
-                  className={`text-left rounded-xl border p-4 backdrop-blur-sm transition-all duration-300 cursor-pointer ${
-                    isSelected
-                      ? 'border-bronze bg-bronze/15 shadow-lg shadow-bronze/5 ring-1 ring-bronze/40'
-                      : 'border-ivory/10 bg-black/25 hover:border-ivory/20 hover:bg-black/35'
-                  }`}
-                >
-                  <div className="flex items-center justify-between">
-                    <span className="font-mono text-xl font-bold text-bronze">
-                      {spot.number}
-                    </span>
-                    <Icon size={16} className={isSelected ? 'text-bronze' : 'text-ivory/40'} />
-                  </div>
-                  <div className="mt-2 font-mono text-[.78rem] uppercase tracking-wider text-ivory font-semibold">
-                    {spot.title}
-                  </div>
-                  <div className="mt-1 text-[.74rem] text-ivory/60 leading-relaxed line-clamp-2">
-                    {spot.summary}
-                  </div>
-                </button>
-              )
-            })}
           </div>
         </div>
       </div>

@@ -94,12 +94,6 @@ function Hero({ heroEntrance = true }) {
               <span>Explore Works</span>
               <ArrowRight size={14} />
             </a>
-            <a
-              href="#estimate"
-              className="inline-flex items-center gap-2 rounded-full border border-ivory/30 hover:border-ivory text-ivory hover:text-white font-mono text-[.74rem] uppercase tracking-wider px-5 py-3 font-medium backdrop-blur-md bg-black/25 transition-all duration-300 hover:bg-ivory/15 cursor-pointer"
-            >
-              <span>Get Estimate</span>
-            </a>
           </div>
         </motion.div>
       </div>
