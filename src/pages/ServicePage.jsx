@@ -62,22 +62,21 @@ function ServicePage() {
   return (
     <>
       <main className="min-h-screen bg-section px-[5vw] pb-24 pt-8 max-md:px-[6vw]">
-        <div className="flex items-center justify-between">
+        <div className="relative flex items-center justify-between">
           <button
             onClick={() => back('services')}
             className="flex items-center gap-3 whitespace-nowrap font-mono text-[.72rem] tracking-widest uppercase text-heading transition-colors hover:text-accent cursor-pointer"
           >
             <ArrowLeft size={16} /> All services
           </button>
-          <button onClick={() => back('home')} aria-label="Balaji Interior Decor Home" className="cursor-pointer">
-            <img src="/Logo.webp" alt="Balaji Interior Decor" className="h-12" style={{ width: 'auto' }} />
-          </button>
           <button
-            onClick={() => back('estimate')}
-            className="whitespace-nowrap font-mono text-[.72rem] tracking-widest uppercase text-body transition-colors hover:text-heading cursor-pointer"
+            onClick={() => back('home')}
+            aria-label="Balaji Interior Decor Home"
+            className="cursor-pointer sm:absolute sm:left-1/2 sm:-translate-x-1/2 transition-opacity hover:opacity-85"
           >
-            Free estimate
+            <img src="/loading_logo.webp" alt="Balaji Interior Decor" className="h-12 w-auto object-contain" />
           </button>
+          <div className="hidden sm:block w-[110px]" aria-hidden="true" />
         </div>
 
         <header className="mx-auto mt-20 max-w-275 max-md:mt-14">

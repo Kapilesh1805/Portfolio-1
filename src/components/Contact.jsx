@@ -97,7 +97,7 @@ function Contact() {
 
                 {/* Email Option */}
                 <a
-                  href="mailto:hello@atelier.studio"
+                  href="mailto:cbalajiinterior@gmail.com"
                   className="flex items-center gap-2 rounded-full bg-white/10 hover:bg-white/20 px-4 py-2 font-mono text-[.74rem] font-medium uppercase tracking-wider text-white transition-all duration-200 hover:scale-105 border border-white/15 shadow-md cursor-pointer"
                 >
                   <Mail size={15} />

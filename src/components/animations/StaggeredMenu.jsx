@@ -495,7 +495,7 @@ export const StaggeredMenu = ({
             onClick={handleLogoClick}
           >
             <img
-              src={logoUrl || '/Logo.webp'}
+              src={logoUrl || '/loading_logo.webp'}
               alt="Balaji Interior Decor Logo"
               className="sm-logo-img"
               draggable={false}
