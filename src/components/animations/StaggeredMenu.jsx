@@ -1,5 +1,7 @@
 import React, { useCallback, useLayoutEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
+import { Phone, MessageCircle, Instagram, Facebook } from 'lucide-react';
+import { business } from '../../data/content';
 import './StaggeredMenu.css';
 
 export const StaggeredMenu = ({
@@ -11,9 +13,9 @@ export const StaggeredMenu = ({
   displayItemNumbering = true,
   className,
   logoUrl = '/src/assets/logos/reactbits-gh-white.svg',
-  menuButtonColor = '#fff',
-  openMenuButtonColor = '#fff',
-  accentColor = '#5227FF',
+  menuButtonColor = '#C98E7A',
+  openMenuButtonColor = '#C98E7A',
+  accentColor = '#C98E7A',
   changeMenuColorOnOpen = true,
   isFixed = false,
   closeOnClickAway = true,
@@ -595,20 +597,68 @@ export const StaggeredMenu = ({
               </li>
             )}
           </ul>
-          {displaySocials && socialItems && socialItems.length > 0 && (
-            <div className="sm-socials" aria-label="Social links">
-              <h3 className="sm-socials-title">Socials</h3>
-              <ul className="sm-socials-list" role="list">
-                {socialItems.map((s, i) => (
-                  <li key={s.label + i} className="sm-socials-item">
-                    <a href={s.link} target="_blank" rel="noopener noreferrer" className="sm-socials-link">
-                      {s.label}
-                    </a>
-                  </li>
+          {/* Studio Numbers & Social Media Channels */}
+          <div className="mt-8 pt-6 border-t border-[#4A2E1F]/15 flex flex-col gap-6">
+            {/* 3 Contact Numbers */}
+            <div>
+              <p className="font-mono text-[.68rem] uppercase tracking-widest text-[#C98E7A] font-semibold mb-3 flex items-center gap-2">
+                <Phone size={13} />
+                <span>Direct Studio Lines</span>
+              </p>
+              <div className="space-y-2">
+                {business.phones.map((p) => (
+                  <a
+                    key={p.display}
+                    href={`tel:${p.tel}`}
+                    className="group flex items-center justify-between rounded-xl bg-black/5 hover:bg-[#C98E7A] p-2.5 transition-all text-[#4A2E1F] hover:text-[#180E09] border border-black/5"
+                  >
+                    <span className="font-mono text-[.68rem] uppercase tracking-wider text-[#4A2E1F]/70 group-hover:text-[#180E09]/80 font-medium">
+                      {p.label}
+                    </span>
+                    <span className="font-mono text-[.82rem] font-bold tracking-tight">
+                      {p.display}
+                    </span>
+                  </a>
                 ))}
-              </ul>
+              </div>
             </div>
-          )}
+
+            {/* Social Media Channels */}
+            <div>
+              <p className="font-mono text-[.68rem] uppercase tracking-widest text-[#C98E7A] font-semibold mb-2.5">
+                Connect With Us
+              </p>
+              <div className="flex flex-wrap items-center gap-2">
+                <a
+                  href={business.social.whatsapp}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 rounded-full bg-[#25D366] px-3.5 py-1.5 font-mono text-[.72rem] font-semibold text-white transition-transform hover:scale-105 shadow-sm"
+                >
+                  <MessageCircle size={14} />
+                  <span>WhatsApp</span>
+                </a>
+                <a
+                  href={business.social.instagram}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 rounded-full bg-gradient-to-tr from-[#f09433] via-[#dc2743] to-[#bc1888] px-3.5 py-1.5 font-mono text-[.72rem] font-semibold text-white transition-transform hover:scale-105 shadow-sm"
+                >
+                  <Instagram size={14} />
+                  <span>Instagram</span>
+                </a>
+                <a
+                  href={business.social.facebook}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 rounded-full bg-[#1877F2] px-3.5 py-1.5 font-mono text-[.72rem] font-semibold text-white transition-transform hover:scale-105 shadow-sm"
+                >
+                  <Facebook size={14} />
+                  <span>Facebook</span>
+                </a>
+              </div>
+            </div>
+          </div>
         </div>
       </aside>
     </div>

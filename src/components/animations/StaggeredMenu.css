@@ -191,15 +191,15 @@
   display: inline-flex;
   align-items: center;
   gap: 0.6rem;
-  background: rgba(30, 18, 12, 0.45);
-  backdrop-filter: blur(8px) saturate(140%);
-  -webkit-backdrop-filter: blur(8px) saturate(140%);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(30, 18, 12, 0.35);
+  backdrop-filter: blur(10px) saturate(140%);
+  -webkit-backdrop-filter: blur(10px) saturate(140%);
+  border: 1px solid rgba(255, 255, 255, 0.18);
   padding: 0.5rem 1.15rem;
   border-radius: 9999px;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.18), inset 0 1px 0 rgba(255, 255, 255, 0.18);
   cursor: pointer;
-  color: #FFFFFF;
+  color: #C98E7A;
   font-weight: 500;
   font-size: 1rem;
   letter-spacing: 0.03em;
@@ -209,9 +209,10 @@
 }
 
 .sm-toggle:hover {
-  background: rgba(30, 18, 12, 0.65);
+  background: rgba(30, 18, 12, 0.55);
+  color: #FDF8F5;
   transform: translateY(-1px);
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
 }
 
 .sm-toggle:focus-visible {

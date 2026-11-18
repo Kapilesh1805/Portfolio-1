@@ -86,7 +86,7 @@ function Home({ heroEntrance = true }) {
         displaySocials={false}
         displayItemNumbering
         logoUrl="/loading_logo.webp"
-        menuButtonColor="#FFFFFF"
+        menuButtonColor="#C98E7A"
         openMenuButtonColor="#C98E7A"
         changeMenuColorOnOpen
         colors={['#4A2E1F', '#C98E7A']}
