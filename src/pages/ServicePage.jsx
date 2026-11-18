@@ -62,7 +62,10 @@ function ServicePage() {
   return (
     <div className="min-h-screen bg-section">
       {/* Glassmorphism Sticky Navbar */}
-      <nav className="sticky top-0 z-40 w-full border-b border-[#D7B89F]/25 bg-[#FDF8F5]/80 backdrop-blur-md transition-all duration-300">
+      <nav
+        className="sticky top-0 z-40 w-full border-b border-[#D7B89F]/35 bg-[#FDF8F5]/50 backdrop-blur-md backdrop-saturate-150 shadow-[0_4px_24px_rgba(74,46,31,0.04)] transition-all duration-300"
+        style={{ WebkitBackdropFilter: 'blur(12px) saturate(150%)' }}
+      >
         <div className="relative mx-auto flex h-16 sm:h-20 max-w-275 items-center justify-between px-[5vw] max-md:px-[6vw]">
           <button
             onClick={() => back('services')}
