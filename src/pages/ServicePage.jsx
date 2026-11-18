@@ -60,26 +60,35 @@ function ServicePage() {
   }
 
   return (
-    <>
-      <main className="min-h-screen bg-section px-[5vw] pb-24 pt-8 max-md:px-[6vw]">
-        <div className="relative flex items-center justify-between">
+    <div className="min-h-screen bg-section">
+      {/* Glassmorphism Sticky Navbar */}
+      <nav className="sticky top-0 z-40 w-full border-b border-[#D7B89F]/25 bg-[#FDF8F5]/80 backdrop-blur-md transition-all duration-300">
+        <div className="relative mx-auto flex h-16 sm:h-20 max-w-275 items-center justify-between px-[5vw] max-md:px-[6vw]">
           <button
             onClick={() => back('services')}
-            className="flex items-center gap-3 whitespace-nowrap font-mono text-[.72rem] tracking-widest uppercase text-heading transition-colors hover:text-accent cursor-pointer"
+            className="group flex items-center gap-2.5 font-mono text-[.72rem] tracking-widest uppercase text-heading transition-colors hover:text-accent cursor-pointer"
+            aria-label="Back to all services"
           >
-            <ArrowLeft size={16} /> All services
+            <ArrowLeft size={16} className="transition-transform duration-200 group-hover:-translate-x-1" />
+            <span>All services</span>
           </button>
+
           <button
-            onClick={() => back('home')}
-            aria-label="Balaji Interior Decor Home"
-            className="cursor-pointer sm:absolute sm:left-1/2 sm:-translate-x-1/2 transition-opacity hover:opacity-85"
+            onClick={() => back('services')}
+            className="cursor-pointer text-center sm:absolute sm:left-1/2 sm:-translate-x-1/2 transition-opacity hover:opacity-75"
+            aria-label="Balaji Interior Decors"
           >
-            <img src="/loading_logo.webp" alt="Balaji Interior Decor" className="h-12 w-auto object-contain" />
+            <span className="font-serif text-[1.05rem] sm:text-[1.35rem] font-medium tracking-tight text-heading">
+              Balaji Interior Decors
+            </span>
           </button>
+
           <div className="hidden sm:block w-[110px]" aria-hidden="true" />
         </div>
+      </nav>
 
-        <header className="mx-auto mt-20 max-w-275 max-md:mt-14">
+      <main className="px-[5vw] pb-24 pt-8 max-md:px-[6vw] max-md:pt-4">
+        <header className="mx-auto mt-10 max-w-275 max-md:mt-6">
           <p className="font-mono text-[.67rem] tracking-widest uppercase text-accent">
             <span className="text-heading">{String(index + 1).padStart(2, '0')}</span>
             <span className="mx-3">/</span>
@@ -182,7 +191,7 @@ function ServicePage() {
       )}
 
       <Footer />
-    </>
+    </div>
   )
 }
 
