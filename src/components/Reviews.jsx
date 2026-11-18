@@ -329,7 +329,35 @@ function Reviews() {
                 )}
               </div>
 
-              <h3 className="font-serif text-[clamp(1.4rem,2.4vw,2.1rem)] font-normal leading-snug !text-heading mb-5 min-h-[3.6rem]">
+              {/* Signature Quote for Every Review with 3D FoldText animation */}
+              <div className="mt-4 mb-3">
+                <h2 className="font-serif italic text-[clamp(1.85rem,3.4vw,2.85rem)] font-medium leading-[1.15] tracking-tight text-heading">
+                  <FoldText
+                    key={current.name + '-quote'}
+                    text="Homes We Design, Stories They Tell"
+                    foldStyle="paper"
+                    splitBy="word"
+                    hinge="top"
+                    trigger="mount"
+                    foldAngle={92}
+                    duration={0.7}
+                    stagger={0.045}
+                    staggerFrom="start"
+                    ease="power3.out"
+                    hoverRefold={true}
+                    refoldRadius={130}
+                    refoldAngle={35}
+                    perspective={800}
+                    creaseShading={0.25}
+                    fontSize="inherit"
+                    fontWeight="inherit"
+                    color="#4A2E1F"
+                    className="font-serif italic leading-[1.15] block"
+                  />
+                </h2>
+              </div>
+
+              <h3 className="font-serif text-[clamp(1.25rem,2.1vw,1.75rem)] font-normal leading-snug !text-heading/90 mb-5 min-h-[3.2rem]">
                 <span className="text-accent/80 font-serif mr-1 select-none">&ldquo;</span>
                 <FoldText
                   key={current.name + '-headline'}

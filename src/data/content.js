@@ -59,15 +59,36 @@ export const serviceAreas = [
 ]
 
 // ---------------------------------------------------------------------------
-// Contact details used by the estimate form.
-// whatsapp: country code + number, digits only, e.g. '919876543210'.
-// If whatsapp is empty the form falls back to e-mail.
+// Business contact & social details. Loaded securely from .env (VITE_*) with fallbacks.
 // ---------------------------------------------------------------------------
 export const business = {
-  name: 'Balaji Interior Decor',
-  whatsapp: '919500005400',
-  phone: '+91 9500005400',
-  email: 'hello@atelier.studio',
+  name: import.meta.env.VITE_BUSINESS_NAME || 'Balaji Interior Decor',
+  email: import.meta.env.VITE_CONTACT_EMAIL || 'cbalajiinterior@gmail.com',
+  whatsapp: import.meta.env.VITE_WHATSAPP_NUMBER || '919500005400',
+  phone: import.meta.env.VITE_PHONE_2 || '+91 95000 05400',
+  phones: [
+    {
+      label: 'Mobile 1',
+      display: import.meta.env.VITE_PHONE_1 || '+91 98411 83855',
+      tel: (import.meta.env.VITE_PHONE_1 || '+91 98411 83855').replace(/[^0-9+]/g, ''),
+    },
+    {
+      label: 'Mobile 2 / WhatsApp',
+      display: import.meta.env.VITE_PHONE_2 || '+91 95000 05400',
+      tel: (import.meta.env.VITE_PHONE_2 || '+91 95000 05400').replace(/[^0-9+]/g, ''),
+    },
+    {
+      label: 'Office Landline',
+      display: import.meta.env.VITE_PHONE_LANDLINE || '044-42829555',
+      tel: (import.meta.env.VITE_PHONE_LANDLINE || '044-42829555').replace(/[^0-9+]/g, ''),
+    },
+  ],
+  social: {
+    instagram: import.meta.env.VITE_INSTAGRAM_URL || 'https://www.instagram.com/balajiinterior.ideas?stkn=MWp1cXNybmJ2Zmcwcw==',
+    facebook: import.meta.env.VITE_FACEBOOK_URL || 'https://www.facebook.com/balajiinteriordecor',
+    whatsapp: `https://wa.me/${import.meta.env.VITE_WHATSAPP_NUMBER || '919500005400'}`,
+  },
+  address: import.meta.env.VITE_STUDIO_ADDRESS || 'No 24, Agaram Main Road, Sri Ranganatha Nagar, Selaiyur, Tambaram - 600073',
 }
 
 // "Why choose us" row. CONFIRM EVERY CLAIM WITH THE CLIENT before publishing.

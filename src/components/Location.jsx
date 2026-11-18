@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import {
   MapPin,
   Navigation,
@@ -11,6 +11,7 @@ import {
   CheckCircle2,
 } from 'lucide-react'
 import { useWhatsAppLink } from '../utils/whatsapp'
+import PhoneModal from './PhoneModal'
 
 const STUDIO_ADDRESS = {
   name: 'Balaji Interior Decor',
@@ -38,6 +39,7 @@ const GMAPS_VIEW_URL = `https://www.google.com/maps/search/?api=1&query=${encode
 )}`
 
 export default function Location() {
+  const [showPhoneModal, setShowPhoneModal] = useState(false)
   const { url: whatsappUrl, onClick: onWhatsAppClick } = useWhatsAppLink(
     '919500005400',
     "Hi Balaji Interior Decor, I'd like to visit your studio in Selaiyur, Tambaram."
@@ -192,13 +194,15 @@ export default function Location() {
 
                 {/* 2. Secondary Quick Contacts Row */}
                 <div className="grid grid-cols-2 gap-2.5">
-                  <a
-                    href="tel:+919500005400"
+                  <button
+                    type="button"
+                    onClick={() => setShowPhoneModal(true)}
                     className="flex items-center justify-center gap-2 rounded-xl border border-ivory/15 bg-black/40 px-3 py-2.5 font-mono text-[.72rem] text-ivory/90 hover:text-white hover:border-bronze hover:bg-bronze/10 transition-all cursor-pointer"
+                    aria-label="Call Studio phone numbers"
                   >
                     <Phone size={14} className="text-bronze" />
                     <span>Call Studio</span>
-                  </a>
+                  </button>
 
                   <a
                     href={whatsappUrl}
@@ -217,6 +221,12 @@ export default function Location() {
 
         </div>
       </div>
+
+      {/* 3 Studio Numbers Selection Modal */}
+      <PhoneModal
+        isOpen={showPhoneModal}
+        onClose={() => setShowPhoneModal(false)}
+      />
     </section>
   )
 }

@@ -2,12 +2,13 @@ import React, { useState, useEffect, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { ArrowUpRight, MessageCircle, Mail, X } from 'lucide-react'
 import { useWhatsAppLink } from '../utils/whatsapp'
+import { business } from '../data/content'
 
 function Contact() {
   const [isFlipped, setIsFlipped] = useState(false)
   const containerRef = useRef(null)
   const { url: whatsappUrl, onClick: onWhatsAppClick } = useWhatsAppLink(
-    '919500005400',
+    business.whatsapp,
     "Hi Balaji Interior Decor, I'd like to discuss an interior project."
   )
 
@@ -81,7 +82,7 @@ function Contact() {
                 animate={{ rotateY: 0, opacity: 1 }}
                 exit={{ rotateY: 90, opacity: 0 }}
                 transition={{ duration: 0.28, ease: 'easeInOut' }}
-                className="flex items-center gap-2 rounded-full border border-accent/35 bg-black/75 p-1.5 backdrop-blur-md shadow-2xl"
+                className="flex items-center gap-2 rounded-full border border-accent/35 bg-[#180E09]/95 p-1.5 backdrop-blur-md shadow-2xl"
               >
                 {/* WhatsApp Option */}
                 <a
@@ -97,7 +98,7 @@ function Contact() {
 
                 {/* Email Option */}
                 <a
-                  href="mailto:cbalajiinterior@gmail.com"
+                  href={`mailto:${business.email}`}
                   className="flex items-center gap-2 rounded-full bg-white/10 hover:bg-white/20 px-4 py-2 font-mono text-[.74rem] font-medium uppercase tracking-wider text-white transition-all duration-200 hover:scale-105 border border-white/15 shadow-md cursor-pointer"
                 >
                   <Mail size={15} />
